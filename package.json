@@ -1,0 +1,23 @@
+{
+  "dependencies": {
+    "node": "^21.6.1"
+  },
+  "name": "equipocloud",
+  "description": "Equipo para la materia de cloud.\r El presente proyecto integra elementos de hardware mediante un modulo ESP32 y almacenamiento en la nube (Cloud) para consultar \r y modificar estados de sensores en usos de domotica, permitiendo prender y apagar luces, recibir alarmas de presencia de gas o puertas y ventanas abiertas.\r Stack: HTML, CSS, JAVASCRIPT, C++, REACT, NODE y MYSQL.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YahelMdza87/EquipoCloud.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/YahelMdza87/EquipoCloud/issues"
+  },
+  "homepage": "https://github.com/YahelMdza87/EquipoCloud#readme"
+}
