@@ -10,7 +10,7 @@ app.use(cors({
 
 app.get('/users', (req, res) => {
     res.send({
-        users: ["https://domoticloud.onrender.com/users"]
+        users: [" Respuesta desde https://domoticloud.onrender.com/users"]
     });
 });
 
