@@ -1,10 +1,11 @@
 import express from 'express'
 import cors from 'cors'
+import { FRONTEND_URL } from './config.js'
 
 const app = express();
 
 app.use(cors({
-    origin: 'http://localhost:5173'
+    origin: FRONTEND_URL
 }))
 
 app.get('/users', (req, res) => {

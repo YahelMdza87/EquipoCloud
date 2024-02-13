@@ -3,6 +3,8 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
+const URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000/users";
+
 function App() {
   const [count, setCount] = useState(0)
 
@@ -10,10 +12,11 @@ function App() {
       <div className="card">
         <h1>DomotiCloud</h1>
         <button onClick={async() => {
-          const res = await fetch('http://localhost:3000/users')
-          const data = await res.json()
-          console.log(data)
-        }}>
+          const res = await fetch(`${URL}`);
+          const data = await res.json();
+          console.log(data);
+        }}
+        >
           Users
         </button>
       </div>
