@@ -14,10 +14,10 @@ function App() {
         <button onClick={async() => {
           const res = await fetch(`${URL}`);
           const data = await res.json();
-          alert(data);
+          alert(JSON.stringify(data));
         }}
         >
-          Users
+          Dame click
         </button>
       </div>
   )
