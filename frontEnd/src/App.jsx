@@ -17,7 +17,7 @@ function App() {
           alert(JSON.stringify(data));
         }}
         >
-          Dame click
+          Dame click para recibir respuesta de servidor
         </button>
       </div>
   )
