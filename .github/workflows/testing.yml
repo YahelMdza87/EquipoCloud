@@ -1,28 +1,22 @@
-name: Jest Tests
+name: Node.js CI
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+on: [push, pull_request]
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-
-    - name: Setup Node.js environment
-      uses: actions/setup-node@v2
-      with:
-        node-version: '14'
-
-    - name: Install dependencies
-      run: npm install
-
-    - name: Run Jest tests
-      run: npm test
+    tests:
+        runs-on: windows-latest
+        
+        strategy:
+            matrix:
+                node-version: [20.x, 18.x]
+            
+        steps:
+            - uses: actions/checkout@v2
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v1
+              with:
+                node-version: '14'
+            - name: npm install
+              run: npm ci
+            - name: test
+              run: npm test
