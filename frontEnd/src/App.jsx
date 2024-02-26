@@ -10,15 +10,27 @@ function App() {
 
   return (
       <div className="card">
-        <h1>DomotiCloud</h1>
-        <button onClick={async() => {
+        <h1 className="title-login">Iniciar sesión</h1>
+        {/* <button onClick={async() => {
           const res = await fetch(`${URL}`);
           const data = await res.json();
           alert(JSON.stringify(data));
         }}
         >
           Dame click para recibir respuesta de servidor
-        </button>
+        </button> */}
+        <div className="login-email-password">
+          <div>
+            <h2 className="title-data-login">Correo:</h2>
+            <input className='input-login' type="text" placeholder='Correo...'/>
+          </div>
+          <div>
+            <h2 className="title-data-login">Password:</h2>
+            <input className='input-login' type="text" placeholder='Password...'/>
+          </div>
+          <a href="" style={{color: "rgb(49, 49, 49)"}}>¿No tienes cuenta? Crafteate una.</a>
+        </div>
+
       </div>
   )
 }
