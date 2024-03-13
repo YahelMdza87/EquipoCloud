@@ -2,7 +2,7 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-  text-align: center;
+  
 }
 
 .logo {
@@ -34,9 +34,31 @@
 }
 
 .card {
-  padding: 2em;
+  padding: 3.5em;
+  border-radius: 5%;
+  height: 100%;
+  background-color: white;
+}
+.card h1,h2,h3,h4{
+  color: rgb(49, 49, 49);
 }
 
 .read-the-docs {
   color: #888;
+}
+.title-login{
+  margin-top: 0;
+  border-bottom: solid rgb(174, 174, 174);
+}
+.title-data-login{
+  text-align: left;
+  margin-bottom: 2%;
+  color: rgb(83, 83, 83);
+}
+.input-login{
+  background-color: white;
+  border: 0;
+  color: rgb(49, 49, 49);
+  width: 100%;
+  border-bottom: solid rgb(194, 194, 194);
 }
