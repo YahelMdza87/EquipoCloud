@@ -32,33 +32,51 @@
     animation: logo-spin infinite 20s linear;
   }
 }
-
-.card {
+  /* #DDCBFF
+  #8A2BE2
+  #4A1E9E
+  #BB98FF */
+  .read-the-docs {
+    color: #888;
+  }
+  .card {
   padding: 3.5em;
   border-radius: 5%;
   height: 100%;
   background-color: white;
 }
-.card h1,h2,h3,h4{
-  color: rgb(49, 49, 49);
+h1,h2,h3,h4{
+  color: #BB98FF;
 }
 
-.read-the-docs {
-  color: #888;
-}
+
 .title-login{
   margin-top: 0;
-  border-bottom: solid rgb(174, 174, 174);
+
+}
+.input-login::placeholder{
+  color: #BB98FF;
 }
 .title-data-login{
   text-align: left;
   margin-bottom: 2%;
-  color: rgb(83, 83, 83);
+  color: #BB98FF;
 }
 .input-login{
-  background-color: white;
+  background-color: #DDCBFF;
+  padding: 3%;
   border: 0;
-  color: rgb(49, 49, 49);
+  border-radius: 10px;
+  color: #4A1E9E;
   width: 100%;
-  border-bottom: solid rgb(194, 194, 194);
+  border-bottom: solid #BB98FF;
+}
+.autentication-with-google{
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  align-items: center;
+  margin-left: 15%;
+  margin-top: 3%;
+  justify-content: center;
 }
