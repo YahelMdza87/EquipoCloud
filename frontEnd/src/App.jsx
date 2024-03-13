@@ -3,16 +3,20 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import './components/Login'
 import logoGoogle from "./assets/google-logo.png"
 import logoFacebook from "./assets/facebook-logo.png"
 import { GoogleOAuthProvider } from '@react-oauth/google'
+import Login from './components/Login';
 const URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000/users";
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
+    <GoogleOAuthProvider clientId={"468778218661-69jde72qsrpa89fk3ioor7b2gcn5hg9e.apps.googleusercontent.com"}>
       <div className="card">
+        
         <h1 className="title-login">Iniciar sesión</h1>
           {/* <button onClick={async() => {
             const res = await fetch(`${URL}`);
@@ -33,16 +37,13 @@ function App() {
           </div>
           <a href="" style={{color: "#BB98FF"}}>¿No tienes cuenta? Crafteate una.</a>
         </div>
-        <div style={{border: "solid 1px #BB98FF", marginTop:"20%"}}></div>
-        {/* <GoogleOAuthProvider clientId={CLIENT_ID}>
-        <div className='autentication-with-google'>
-          <img src={logoGoogle} alt="" />
-          <img src={logoFacebook} alt="" />
-        </div>
-        </GoogleOAuthProvider> */}
+        <div style={{border: "solid 1px #BB98FF", marginTop:"20%"}}></div><br />
+        <Login />
+        
        
 
       </div>
+      </GoogleOAuthProvider>
   )
 }
 
