@@ -24,6 +24,11 @@ app.get('/users', async(req, res) => {
     });
 });
 
+router.post('/temp/:temp', (req, res) => {
+    const temp = req.params.temp;
+    res.send(`La temperatura es ${temp}`);
+  });
+
 app.listen(3000, () => {
     console.log('server started')
 });
