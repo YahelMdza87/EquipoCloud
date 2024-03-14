@@ -24,7 +24,7 @@ export default function Login({handleLogin}) {
       }
     return(
         
-        <div>
+        <body className="body-login">
             <div className="card">
                 <h1 className="title-login">Iniciar sesión</h1>
                 <div className="login-email-password">
@@ -47,6 +47,6 @@ export default function Login({handleLogin}) {
                     />;
             </div>
             
-        </div>
+        </body>
     );
 }

@@ -1,10 +1,13 @@
 #root {
-  max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-  
+  height: 100%;
+  width: 100%;
 }
-
+body{
+  width: 100%;
+  height: 100%;
+}
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -18,18 +21,64 @@
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+@media only screen and (max-width: 768px) {
+   /* #DDCBFF
+  #8A2BE2
+  #4A1E9E
+  #BB98FF */
+  .read-the-docs {
+    color: #888;
   }
-  to {
-    transform: rotate(360deg);
+  .body-login{
+    width: 100%;
+    height: 100%;
+    background-color: #4A1E9E;
   }
-}
+  .card {
+  padding: 3.5em;
+  border-radius: 5%;
+  height: 100%;
+  background-color: white;
+  }
+  h1,h2,h3,h4{
+    font-size: 4vw;
+    color: #BB98FF;
+  }
+  .title-login{
+    font-size: 8vw;
+    text-align: center;
+    margin-top: 0;
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+  }
+  .input-login::placeholder{
+    color: #BB98FF;
+  }
+  .title-data-login{
+    text-align: left;
+    margin-bottom: 2%;
+    color: #BB98FF;
+  }
+  .input-login{
+    background-color: #DDCBFF;
+    padding: 3%;
+    border: 0;
+    border-radius: 10px;
+    color: #4A1E9E;
+    width: 100%;
+    border-bottom: solid #BB98FF;
+  }
+  /* Page ---Principal----  */
+  .body-principal{
+    background-color: #d2ff98;
+    width: 100%;
+    height: 100%;
+  }
+  .header-principal{
+    height: 10%;
+    width: 100%;
+  }
+  .section-usuario-principal{
+
   }
 }
   /* #DDCBFF
@@ -48,8 +97,6 @@
 h1,h2,h3,h4{
   color: #BB98FF;
 }
-
-
 .title-login{
   margin-top: 0;
 
