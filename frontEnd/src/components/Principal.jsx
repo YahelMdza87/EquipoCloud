@@ -1,10 +1,9 @@
 
 
 
-export default function Principal() {
-
+export default function Principal({userData}) {
 
   return (
-        <h1>Estamos en mantenimiento</h1>
+        <h1>Hola {userData.name}</h1>
   );
 }

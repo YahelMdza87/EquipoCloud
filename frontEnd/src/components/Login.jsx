@@ -1,12 +1,22 @@
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 import { GoogleLogin } from '@react-oauth/google';
 // import { useHistory } from 'react-router-dom'; 
 import '../App.css';
 
-export default function Login() {
+export default function Login({handleLogin}) {
     const navigate = useNavigate();
+    //Funcion por si el login se hace correctamente
     function handleSuccess(credentialResponse) {
-        console.log(credentialResponse);
+        //Decodifica la key del usuario por google y obtiene solamente el nombre  y el gmail.
+        const credentialResponseDecoded = jwtDecode(credentialResponse.credential);
+        console.log(credentialResponseDecoded);
+        const userData = {
+            'name' : credentialResponseDecoded.name,
+            'email' : credentialResponseDecoded.email
+        };
+        //Llamamos este metodo ubicado en App.js para pasarle los parametros de email y nombre.
+        handleLogin(userData);
         navigate('/principal')
     }
     function handleError() {
