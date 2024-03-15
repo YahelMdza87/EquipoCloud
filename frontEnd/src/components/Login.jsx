@@ -10,11 +10,12 @@ export default function Login({handleLogin}) {
     function handleSuccess(credentialResponse) {
         //Decodifica la key del usuario por google y obtiene solamente el nombre  y el gmail.
         const credentialResponseDecoded = jwtDecode(credentialResponse.credential);
-        console.log(credentialResponseDecoded);
         const userData = {
             'name' : credentialResponseDecoded.name,
-            'email' : credentialResponseDecoded.email
+            'email' : credentialResponseDecoded.email,
+            'image' : credentialResponseDecoded.picture
         };
+        console.log(userData);
         //Llamamos este metodo ubicado en App.js para pasarle los parametros de email y nombre.
         handleLogin(userData);
         navigate('/principal')
@@ -34,17 +35,21 @@ export default function Login({handleLogin}) {
                     </div>
                     <div>
                         <h3 className="title-data-login">Password:</h3>
-                        <input className='input-login' type="text" placeholder='Password...' />
+                        <input className='input-login' style={{marginBottom: "5%"}} type="text" placeholder='Password...' />
                     </div>
-                    <a href="" style={{ color: "#BB98FF" }}>¿No tienes cuenta? Crafteate una.</a>
+                    <div>
+                        <a href="" >¿No tienes cuenta? Crafteate una.</a>
+                    </div>
                 </div>
-                <div style={{ border: "solid 1px #BB98FF", marginTop: "20%" }}></div><br />
-                <GoogleLogin
-                        onSuccess={handleSuccess}
-                        onError={() => {
-                            console.log('Login Failed');
-                        }}
-                    />;
+                <div style={{ border: "solid 1px #BB98FF", marginTop:"4%"}}></div>
+                <div style={{marginTop:"5%", display:"flex", justifyContent:"center"}}>
+                    <GoogleLogin
+                            onSuccess={handleSuccess}
+                            onError={() => {
+                                console.log('Login Failed');
+                            }}
+                        />;
+                </div>
             </div>
             
         </body>
