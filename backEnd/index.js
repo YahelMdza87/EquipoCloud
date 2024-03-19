@@ -1,6 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import { FRONTEND_URL } from './config.js'
+import { POSTGRE_URL } from './config.js'
 import pg from 'pg'
 
 const app = express();
@@ -8,7 +9,7 @@ app.use(express.json());
 
 //CONEXIÓN A BASE DE DATOS
 const itemsPool = new pg.Pool({
-    connectionString: 'postgres://admin:yuM7EwcKsPHI27gB536RselFhrPe46pL@dpg-cnoi2gacn0vc73bh8k20-a.oregon-postgres.render.com/domoticloud',
+    connectionString: POSTGRE_URL,
     ssl: {
         rejectUnauthorized: false
     }
