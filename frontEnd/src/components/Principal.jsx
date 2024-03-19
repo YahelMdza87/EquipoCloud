@@ -5,7 +5,7 @@ export default function Principal({userData}) {
   const [usuarios, setUsuarios] = useState([]);
 
   useEffect(() => {
-    fetch('http://domoticloud.onrender.com/usuarios')
+    fetch('https://domoticloud.onrender.com/usuarios')
       .then(response => response.json())
       .then(data => setUsuarios(data))
       .catch(error => console.error('Error fetching usuarios:', error));
