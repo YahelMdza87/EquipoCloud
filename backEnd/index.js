@@ -30,6 +30,19 @@ app.get('/users', async(req, res) => {
     });
 });
 
+//Ruta que da de alta la entrada de un usuario
+app.post('/usu', async (req, res) => {
+    const usu = req.body.usu; 
+    try {
+        const result = await itemsPool.query('INSERT INTO usuarios (usuario) VALUES ($1)', [usu]);
+        console.log(result);
+        res.send(`El usuario ${usu} se dio de alta`);
+    } catch (error) {
+        console.error('Error al insertar usuario:', error);
+        res.status(500).send('Error interno del servidor');
+    }
+});
+
 //Ruta que manda la temperatura de un usuario
 app.post('/stemp', (req, res) => {
     const temp = req.body.temp; // Accede al objeto JSON enviado en el cuerpo de la solicitud
