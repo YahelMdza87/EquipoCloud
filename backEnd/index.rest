@@ -1,4 +1,12 @@
-POST https://domoticloud.onrender.com/temp/:12
+# PRUEBA DE POST Deploy
+POST http://domoticloud.onrender.com/stemp
+Content-Type: application/json
+
+{
+    "user": "Alan",
+    "temp": "123"
+}
+
 
 ###
 POST http://localhost:3000/stemp
@@ -12,8 +20,18 @@ Content-Type: application/json
 # ###
 # GET http://localhost:3000/gtemp/12
 
+# PRUEBA DE GET Deploy
 ###
-GET http://localhost:3000/gtemp
+GET http://domoticloud.onrender.com/gsignal
+Content-Type: application/json
+
+{
+    "usu": "Alan",
+    "signal": "temp"
+}
+
+###
+GET http://localhost:3000/gsignal
 Content-Type: application/json
 
 {
