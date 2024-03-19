@@ -5,6 +5,28 @@ import { GoogleLogin } from '@react-oauth/google';
 import '../App.css';
 
 export default function Login({handleLogin}) {
+    function enviarDatosUsuario(userData) {
+        fetch('http://domoticloud.onrender.com/usu', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(userData)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Hubo un problema al realizar la solicitud.');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data); // Hacer algo con la respuesta del servidor si es necesario
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
     const navigate = useNavigate();
     //Funcion por si el login se hace correctamente
     function handleSuccess(credentialResponse) {
@@ -18,6 +40,7 @@ export default function Login({handleLogin}) {
         console.log(userData);
         //Llamamos este metodo ubicado en App.js para pasarle los parametros de email y nombre.
         handleLogin(userData);
+        enviarDatosUsuario(userData.name)
         navigate('/principal')
     }
     function handleError() {
