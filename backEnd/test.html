@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test API</title>
+</head>
+<body>
+    <h1>Test API</h1>
+    <button id="sendRequest">Enviar solicitud</button>
+    
+    <script>
+        document.getElementById("sendRequest").addEventListener("click", function() {
+            fetch('http://localhost:3000/usu', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    usu: 'Nombre de usuario' // Puedes ajustar esto según lo que esperes recibir en el backend
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error en la solicitud');
+                }
+                return response.text();
+            })
+            .then(data => {
+                console.log(data);
+                alert(data); // Muestra la respuesta del servidor en una alerta
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Hubo un error en la solicitud'); // Muestra un mensaje de error en una alerta
+            });
+        });
+    </script>
+</body>
+</html>
