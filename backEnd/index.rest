@@ -1,4 +1,8 @@
 # Prueba db
+GET http://domoticloud.onrender.com/Users
+
+###
+# Prueba db
 GET http://localhost:3000/Users
 
 ###
@@ -20,6 +24,17 @@ Content-Type: application/json
     "user": "Alan",
     "temp": "123"
 }
+
+
+# Alta usuario
+###
+POST http://localhost:3000/usu
+Content-Type: application/json
+
+{
+    "usu": "Alan"
+}
+
 
 # ###
 # GET http://localhost:3000/gtemp/12
