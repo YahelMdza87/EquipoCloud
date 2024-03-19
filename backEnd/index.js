@@ -15,6 +15,7 @@ const itemsPool = new pg.Pool({
     }
 });
 
+
 //Puerto que permite hacer conexiones web entre distintos sitios
 app.use(cors({
     origin: FRONTEND_URL
@@ -40,6 +41,18 @@ app.post('/usu', async (req, res) => {
     } catch (error) {
         console.error('Error al insertar usuario:', error);
         res.status(500).send('Error interno del servidor');
+    }
+});
+
+//Ruta para obtener los usuarios registrados
+app.get('/usuarios', async (req, res) => {
+    try {
+        const result = await itemsPool.query('SELECT * FROM usuarios');
+        console.log('Usuarios obtenidos:', result); // Log the result for debugging
+        res.send(result); // Send the result obtained from the database
+    } catch (error) {
+        console.error('Error al obtener usuarios:', error);
+        res.status(500).send('Error al obtener usuarios');
     }
 });
 

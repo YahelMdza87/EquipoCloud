@@ -28,11 +28,11 @@ Content-Type: application/json
 
 # Alta usuario
 ###
-POST http://localhost:3000/usu
+POST http://domoticloud.onrender.com/usu
 Content-Type: application/json
 
 {
-    "usu": "Alan"
+    "usu": "Alan2"
 }
 
 
@@ -57,3 +57,6 @@ Content-Type: application/json
     "usu": "Alan",
     "signal": "temp"
 }
+
+###
+GET http://localhost:3000/usuarios
