@@ -32,7 +32,7 @@ POST http://domoticloud.onrender.com/usu
 Content-Type: application/json
 
 {
-    "usu": "Alan2"
+    "usu": "Jesus Chavez"
 }
 
 
@@ -60,3 +60,6 @@ Content-Type: application/json
 
 ###
 GET http://localhost:3000/usuarios
+
+###
+GET http://domoticloud.onrender.com/usuarios

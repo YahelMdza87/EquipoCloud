@@ -15,12 +15,17 @@ const itemsPool = new pg.Pool({
     }
 });
 
-
 //Puerto que permite hacer conexiones web entre distintos sitios
 app.use(cors({
-    origin: FRONTEND_URL
-}))
-
+    origin: function (origin, callback) {
+        // Verificar si el origen enviado coincide con la URL base o alguna de sus subrutas
+        if (!origin || origin.startsWith(FRONTEND_URL)) {
+            callback(null, true); // Permitir acceso
+        } else {
+            callback(new Error('Not allowed by CORS')); // Rechazar acceso
+        }
+    }
+}));
 
 //Ruta que obtiene estatus de la base de datos
 app.get('/users', async(req, res) => {
