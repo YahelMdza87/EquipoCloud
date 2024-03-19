@@ -1,10 +1,22 @@
 POST https://domoticloud.onrender.com/temp/:12
 
 ###
-POST http://localhost:3000/stemp/12
+POST http://localhost:3000/stemp
 Content-Type: application/json
 
 {
     "user": "Alan",
-    "temp": "temp"
+    "temp": "123"
+}
+
+# ###
+# GET http://localhost:3000/gtemp/12
+
+###
+GET http://localhost:3000/gtemp
+Content-Type: application/json
+
+{
+    "usu": "Alan",
+    "signal": "temp"
 }
