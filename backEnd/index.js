@@ -36,7 +36,7 @@ app.post('/stemp', (req, res) => {
   });
 
 //Ruta que obtiene el usuario y su peticion de señal
-app.get('/gtemp', (req, res) => {
+app.get('/gsignal', (req, res) => {
     const usu = req.body.usu; // Accede al objeto JSON enviado en el cuerpo de la solicitud
     const signal = req.body.signal
     console.log("Entre");
