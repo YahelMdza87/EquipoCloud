@@ -17,17 +17,23 @@ app.use(cors({
 
 app.get('/users', async(req, res) => {
     
-    const result =  await itemsPool.query('SELECT NOW()')
+    const result = await itemsPool.query('SELECT NOW()')
     console.log(result)
     res.send({
         pong: result.rows[0].now,
     });
 });
 
-app.post('/temp/:temp', (req, res) => {
+app.post('/stemp/:temp', (req, res) => {
     const temp = req.params.temp;
+    const data = req.body; // Accede al objeto JSON enviado en el cuerpo de la solicitud
+    console.log(data);
     res.send(`La temperatura es ${temp}`);
   });
+
+app.get('/gtemp', (req, res) => {
+    res.send(`La temperatura es ${temp}`);
+});
 
 app.listen(3000, () => {
     console.log('server started')
