@@ -159,4 +159,13 @@ h1,h2,h3,h4{
   width: 98%;
   margin-left: 1%;
  }
+ .see-users-principal{
+  background-color: #4A1E9E;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  border-radius: 20px;
+  height: 50%;
+  width: 30%;
+ }
 }
