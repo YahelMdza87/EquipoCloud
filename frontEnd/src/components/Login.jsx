@@ -6,7 +6,7 @@ import '../App.css';
 
 export default function Login({handleLogin}) {
     function enviarDatosUsuario(userData) {
-        fetch('http://domoticloud.onrender.com/usu', {
+        fetch('https://domoticloud.onrender.com/usu', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
