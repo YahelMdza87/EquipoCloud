@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,7 +11,7 @@
     
     <script>
         document.getElementById("sendRequest").addEventListener("click", function() {
-            fetch('http://localhost:3000/usu', {
+            fetch('https://domoticloud.onrender.com/usu', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -34,6 +34,42 @@
                 console.error('Error:', error);
                 alert('Hubo un error en la solicitud'); // Muestra un mensaje de error en una alerta
             });
+        });
+    </script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba de API</title>
+</head>
+<body>
+    <h1>Prueba de API</h1>
+    <button id="getUsuariosButton">Obtener Usuarios</button>
+    <div id="usuariosList"></div>
+
+    <script>
+        document.getElementById("getUsuariosButton").addEventListener("click", function() {
+            fetch('https://domoticloud.onrender.com/usuarios')
+                .then(response => response.json())
+                .then(data => {
+                    // Limpiamos el contenido anterior
+                    document.getElementById("usuariosList").innerHTML = "";
+
+                    // Mostramos los usuarios en la página
+                    data.forEach(usuario => {
+                        const usuarioElement = document.createElement("div");
+                        usuarioElement.textContent = `ID: ${usuario.id}, Nombre: ${usuario.nombre}, Email: ${usuario.email}`;
+                        document.getElementById("usuariosList").appendChild(usuarioElement);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error al obtener usuarios:', error);
+                    alert('Hubo un error al obtener usuarios');
+                });
         });
     </script>
 </body>
