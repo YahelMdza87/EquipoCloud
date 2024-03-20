@@ -36,7 +36,7 @@ app.post('/usu', async (req, res) => {
     try {
         const result = await itemsPool.query('INSERT INTO usuarios (usuario) VALUES ($1)', [usu]);
         console.log(result);
-        res.send(`El usuario ${usu} se dio de alta`);
+        res.sendStatus(200);
     } catch (error) {
         console.error('Error al insertar usuario:', error);
         res.status(500).send('Error interno del servidor');
@@ -50,7 +50,7 @@ app.get('/usuarios', async (req, res) => {
         console.log('Usuarios obtenidos:', result.rows); // Log the result for debugging
         res.send(result.rows); // Envía solo los datos de los usuarios
     } catch (error) {
-        console.error('Error al obtener usuarios:', error);
+        console.error('Error al obtener usuarios', error);
         res.status(500).send('Error al obtener usuarios');
     }
 });
