@@ -58,11 +58,11 @@
                 .then(data => {
                     // Limpiamos el contenido anterior
                     document.getElementById("usuariosList").innerHTML = "";
-
+                    console.log(data)
                     // Mostramos los usuarios en la página
                     data.forEach(usuario => {
                         const usuarioElement = document.createElement("div");
-                        usuarioElement.textContent = `ID: ${usuario.id}, Nombre: ${usuario.nombre}, Email: ${usuario.email}`;
+                        usuarioElement.textContent = `ID: ${usuario.idusuario}, Nombre: ${usuario.usuario}`;
                         document.getElementById("usuariosList").appendChild(usuarioElement);
                     });
                 })

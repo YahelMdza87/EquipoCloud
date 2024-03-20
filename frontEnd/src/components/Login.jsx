@@ -5,6 +5,7 @@ import { GoogleLogin } from '@react-oauth/google';
 import '../App.css';
 
 export default function Login({handleLogin}) {
+    
     function enviarDatosUsuario(userData) {
         fetch('https://domoticloud.onrender.com/usu', {
             method: 'POST',
