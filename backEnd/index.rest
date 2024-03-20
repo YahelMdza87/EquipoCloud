@@ -73,3 +73,6 @@ GET http://localhost:3000/usuarios
 
 ###
 GET http://domoticloud.onrender.com/usuarios
+
+###
+GET http://localhost:3000/numusu
