@@ -7,12 +7,15 @@ import '../App.css';
 export default function Login({handleLogin}) {
     
     function enviarDatosUsuario(userData) {
+        console.log("mi user es:"+userData)
         fetch('https://domoticloud.onrender.com/usu', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(userData)
+            body: JSON.stringify({
+                usu: userData 
+            })
         })
         .then(response => {
             if (!response.ok) {
