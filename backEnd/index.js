@@ -33,8 +33,9 @@ app.get('/users', async(req, res) => {
 //Ruta que da de alta la entrada de un usuario
 app.post('/usu', async (req, res) => {
     const usu = req.body.usu; 
+    const correo = req.body.correo; 
     try {
-        const result = await itemsPool.query('INSERT INTO usuarios (usuario) VALUES ($1)', [usu]);
+        const result = await itemsPool.query('INSERT INTO usuarios (usuario,correo) VALUES ($1,$2)', [usu,correo]);
         console.log(result);
          res.status(200).json({});
     } catch (error) {
