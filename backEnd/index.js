@@ -34,12 +34,23 @@ app.get('/users', async(req, res) => {
 app.post('/usu', async (req, res) => {
     const usu = req.body.usu; 
     const correo = req.body.correo; 
+    
     try {
-        const result = await itemsPool.query('INSERT INTO usuarios (usuario,correo) VALUES ($1,$2)', [usu,correo]);
-        console.log(result);
-         res.status(200).json({});
+        const correoQuery = await itemsPool.query('SELECT correo FROM usuarios WHERE correo = ($1);', [correo]);
+            if (correoQuery.rows.length === 0) {
+                try {
+                    const result = await itemsPool.query('INSERT INTO usuarios (usuario,correo) VALUES ($1,$2)', [usu,correo]);
+                    res.status(200).json({});
+                } catch (error) {
+                    console.error('Error al insertar usuario:', error);
+                    res.status(500).send('Error interno del servidor');
+                }            
+        } else {
+            res.status(200).json({});
+        }
+
     } catch (error) {
-        console.error('Error al insertar usuario:', error);
+        console.error('Error al buscar usuario', error);
         res.status(500).send('Error interno del servidor');
     }
 });
