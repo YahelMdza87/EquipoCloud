@@ -36,7 +36,7 @@ app.post('/usu', async (req, res) => {
     try {
         const result = await itemsPool.query('INSERT INTO usuarios (usuario) VALUES ($1)', [usu]);
         console.log(result);
-        res.sendStatus(200);
+         res.status(200).json({});
     } catch (error) {
         console.error('Error al insertar usuario:', error);
         res.status(500).send('Error interno del servidor');
