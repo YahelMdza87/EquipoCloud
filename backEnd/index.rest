@@ -15,6 +15,16 @@ Content-Type: application/json
     "temp": "123"
 }
 
+###
+# PRUEBA DE POST USUARIO
+POST http://localhost:3000/usu
+Content-Type: application/json
+
+{
+    "usu": "Alan",
+    "correo": "alan@gmail.com"
+}
+
 
 ###
 POST http://localhost:3000/stemp

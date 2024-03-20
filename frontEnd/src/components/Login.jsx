@@ -6,15 +6,15 @@ import '../App.css';
 
 export default function Login({handleLogin}) {
     
-    function enviarDatosUsuario(userData) {
-        console.log("mi user es:"+userData)
+    function enviarDatosUsuario(userData,userEmail) {
         fetch('https://domoticloud.onrender.com/usu', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                usu: userData 
+                usu: userData ,
+                correo: userEmail
             })
         })
         .then(response => {
@@ -44,7 +44,7 @@ export default function Login({handleLogin}) {
         console.log(userData);
         //Llamamos este metodo ubicado en App.js para pasarle los parametros de email y nombre.
         handleLogin(userData);
-        enviarDatosUsuario(userData.name)
+        enviarDatosUsuario(userData.name,userData.email)
         navigate('/principal')
     }
     function handleError() {
