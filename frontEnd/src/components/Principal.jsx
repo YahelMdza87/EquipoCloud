@@ -42,6 +42,7 @@ export default function Principal({userData}) {
                 <tr key={usuario.idusuario}>
                   <td>{usuario.idusuario}</td>
                   <td>{usuario.usuario}</td>
+                  <td>{usuario.correo}</td>
                   {/* Add more cells if needed */}
                 </tr>
               ))}

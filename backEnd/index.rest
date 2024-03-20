@@ -21,8 +21,8 @@ POST http://localhost:3000/usu
 Content-Type: application/json
 
 {
-    "usu": "Alan",
-    "correo": "alan@gmail.com"
+    "usu": "jose",
+    "correo": "jose@gmail.com"
 }
 
 

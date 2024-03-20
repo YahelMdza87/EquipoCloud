@@ -18,7 +18,7 @@ const itemsPool = new pg.Pool({
 //Puerto que permite hacer conexiones web entre distintos sitios
 app.use(cors(
     // {origin: '*'}
-     {origin: FRONTEND_URL}
+    {origin: FRONTEND_URL}
 ))
 
 //Ruta que obtiene estatus de la base de datos

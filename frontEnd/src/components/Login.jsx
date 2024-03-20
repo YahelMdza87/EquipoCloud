@@ -7,6 +7,7 @@ import '../App.css';
 export default function Login({handleLogin}) {
     
     function enviarDatosUsuario(userData,userEmail) {
+        console.log("este es tu correo"+ userEmail)
         fetch('https://domoticloud.onrender.com/usu', {
             method: 'POST',
             headers: {
