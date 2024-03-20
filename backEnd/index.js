@@ -47,8 +47,8 @@ app.post('/usu', async (req, res) => {
 app.get('/usuarios', async (req, res) => {
     try {
         const result = await itemsPool.query('SELECT * FROM usuarios');
-        console.log('Usuarios obtenidos:', result); // Log the result for debugging
-        res.send(result); // Send the result obtained from the database
+        console.log('Usuarios obtenidos:', result.rows); // Log the result for debugging
+        res.send(result.rows); // Envía solo los datos de los usuarios
     } catch (error) {
         console.error('Error al obtener usuarios:', error);
         res.status(500).send('Error al obtener usuarios');
