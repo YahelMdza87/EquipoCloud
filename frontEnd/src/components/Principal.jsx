@@ -13,7 +13,7 @@ export default function Principal({userData}) {
       .then(data => setUsuarios(data))
       .catch(error => console.error('Error fetching usuarios:', error));
   
-    fetch('http://domoticloud.onrender.com/numusu')
+    fetch('https://domoticloud.onrender.com/numusu')
       .then(response => response.json())
       .then(data => setNumUsuarios(data))
       .catch(error => console.error('Error fetching number of users:', error));
