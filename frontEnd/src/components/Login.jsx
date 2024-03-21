@@ -70,7 +70,7 @@ export default function Login({handleLogin}) {
                     </div>
                 </div>
                 <div style={{ border: "solid 1px #BB98FF", marginTop:"4%"}}></div>
-                <div style={{marginTop:"5%", display:"flex", justifyContent:"center"}}>
+                <div style={{marginTop:"3%", display:"flex", justifyContent:"center"}}>
                     <GoogleLogin
                             onSuccess={handleSuccess}
                             onError={() => {
