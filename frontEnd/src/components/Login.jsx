@@ -6,31 +6,31 @@ import '../App.css';
 
 export default function Login({handleLogin}) {
     
-    function enviarDatosUsuario(userData,userEmail) {
+    // function enviarDatosUsuario(userData,userEmail) {
         
-        fetch('https://domoticloud.onrender.com/usu', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                usu: userData ,
-                correo: userEmail
-            })
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Hubo un problema al realizar la solicitud.');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log(data); // Hacer algo con la respuesta del servidor si es necesario
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-    }
+    //     fetch('https://domoticloud.onrender.com/usu', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify({
+    //             usu: userData ,
+    //             correo: userEmail
+    //         })
+    //     })
+    //     .then(response => {
+    //         if (!response.ok) {
+    //             throw new Error('Hubo un problema al realizar la solicitud.');
+    //         }
+    //         return response.json();
+    //     })
+    //     .then(data => {
+    //         console.log(data); // Hacer algo con la respuesta del servidor si es necesario
+    //     })
+    //     .catch(error => {
+    //         console.error('Error:', error);
+    //     });
+    // }
 
     const navigate = useNavigate();
     //Funcion por si el login se hace correctamente
@@ -45,7 +45,7 @@ export default function Login({handleLogin}) {
         console.log(userData);
         //Llamamos este metodo ubicado en App.js para pasarle los parametros de email y nombre.
         handleLogin(userData);
-        enviarDatosUsuario(userData.name,userData.email)
+        // enviarDatosUsuario(userData.name,userData.email)
         navigate('/principal')
     }
     function handleError() {
@@ -53,7 +53,7 @@ export default function Login({handleLogin}) {
       }
     return(
         
-        <body className="body-login">
+        <div className="body-login">
             <div className="card">
                 <h1 className="title-login">Iniciar sesión</h1>
                 <div className="login-email-password">
@@ -80,6 +80,6 @@ export default function Login({handleLogin}) {
                 </div>
             </div>
             
-        </body>
+        </div>
     );
 }

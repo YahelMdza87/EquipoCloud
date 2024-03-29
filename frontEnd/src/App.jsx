@@ -27,7 +27,7 @@ function App() {
         <Routes>
           {/* Les pasamos las funciones para que las puedan llamar correctamente */}
             <Route path="/" element={<Login handleLogin={handleLogin} />} />
-            <Route path="/principal" element={<Principal userData={userData}/>} />
+            <Route path="/principal" element={<Principal userData={userData} setUserData={setUserData}/>} />
           </Routes>
       </GoogleOAuthProvider>
     </BrowserRouter>

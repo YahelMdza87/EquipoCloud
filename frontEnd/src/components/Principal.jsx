@@ -3,21 +3,36 @@ import FlechaAbajo from "../assets/flecha-hacia-abajo.png"
 import React, { useState, useEffect } from 'react';
 
 
-export default function Principal({userData}) {
+export default function Principal({userData, setUserData}) {
   const [usuarios, setUsuarios] = useState([]);
   const [numUsuarios, setNumUsuarios] = useState(0);
 
   useEffect(() => {
-    fetch('https://domoticloud.onrender.com/usuarios')
-      .then(response => response.json())
-      .then(data => setUsuarios(data))
-      .catch(error => console.error('Error fetching usuarios:', error));
-  
-    fetch('https://domoticloud.onrender.com/numusu')
-      .then(response => response.json())
-      .then(data => setNumUsuarios(data))
-      .catch(error => console.error('Error fetching number of users:', error));
+    // Verificar si hay credenciales de usuario en el almacenamiento local
+    const storedUserData = localStorage.getItem('userData');
+    if (storedUserData) {
+      // Si las credenciales están almacenadas, establecerlas como el estado inicial
+      setUserData(JSON.parse(storedUserData));
+    }
   }, []);
+  
+  useEffect(() => {
+    // Almacenar las credenciales del usuario en el almacenamiento local cuando se actualicen
+    localStorage.setItem('userData', JSON.stringify(userData));
+  }, [userData]);
+
+
+  // useEffect(() => {
+  //   fetch('https://domoticloud.onrender.com/usuarios')
+  //     .then(response => response.json())
+  //     .then(data => setUsuarios(data))
+  //     .catch(error => console.error('Error fetching usuarios:', error));
+  
+  //   fetch('https://domoticloud.onrender.com/numusu')
+  //     .then(response => response.json())
+  //     .then(data => setNumUsuarios(data))
+  //     .catch(error => console.error('Error fetching number of users:', error));
+  // }, []);
 
 
   return (
@@ -39,7 +54,7 @@ export default function Principal({userData}) {
         <div style={{display:"flex", justifyContent:"center" }}>
           <button className="see-users-principal">Modo admin</button>
         </div>
-        <div>
+        {/* <div>
           <h1>Usuarios</h1>
           <table>
             <thead>
@@ -47,7 +62,6 @@ export default function Principal({userData}) {
                 <th>ID</th>
                 <th>Nombre</th>
                 <th>Email</th>
-                {/* Add more columns if needed */}
               </tr>
             </thead>
             <tbody>
@@ -56,7 +70,6 @@ export default function Principal({userData}) {
                   <td>{usuario.idusuario}</td>
                   <td>{usuario.usuario}</td>
                   <td>{usuario.correo}</td>
-                  {/* Add more cells if needed */}
                 </tr>
               ))}
               <tr>
@@ -64,7 +77,7 @@ export default function Principal({userData}) {
               </tr>
             </tbody>
           </table>
-        </div>
+        </div> */}
       </div> 
     </div>
   );
