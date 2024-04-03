@@ -3,24 +3,15 @@ import FlechaAbajo from "../assets/flecha-hacia-abajo.png"
 import React, { useState, useEffect } from 'react';
 
 
-export default function Principal({userData, setUserData}) {
-  const [usuarios, setUsuarios] = useState([]);
-  const [numUsuarios, setNumUsuarios] = useState(0);
-
-  useEffect(() => {
-    // Verificar si hay credenciales de usuario en el almacenamiento local
-    const storedUserData = localStorage.getItem('userData');
-    if (storedUserData) {
-      // Si las credenciales están almacenadas, establecerlas como el estado inicial
-      setUserData(JSON.parse(storedUserData));
-    }
-  }, []);
+export default function Principal({userData}) {
+  // const [usuarios, setUsuarios] = useState([]);
+  // const [numUsuarios, setNumUsuarios] = useState(0);
   
-  useEffect(() => {
-    // Almacenar las credenciales del usuario en el almacenamiento local cuando se actualicen
-    localStorage.setItem('userData', JSON.stringify(userData));
-  }, [userData]);
-
+  //Usamos localStorage para obtener el usuario guardado en cookies
+  const localStorageUser = JSON.parse(localStorage.getItem('userData'));
+  if (localStorageUser){
+    userData=localStorageUser;
+  }
 
   // useEffect(() => {
   //   fetch('https://domoticloud.onrender.com/usuarios')

@@ -1,11 +1,20 @@
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
+import React, { useState, useEffect } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 // import { useHistory } from 'react-router-dom'; 
 import '../App.css';
 
-export default function Login({handleLogin}) {
-    
+export default function Login() {
+    const navigate = useNavigate();
+    //Cuando se rendereize el componente, comprobara si hay datos de usuario ya guardados en localStorage, si es así, direccionará automaticamente a /principal.jsx
+    useEffect(() => {
+        const userData = localStorage.getItem('userData');
+        if (userData) {
+            navigate('/principal');
+        }
+    }, [navigate]);
+
     // function enviarDatosUsuario(userData,userEmail) {
         
     //     fetch('https://domoticloud.onrender.com/usu', {
@@ -32,7 +41,6 @@ export default function Login({handleLogin}) {
     //     });
     // }
 
-    const navigate = useNavigate();
     //Funcion por si el login se hace correctamente
     function handleSuccess(credentialResponse) {
         //Decodifica la key del usuario por google y obtiene solamente el nombre  y el gmail.
@@ -43,14 +51,9 @@ export default function Login({handleLogin}) {
             'image' : credentialResponseDecoded.picture
         };
         console.log(userData);
-        //Llamamos este metodo ubicado en App.js para pasarle los parametros de email y nombre.
-        handleLogin(userData);
-        // enviarDatosUsuario(userData.name,userData.email)
+        localStorage.setItem("userData",JSON.stringify(userData));
         navigate('/principal')
     }
-    function handleError() {
-        console.log("Login failed");
-      }
     return(
         
         <div className="body-login">
