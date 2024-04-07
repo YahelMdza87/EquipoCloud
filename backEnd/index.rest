@@ -8,12 +8,12 @@ GET http://localhost:3000/Users
 
 ###
 # PRUEBA DE POST Deploy
-POST http://domoticloud.onrender.com/stemp
+POST https://domoticloud.onrender.com/stemp
 Content-Type: application/json
 
 {
-    "user": "Alan",
-    "temp": "123"
+    "idsensor": "1",
+    "temp": "30"
 }
 
 ###
@@ -67,6 +67,14 @@ Content-Type: application/json
 {
     "usu": "Alan",
     "signal": "temp"
+}
+
+###
+GET http://localhost:3000/getallsignal
+Content-Type: application/json
+
+{
+    "usu": "Alan Montes"
 }
 
 ###
