@@ -69,6 +69,18 @@ app.post('/stemp', async (req, res) => {
                 }            
   });
 
+  app.post('/shum', async (req, res) => {
+    const hum = req.body.hum; // Accede al objeto JSON enviado en el cuerpo de la solicitud
+    const idsensor = req.body.idsensor;
+                try {                                   
+                    const result = await itemsPool.query('UPDATE sensores SET valor = $1 where id_sensor = $2', [hum,idsensor]);
+                    res.status(200).json({});
+                } catch (error) {
+                    console.error('Error al enviar señal:', error);
+                    res.status(500).send('Error interno del servidor');
+                }            
+  });
+
 //Ruta que obtiene el usuario y su peticion de señal
 app.get('/gsignal', (req, res) => {
     const usu = req.body.usu; // Accede al objeto JSON enviado en el cuerpo de la solicitud

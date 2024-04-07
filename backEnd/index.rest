@@ -36,6 +36,14 @@ Content-Type: application/json
     "temp": "123"
 }
 
+###
+POST http://localhost:3000/shum
+Content-Type: application/json
+
+{
+    "idsensor": "2",
+    "hum": "123"
+}
 
 # Alta usuario
 ###
@@ -71,6 +79,14 @@ Content-Type: application/json
 
 ###
 GET http://localhost:3000/getallsignal
+Content-Type: application/json
+
+{
+    "usu": "Alan Montes"
+}
+
+###
+GET https://domoticloud.onrender.com/getallsignal
 Content-Type: application/json
 
 {
