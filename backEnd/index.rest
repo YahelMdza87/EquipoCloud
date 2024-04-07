@@ -1,3 +1,4 @@
+###
 # Prueba db
 GET http://domoticloud.onrender.com/Users
 
@@ -31,7 +32,7 @@ POST http://localhost:3000/stemp
 Content-Type: application/json
 
 {
-    "user": "Alan",
+    "idsensor": "1",
     "temp": "123"
 }
 
@@ -76,3 +77,6 @@ GET http://domoticloud.onrender.com/usuarios
 
 ###
 GET http://localhost:3000/numusu
+
+###
+GET http://domoticloud.onrender.com/numusu
