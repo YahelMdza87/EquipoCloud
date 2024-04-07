@@ -57,9 +57,16 @@ app.post('/usu', async (req, res) => {
 
 
 //Ruta que manda la temperatura de un usuario
-app.post('/stemp', (req, res) => {
+app.post('/stemp', async (req, res) => {
     const temp = req.body.temp; // Accede al objeto JSON enviado en el cuerpo de la solicitud
-    res.send(`La temperatura es ${temp}`);
+    const idsensor = req.body.idsensor;
+                try {                                   //UPDATE sensores SET valor = 10 WHERE fk_id_cuarto = 1 AND fk_id_señal = 1
+                    const result = await itemsPool.query('UPDATE sensores SET valor = $1 where id_sensor = $2', [temp,idsensor]);
+                    res.status(200).json({});
+                } catch (error) {
+                    console.error('Error al enviar señal:', error);
+                    res.status(500).send('Error interno del servidor');
+                }            
   });
 
 //Ruta que obtiene el usuario y su peticion de señal
