@@ -8,6 +8,7 @@ import './components/Login'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import Login from './components/Login';
 import Principal from './components/Principal'
+import UserAccount from './components/UserAccount'
 const URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000/users";
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
           {/* Les pasamos las funciones para que las puedan llamar correctamente */}
             <Route path="/" element={<Login/>} />
             <Route path="/principal" element={<Principal/>} />
+            <Route path="/userAccount" element={<UserAccount/>} />
           </Routes>
       </GoogleOAuthProvider>
     </BrowserRouter>
