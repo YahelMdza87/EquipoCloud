@@ -29,7 +29,7 @@ export default function Principal({userData}) {
 
       const obtenerSeñales = async () => {
         try {
-          const response = await fetch('http://domoticloud.onrender.com/getallsignal', {
+          const response = await fetch('https://domoticloud.onrender.com/getallsignal', {
           //const response = await fetch('http://localhost:3000/getallsignal', {
             method: 'POST',
             headers: {

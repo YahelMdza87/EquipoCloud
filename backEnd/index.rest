@@ -107,7 +107,7 @@ Content-Type: application/json
 }
 
 ###
-GET https://domoticloud.onrender.com/getallsignal
+POST https://domoticloud.onrender.com/getallsignal
 Content-Type: application/json
 
 {
