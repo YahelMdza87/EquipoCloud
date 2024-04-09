@@ -45,6 +45,27 @@ Content-Type: application/json
     "hum": "123"
 }
 
+###
+POST http://localhost:3000/szona
+Content-Type: application/json
+
+{
+    "nombrezona": "Oficinas empresa",
+    "usu": "Alan Montes",
+    "idtipoedificio": "2"
+}
+
+
+###
+POST https://domoticloud.onrender.com/shum
+Content-Type: application/json
+
+{
+    "idsensor": "2",
+    "hum": "45"
+}
+
+
 # Alta usuario
 ###
 POST http://domoticloud.onrender.com/usu
@@ -101,6 +122,9 @@ GET http://domoticloud.onrender.com/usuarios
 
 ###
 GET http://localhost:3000/numusu
+
+###
+GET http://localhost:3000/gtipoedificio
 
 ###
 GET http://domoticloud.onrender.com/numusu
