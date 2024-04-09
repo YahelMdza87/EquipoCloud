@@ -91,7 +91,7 @@ app.get('/gsignal', (req, res) => {
 
 
 //Ruta que obtiene todos los sensores ligados a un usuario
-app.get('/getallsignal', async(req, res) => {
+app.post('/getallsignal', async(req, res) => {
     const usu = req.body.usu; 
     try {                                   
         const result = await itemsPool.query('Select nombresensor, valor, señales.señal, cuartos.cuarto , zonas.nombrezona, usuarios.usuario FROM sensores      INNER JOIN señales ON sensores.fk_id_señal = señales.id_señal INNER JOIN cuartos ON sensores.fk_id_cuarto = cuartos.id_cuarto INNER JOIN zonas ON cuartos.fk_id_zona = zonas.id_zona INNER JOIN usuarios ON zonas.fk_id_usuario = usuarios.idusuario where usuarios.usuario = $1',[usu]);

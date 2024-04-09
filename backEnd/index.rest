@@ -33,7 +33,7 @@ Content-Type: application/json
 
 {
     "idsensor": "1",
-    "temp": "123"
+    "temp": "40"
 }
 
 ###
@@ -42,7 +42,7 @@ Content-Type: application/json
 
 {
     "idsensor": "2",
-    "hum": "123"
+    "hum": "65"
 }
 
 ###
@@ -99,7 +99,7 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:3000/getallsignal
+POST http://localhost:3000/getallsignal
 Content-Type: application/json
 
 {
