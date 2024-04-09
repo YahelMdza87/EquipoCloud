@@ -33,7 +33,7 @@ Content-Type: application/json
 
 {
     "idsensor": "1",
-    "temp": "123"
+    "temp": "40"
 }
 
 ###
@@ -42,8 +42,29 @@ Content-Type: application/json
 
 {
     "idsensor": "2",
-    "hum": "123"
+    "hum": "65"
 }
+
+###
+POST http://localhost:3000/szona
+Content-Type: application/json
+
+{
+    "nombrezona": "Oficinas empresa",
+    "usu": "Alan Montes",
+    "idtipoedificio": "2"
+}
+
+
+###
+POST https://domoticloud.onrender.com/shum
+Content-Type: application/json
+
+{
+    "idsensor": "2",
+    "hum": "45"
+}
+
 
 # Alta usuario
 ###
@@ -78,7 +99,7 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:3000/getallsignal
+POST http://localhost:3000/getallsignal
 Content-Type: application/json
 
 {
@@ -101,6 +122,9 @@ GET http://domoticloud.onrender.com/usuarios
 
 ###
 GET http://localhost:3000/numusu
+
+###
+GET http://localhost:3000/gtipoedificio
 
 ###
 GET http://domoticloud.onrender.com/numusu

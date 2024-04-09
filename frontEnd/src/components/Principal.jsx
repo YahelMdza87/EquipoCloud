@@ -4,8 +4,9 @@ import React, { useState, useEffect } from 'react';
 
 
 export default function Principal({userData}) {
-  // const [usuarios, setUsuarios] = useState([]);
-  // const [numUsuarios, setNumUsuarios] = useState(0);
+  const [usuarios, setUsuarios] = useState([]);
+  const [numUsuarios, setNumUsuarios] = useState(0);
+  const [signals, setSignals] = useState([]);
   
   //Usamos localStorage para obtener el usuario guardado en cookies
   const localStorageUser = JSON.parse(localStorage.getItem('userData'));
@@ -13,17 +14,54 @@ export default function Principal({userData}) {
     userData=localStorageUser;
   }
 
-  // useEffect(() => {
-  //   fetch('https://domoticloud.onrender.com/usuarios')
-  //     .then(response => response.json())
-  //     .then(data => setUsuarios(data))
-  //     .catch(error => console.error('Error fetching usuarios:', error));
+  useEffect(() => {
+    //fetch('http://localhost:3000/usuarios')
+    fetch('https://domoticloud.onrender.com/usuarios')
+      .then(response => response.json())
+      .then(data => setUsuarios(data))
+      .catch(error => console.error('Error fetching usuarios:', error));
   
-  //   fetch('https://domoticloud.onrender.com/numusu')
-  //     .then(response => response.json())
-  //     .then(data => setNumUsuarios(data))
-  //     .catch(error => console.error('Error fetching number of users:', error));
-  // }, []);
+    //fetch('http://localhost:3000/numusu')
+    fetch('https://domoticloud.onrender.com/numusu')
+      .then(response => response.json())
+      .then(data => setNumUsuarios(data))
+      .catch(error => console.error('Error fetching number of users:', error));
+
+      const obtenerSeñales = async () => {
+        try {
+          const response = await fetch('http://domoticloud.onrender.com/getallsignal', {
+          //const response = await fetch('http://localhost:3000/getallsignal', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              usu: 'Alan Montes'
+            })
+          });
+  
+          if (!response.ok) {
+            throw new Error('Hubo un problema al obtener las señales.');
+          }
+  
+          // Si la solicitud es exitosa, obtenemos los datos de la respuesta
+          const data = await response.json();
+          setSignals(data);
+        } catch (error) {
+          console.error('Error:', error);
+          // Manejar el error, por ejemplo, mostrar un mensaje al usuario
+        }
+      };
+  
+      // Llamar a la función para obtener las señales cuando el componente se monte
+      obtenerSeñales();
+
+      const intervalId = setInterval(obtenerSeñales, 2000);
+
+      // Limpiar el intervalo cuando el componente se desmonte
+      return () => clearInterval(intervalId);
+
+  }, []);
 
 
   return (
@@ -45,7 +83,7 @@ export default function Principal({userData}) {
         <div style={{display:"flex", justifyContent:"center" }}>
           <button className="see-users-principal">Modo admin</button>
         </div>
-        {/* <div>
+        <div>
           <h1>Usuarios</h1>
           <table>
             <thead>
@@ -68,7 +106,32 @@ export default function Principal({userData}) {
               </tr>
             </tbody>
           </table>
-        </div> */}
+        </div>
+        <div>
+  <h1>Señales</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Zona</th>
+        <th>Cuarto</th>
+        <th>Sensor</th>
+        <th>Señal</th>
+        <th>Valor</th>
+      </tr>
+    </thead>
+    <tbody>
+      {signals.map((signal, index) => (
+        <tr key={index}>
+          <td>{signal.nombrezona}</td>
+          <td>{signal.cuarto}</td>
+          <td>{signal.nombresensor}</td>
+          <td>{signal.señal}</td>
+          <td>{signal.valor}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
       </div> 
     </div>
   );

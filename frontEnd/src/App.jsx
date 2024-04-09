@@ -14,7 +14,6 @@ function App() {
   return (
     <BrowserRouter>
       <GoogleOAuthProvider clientId={"468778218661-69jde72qsrpa89fk3ioor7b2gcn5hg9e.apps.googleusercontent.com"}>
-        
         <Routes>
           {/* Les pasamos las funciones para que las puedan llamar correctamente */}
             <Route path="/" element={<Login/>} />

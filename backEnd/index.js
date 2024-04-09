@@ -91,7 +91,7 @@ app.get('/gsignal', (req, res) => {
 
 
 //Ruta que obtiene todos los sensores ligados a un usuario
-app.get('/getallsignal', async(req, res) => {
+app.post('/getallsignal', async(req, res) => {
     const usu = req.body.usu; 
     try {                                   
         const result = await itemsPool.query('Select nombresensor, valor, señales.señal, cuartos.cuarto , zonas.nombrezona, usuarios.usuario FROM sensores      INNER JOIN señales ON sensores.fk_id_señal = señales.id_señal INNER JOIN cuartos ON sensores.fk_id_cuarto = cuartos.id_cuarto INNER JOIN zonas ON cuartos.fk_id_zona = zonas.id_zona INNER JOIN usuarios ON zonas.fk_id_usuario = usuarios.idusuario where usuarios.usuario = $1',[usu]);
@@ -131,6 +131,33 @@ app.get('/numusu', async (req, res) => {
 //     const temp = req.params.temp;
 //     res.send(`La temperatura es ${temp}`);
 // });
+app.get('/gtipoedificio', async (req,res) => {
+    try {
+        const result = await itemsPool.query('select * from tipoedificio;');
+        res.send(result.rows);
+    } catch (error) {
+        console.error('Error al obtener tipos de edificios', error);
+        res.status(500).send('Error al obtener los tipos de edificios disponibles');
+    }
+});
+
+
+// ALTAS EN LA BASE DE DATOS ----------------------
+
+app.post('/szona', async (req, res) => {
+    const nombrezona = req.body.nombrezona; // Accede al objeto JSON enviado en el cuerpo de la solicitud
+    const usu = req.body.usu;
+    const idtipoedificio = req.body.idtipoedificio;
+                
+                try {  
+                    const idusuario = await itemsPool.query('SELECT idusuario FROM usuarios WHERE usuario = ($1);', [usu]);                             
+                    const result = await itemsPool.query('INSERT INTO zonas (nombrezona,fk_id_usuario,fk_id_tipoedificio) values ($1,$2,$3)', [nombrezona,idusuario.rows[0].idusuario,idtipoedificio]);
+                    res.status(200).json({});
+                } catch (error) {
+                    console.error('Error al dar de alta la zona:', error);
+                    res.status(500).send('Error interno del servidor al dar de alta la zona');
+                }            
+});
 
 app.listen(3000, () => {
     console.log('server started')
