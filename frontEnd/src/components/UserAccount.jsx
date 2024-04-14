@@ -19,22 +19,22 @@ export default function Principal({userData}) {
   }
 
   useEffect(() => {
-    //fetch('http://localhost:3000/usuarios')
-    fetch('https://domoticloud.onrender.com/usuarios')
+    fetch('http://localhost:3000/usuarios')
+    // fetch('https://domoticloud.onrender.com/usuarios')
       .then(response => response.json())
       .then(data => setUsuarios(data))
       .catch(error => console.error('Error fetching usuarios:', error));
   
-    //fetch('http://localhost:3000/numusu')
-    fetch('https://domoticloud.onrender.com/numusu')
+    fetch('http://localhost:3000/numusu')
+    // fetch('https://domoticloud.onrender.com/numusu')
       .then(response => response.json())
       .then(data => setNumUsuarios(data))
       .catch(error => console.error('Error fetching number of users:', error));
 
       const obtenerSeñales = async () => {
         try {
-          const response = await fetch('https://domoticloud.onrender.com/getallsignal', {
-          //const response = await fetch('http://localhost:3000/getallsignal', {
+          // const response = await fetch('https://domoticloud.onrender.com/getallsignal', {
+          const response = await fetch('http://localhost:3000/getallsignal', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -68,6 +68,8 @@ export default function Principal({userData}) {
   }, []);
 
 
+  function toEditAccount (){}
+
   return (
     <div className="body-principal">
       <div className="header-principal">
@@ -75,11 +77,14 @@ export default function Principal({userData}) {
         <img src={userData.image} alt="" className="user-image-principal" onClick={toUserAccount}/>
         <img src={Agregar} alt="" className="add-icon-principal"/>
       </div>
-      <div className="section-user-principal">
-        <h2 className="hello-user-principal" >Hola {userData.name}</h2>
+      <div className="section-data-useraccount">
+        <img src={userData.image} alt="" srcset="" className="user-image-userAccount" />
+        <h2 className="name-user-userAccount" >{userData.name}</h2>
+        <h2 className="name-role-userAccount">CEO of Domoticloud</h2>
+        <div className="btn-edit-data-user" onClick={toEditAccount}>Editar</div>
       </div>
-        <div>
-          <h1>Usuarios</h1>
+        <div className="zone-colaboradores-">
+          <h1>Colaboradores</h1>
           <table>
             <thead>
               <tr>
