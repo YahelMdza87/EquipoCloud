@@ -29,11 +29,14 @@ router.post('/usu', async (req, res) => {
 });
 
 //RUTA PARA ALTA TEMPERATURA
-router.post('/temp', async (req, res) => {
-    const temp = req.body.temp; // Accede al objeto JSON enviado en el cuerpo de la solicitud
-    const idsensor = req.body.idsensor;
-                try {                                   //UPDATE sensores SET valor = 10 WHERE fk_id_cuarto = 1 AND fk_id_señal = 1
-                    const result = await itemsPool.query('UPDATE sensores SET valor = $1 where id_sensor = $2', [temp,idsensor]);
+router.post('/temphum', async (req, res) => {
+    const idsensortemp = req.body.idsensortemp;
+    const temp = req.body.temp; 
+    const idsensorhum = req.body.idsensorhum;
+    const hum = req.body.hum; 
+                try {                                   
+                    const query1 = await itemsPool.query('UPDATE sensores SET valor = $1 where id_sensor = $2', [temp,idsensortemp]);
+                    const query2 = await itemsPool.query('UPDATE sensores SET valor = $1 where id_sensor = $2', [hum,idsensorhum]);
                     res.status(200).json({});
                 } catch (error) {
                     console.error('Error al enviar señal:', error);
@@ -41,18 +44,6 @@ router.post('/temp', async (req, res) => {
                 }            
   });
 
-//RUTA PARA ALTA HUMEDAD
-  router.post('/hum', async (req, res) => {
-    const hum = req.body.hum; // Accede al objeto JSON enviado en el cuerpo de la solicitud
-    const idsensor = req.body.idsensor;
-                try {                                   
-                    const result = await itemsPool.query('UPDATE sensores SET valor = $1 where id_sensor = $2', [hum,idsensor]);
-                    res.status(200).json({});
-                } catch (error) {
-                    console.error('Error al enviar señal:', error);
-                    res.status(500).send('Error interno del servidor');
-                }            
-  });
 
 //RUTA PARA CREAR ZONAS
 router.post('/zona', async (req, res) => {
