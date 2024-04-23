@@ -36,10 +36,51 @@ router.get('/numusu', async (req, res) => {
     }
 });
 
+
+//RUTA PARA OBTENER TODOS LOS TIPOS DE SEÑALES
+router.get('/signal', async (req, res) => {
+    try {
+        const result = await itemsPool.query('select * from señales;');
+        res.send(result.rows);
+    } catch (error) {
+        console.error('Error al obtener los tipos de señales', error);
+        res.status(500).send('Error al obtener tipos de señales');
+    }
+});
+
+//RUTA PARA OBTENER TODAS LAS SEÑALES Y SU ARBOL DE UN USUARIO
 router.post('/allsignals', async(req, res) => {
     const usu = req.body.usu; 
     try {                                   
         const result = await itemsPool.query('Select nombresensor, valor, señales.señal, cuartos.cuarto , zonas.nombrezona, usuarios.usuario FROM sensores      INNER JOIN señales ON sensores.fk_id_señal = señales.id_señal INNER JOIN cuartos ON sensores.fk_id_cuarto = cuartos.id_cuarto INNER JOIN zonas ON cuartos.fk_id_zona = zonas.id_zona INNER JOIN usuarios ON zonas.fk_id_usuario = usuarios.idusuario where usuarios.usuario = $1',[usu]);
+        res.status(200).json(result.rows);
+    } catch (error) {
+        console.error('Error al obtener señales:', error);
+        res.status(500).send('Error al obtener señales');
+    }  
+
+});
+
+//RUTA PARA OBTENER LAS COMUNIDADES ADMINISTRADAS POR EL USUARIO
+router.post('/admincomunidad', async(req, res) => {
+    const adminusu = req.body.adminusu; 
+    try {                                   
+        const idusu = await itemsPool.query('SELECT idusuario FROM usuarios WHERE usuario = ($1);', [adminusu]);  
+        const result = await itemsPool.query('Select nombrecomunidad FROM comunidades  where fk_id_usuario = $1',[idusu.rows[0].idusuario]);
+        res.status(200).json(result.rows);
+    } catch (error) {
+        console.error('Error al obtener señales:', error);
+        res.status(500).send('Error al obtener señales');
+    }  
+
+});
+
+//RUTA PARA OBTENER LAS COMUNIDADES COLABORADAS POR EL USUARIO
+router.post('/colabcomunidad', async(req, res) => {
+    const colabcomunidad = req.body.colabcomunidad; 
+    try {                                   
+        const idusu = await itemsPool.query('SELECT idusuario FROM usuarios WHERE usuario = ($1);', [colabcomunidad]);  
+        const result = await itemsPool.query('select comunidades.nombrecomunidad, usuarios.usuario as administrador from colaboradores INNER JOIN comunidades ON colaboradores.fk_id_comunidad = comunidades.id_comunidad INNER JOIN usuarios ON comunidades.fk_id_usuario = usuarios.idusuario where colaboradores.fk_id_usuario =$1',[idusu.rows[0].idusuario]);
         res.status(200).json(result.rows);
     } catch (error) {
         console.error('Error al obtener señales:', error);
