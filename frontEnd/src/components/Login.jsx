@@ -8,12 +8,6 @@ import '../App.css';
 export default function Login() {
     const navigate = useNavigate();
     //Cuando se rendereize el componente, comprobara si hay datos de usuario ya guardados en localStorage, si es así, direccionará automaticamente a /principal.jsx
-    useEffect(() => {
-        const userData = localStorage.getItem('userData');
-        if (userData) {
-            navigate('/principal');
-        }
-    }, [navigate]);
 
     // function enviarDatosUsuario(userData,userEmail) {
         

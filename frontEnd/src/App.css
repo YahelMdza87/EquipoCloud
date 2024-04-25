@@ -379,5 +379,40 @@ h1,h2,h3,h4{
   grid-row: 5;
   background-color: #4A1E9E;
 }
+.section-devices-userAccount{
+  border-top: solid #4b1e9e13;
+  width: 98%;
+  height: 25%;
+  margin-left: 1%;
+ }
+
+.add-zone-userAccount{
+  margin-top: 2%;
+  width: 30%;
+  height: 50%;
+  border-radius: 19px;
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  grid-template-rows: 33% 33% 33%;
+  background-color: #DDCBFF;
+}
+.add-zone-userAccount:hover{
+  background-color: #4A1E9E;
+  cursor: pointer;
+}
+.add-zone-icon-userAccount{
+  grid-row: 1;
+  grid-column: 1;
+  width: 100%;
+}
+.add-zone-text-userAccount{
+  grid-row: 3;
+  align-self: flex-end;
+  margin: 20%;
+  grid-column:1 / 2;
+  font-size: 2.6vw;
+  
+  white-space: nowrap;
+}
 
 }

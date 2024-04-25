@@ -1,4 +1,5 @@
 import Agregar from "../assets/add-device.png"
+import Logo from "../assets/logo-domoticloud.png"
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 
@@ -14,6 +15,9 @@ export default function Principal({userData}) {
   function toUserAccount(){
     navigate('/UserAccount')
   }
+  function toIndex(){
+    navigate('/Principal')
+  }
 
   
 
@@ -23,7 +27,7 @@ export default function Principal({userData}) {
       <div className="header-principal">
         <h2 className="header-title-principal">Domoticloud</h2>
         <img src={userData.image} alt="" className="user-image-principal" onClick={toUserAccount}/>
-        <img src={Agregar} alt="" className="add-icon-principal"/>
+        <img src={Logo} alt="" className="add-icon-principal" onClick={toIndex}/>
       </div>
       <div className="section-user-principal">
         <h2 className="hello-user-principal" >Hola {userData.name}</h2>
