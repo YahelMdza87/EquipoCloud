@@ -89,4 +89,47 @@ router.post('/colabcomunidad', async(req, res) => {
 
 });
 
+//RUTA PARA LAS ZONAS DE UN USUARIO
+router.post('/zonas', async(req, res) => {
+    const usu = req.body.usu; 
+    try {                                   
+        const idusu = await itemsPool.query('SELECT idusuario FROM usuarios WHERE usuario = ($1);', [usu]);  
+        const result = await itemsPool.query('select nombrezona from zonas where fk_id_usuario =$1',[idusu.rows[0].idusuario]);
+        res.status(200).json(result.rows);
+    } catch (error) {
+        console.error('Error al obtener zonas:', error);
+        res.status(500).send('Error al obtener las zonas del usuario');
+    }  
+
+});
+
+
+//RUTA PARA LOS CUARTOS DE UN USUARIO
+router.post('/cuartos', async(req, res) => {
+    const zona = req.body.zona; 
+    try {                                   
+        const idzona = await itemsPool.query('SELECT id_zona FROM zonas WHERE nombrezona = ($1);', [zona]);  
+        const result = await itemsPool.query('select cuarto from cuartos where fk_id_zona =$1',[idzona.rows[0].id_zona]);
+        res.status(200).json(result.rows);
+    } catch (error) {
+        console.error('Error al obtener cuartos:', error);
+        res.status(500).send('Error al obtener los cuartos del usuario');
+    }  
+
+});
+
+//RUTA PARA LOS SENSORES DE UN USUARIO
+router.post('/sensors', async(req, res) => {
+    const cuarto = req.body.cuarto; 
+    try {                                   
+        const idcuarto = await itemsPool.query('SELECT id_cuarto FROM cuartos WHERE cuarto = ($1);', [cuarto]);  
+        const result = await itemsPool.query('select id_sensor, nombresensor, valor from sensores where fk_id_cuarto =$1',[idcuarto.rows[0].id_cuarto]);
+        res.status(200).json(result.rows);
+    } catch (error) {
+        console.error('Error al obtener los sensores:', error);
+        res.status(500).send('Error al obtener los sensores del usuario');
+    }  
+
+});
+
 export default router;
