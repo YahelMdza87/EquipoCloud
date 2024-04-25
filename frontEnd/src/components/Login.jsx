@@ -41,7 +41,10 @@ export default function Login() {
         const credentialResponseDecoded = jwtDecode(credentialResponse.credential);
         const userData = {
             'name' : credentialResponseDecoded.name,
+            'user' : "",
             'email' : credentialResponseDecoded.email,
+            'pass' : "",
+            'workstation': "",
             'image' : credentialResponseDecoded.picture
         };
         console.log(userData);

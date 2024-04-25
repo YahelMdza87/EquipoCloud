@@ -22,6 +22,7 @@ export default function Principal({userData}) {
     navigate('/Principal')
   }
   function toEditAccount (){
+    navigate('/EditUser')
   }
 
   useEffect(() => {
@@ -86,7 +87,7 @@ export default function Principal({userData}) {
       <div className="section-data-useraccount">
         <img src={userData.image} alt="" className="user-image-userAccount" />
         <h2 className="name-user-userAccount" >{userData.name}</h2>
-        <h2 className="name-role-userAccount">CEO of Domoticloud</h2>
+        <h2 className="name-role-userAccount">{userData.work}</h2>
         <div className="btn-edit-data-user" onClick={toEditAccount}>Editar</div>
       </div>
       <div className="section-devices-userAccount">
