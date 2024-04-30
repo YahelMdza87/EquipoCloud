@@ -28,6 +28,12 @@ app.use('/searches', searchesRouter);
 import addRouter from './routes/add.js';
 app.use('/add', addRouter);
 
+import changesRouter from './routes/changes.js';
+app.use('/changes', changesRouter);
+
+import deleteRouter from './routes/delete.js';
+app.use('/delete', deleteRouter);
+
 app.listen(3000, () => {
     console.log('server started')
 });

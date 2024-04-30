@@ -52,7 +52,7 @@ router.get('/signal', async (req, res) => {
 router.post('/allsignals', async(req, res) => {
     const usu = req.body.usu; 
     try {                                   
-        const result = await itemsPool.query('Select nombresensor, valor, señales.señal, cuartos.cuarto , zonas.nombrezona, usuarios.usuario FROM sensores      INNER JOIN señales ON sensores.fk_id_señal = señales.id_señal INNER JOIN cuartos ON sensores.fk_id_cuarto = cuartos.id_cuarto INNER JOIN zonas ON cuartos.fk_id_zona = zonas.id_zona INNER JOIN usuarios ON zonas.fk_id_usuario = usuarios.idusuario where usuarios.usuario = $1',[usu]);
+        const result = await itemsPool.query('Select id_sensor, nombresensor, valor, señales.señal, cuartos.cuarto , zonas.nombrezona, usuarios.usuario FROM sensores      INNER JOIN señales ON sensores.fk_id_señal = señales.id_señal INNER JOIN cuartos ON sensores.fk_id_cuarto = cuartos.id_cuarto INNER JOIN zonas ON cuartos.fk_id_zona = zonas.id_zona INNER JOIN usuarios ON zonas.fk_id_usuario = usuarios.idusuario where usuarios.usuario = $1',[usu]);
         res.status(200).json(result.rows);
     } catch (error) {
         console.error('Error al obtener señales:', error);
@@ -66,7 +66,7 @@ router.post('/admincomunidad', async(req, res) => {
     const adminusu = req.body.adminusu; 
     try {                                   
         const idusu = await itemsPool.query('SELECT idusuario FROM usuarios WHERE usuario = ($1);', [adminusu]);  
-        const result = await itemsPool.query('Select nombrecomunidad FROM comunidades  where fk_id_usuario = $1',[idusu.rows[0].idusuario]);
+        const result = await itemsPool.query('Select id_comunidad, nombrecomunidad FROM comunidades  where fk_id_usuario = $1',[idusu.rows[0].idusuario]);
         res.status(200).json(result.rows);
     } catch (error) {
         console.error('Error al obtener señales:', error);
@@ -76,25 +76,40 @@ router.post('/admincomunidad', async(req, res) => {
 });
 
 //RUTA PARA OBTENER LAS COMUNIDADES COLABORADAS POR EL USUARIO
-router.post('/colabcomunidad', async(req, res) => {
+router.post('/colabencomunidad', async(req, res) => {
     const colabcomunidad = req.body.colabcomunidad; 
     try {                                   
         const idusu = await itemsPool.query('SELECT idusuario FROM usuarios WHERE usuario = ($1);', [colabcomunidad]);  
-        const result = await itemsPool.query('select comunidades.nombrecomunidad, usuarios.usuario as administrador from colaboradores INNER JOIN comunidades ON colaboradores.fk_id_comunidad = comunidades.id_comunidad INNER JOIN usuarios ON comunidades.fk_id_usuario = usuarios.idusuario where colaboradores.fk_id_usuario =$1',[idusu.rows[0].idusuario]);
+        const result = await itemsPool.query('select id_colaborador,comunidades.nombrecomunidad, usuarios.usuario as administrador from colaboradores INNER JOIN comunidades ON colaboradores.fk_id_comunidad = comunidades.id_comunidad INNER JOIN usuarios ON comunidades.fk_id_usuario = usuarios.idusuario where colaboradores.fk_id_usuario =$1',[idusu.rows[0].idusuario]);
         res.status(200).json(result.rows);
     } catch (error) {
-        console.error('Error al obtener señales:', error);
-        res.status(500).send('Error al obtener señales');
+        console.error('Error al obtener tus comunidades de las que eres colaborador:', error);
+        res.status(500).send('Error al obtener tus comunidades de las que eres colaborador');
     }  
 
 });
+
+
+//RUTA PARA OBTENER LOS COLABORADORES DE UNA COMUNIDAD
+router.post('/colabdecomunidad', async(req, res) => {
+    const idcomunidad = req.body.idcomunidad; 
+    try {                                   
+        const result = await itemsPool.query('select id_colaborador, usuarios.usuario as colaborador from colaboradores INNER JOIN usuarios ON colaboradores.fk_id_usuario = usuarios.idusuario where fk_id_comunidad = ($1);', [idcomunidad]);  
+        res.status(200).json(result.rows);
+    } catch (error) {
+        console.error('Error al obtener los colaboradores de tu comunidad:', error);
+        res.status(500).send('Error al obtener los colaboradores de tu comunidad');
+    }  
+
+});
+
 
 //RUTA PARA LAS ZONAS DE UN USUARIO
 router.post('/zonas', async(req, res) => {
     const usu = req.body.usu; 
     try {                                   
         const idusu = await itemsPool.query('SELECT idusuario FROM usuarios WHERE usuario = ($1);', [usu]);  
-        const result = await itemsPool.query('select nombrezona from zonas where fk_id_usuario =$1',[idusu.rows[0].idusuario]);
+        const result = await itemsPool.query('select id_zona, nombrezona from zonas where fk_id_usuario =$1',[idusu.rows[0].idusuario]);
         res.status(200).json(result.rows);
     } catch (error) {
         console.error('Error al obtener zonas:', error);
@@ -109,7 +124,7 @@ router.post('/cuartos', async(req, res) => {
     const zona = req.body.zona; 
     try {                                   
         const idzona = await itemsPool.query('SELECT id_zona FROM zonas WHERE nombrezona = ($1);', [zona]);  
-        const result = await itemsPool.query('select cuarto from cuartos where fk_id_zona =$1',[idzona.rows[0].id_zona]);
+        const result = await itemsPool.query('select id_cuarto, cuarto from cuartos where fk_id_zona =$1',[idzona.rows[0].id_zona]);
         res.status(200).json(result.rows);
     } catch (error) {
         console.error('Error al obtener cuartos:', error);
