@@ -8,12 +8,6 @@ import '../App.css';
 export default function Login() {
     const navigate = useNavigate();
     //Cuando se rendereize el componente, comprobara si hay datos de usuario ya guardados en localStorage, si es así, direccionará automaticamente a /principal.jsx
-    useEffect(() => {
-        const userData = localStorage.getItem('userData');
-        if (userData) {
-            navigate('/principal');
-        }
-    }, [navigate]);
 
     // function enviarDatosUsuario(userData,userEmail) {
         
@@ -40,14 +34,19 @@ export default function Login() {
     //         console.error('Error:', error);
     //     });
     // }
-
+    function toSignIn(){
+        navigate('/signIn')
+    }
     //Funcion por si el login se hace correctamente
     function handleSuccess(credentialResponse) {
         //Decodifica la key del usuario por google y obtiene solamente el nombre  y el gmail.
         const credentialResponseDecoded = jwtDecode(credentialResponse.credential);
         const userData = {
             'name' : credentialResponseDecoded.name,
+            'user' : "",
             'email' : credentialResponseDecoded.email,
+            'pass' : "",
+            'workstation': "",
             'image' : credentialResponseDecoded.picture
         };
         console.log(userData);
@@ -69,7 +68,10 @@ export default function Login() {
                         <input className='input-login' style={{marginBottom: "5%"}} type="text" placeholder='Password...' />
                     </div>
                     <div>
-                        <a href="" >¿No tienes cuenta? Crafteate una.</a>
+                        <a href="" onClick={toSignIn}>¿No tienes cuenta? Crafteate una.</a>
+                    </div>
+                    <div style={{marginTop:"5%", display:"flex", justifyContent:"center", textWrap:"nowrap"}}>
+                    <button className="btn-submit-data-user" type="button" onClick={handleSuccess}>Iniciar sesión</button>
                     </div>
                 </div>
                 <div style={{ border: "solid 1px #BB98FF", marginTop:"4%"}}></div>

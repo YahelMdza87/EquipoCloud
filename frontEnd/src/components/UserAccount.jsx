@@ -1,6 +1,7 @@
 import Agregar from "../assets/add-device.png"
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
+import Logo from "../assets/logo-domoticloud.png"
 
 
 export default function Principal({userData}) {
@@ -17,24 +18,33 @@ export default function Principal({userData}) {
   function toUserAccount(){
     navigate('/UserAccount')
   }
+  function toIndex(){
+    navigate('/Principal')
+  }
+  function toEditAccount (){
+    navigate('/EditUser')
+  }
+  function toHelp() {
+    navigate('/toHelp')
+  }
 
   useEffect(() => {
-    //fetch('http://localhost:3000/usuarios')
-    fetch('https://domoticloud.onrender.com/usuarios')
+    fetch('http://localhost:3000/usuarios')
+    // fetch('https://domoticloud.onrender.com/usuarios')
       .then(response => response.json())
       .then(data => setUsuarios(data))
       .catch(error => console.error('Error fetching usuarios:', error));
   
-    //fetch('http://localhost:3000/numusu')
-    fetch('https://domoticloud.onrender.com/numusu')
+    fetch('http://localhost:3000/numusu')
+    // fetch('https://domoticloud.onrender.com/numusu')
       .then(response => response.json())
       .then(data => setNumUsuarios(data))
       .catch(error => console.error('Error fetching number of users:', error));
 
       const obtenerSeñales = async () => {
         try {
-          const response = await fetch('https://domoticloud.onrender.com/getallsignal', {
-          //const response = await fetch('http://localhost:3000/getallsignal', {
+          // const response = await fetch('https://domoticloud.onrender.com/getallsignal', {
+          const response = await fetch('http://localhost:3000/getallsignal', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -68,43 +78,59 @@ export default function Principal({userData}) {
   }, []);
 
 
+  
+
   return (
     <div className="body-principal">
       <div className="header-principal">
         <h2 className="header-title-principal">Domoticloud</h2>
         <img src={userData.image} alt="" className="user-image-principal" onClick={toUserAccount}/>
-        <img src={Agregar} alt="" className="add-icon-principal"/>
+        <img src={Logo} alt="" className="add-icon-principal" onClick={toIndex}/>
       </div>
-      <div className="section-user-principal">
-        <h2 className="hello-user-principal" >Hola {userData.name}</h2>
+      <div className="section-data-useraccount">
+        <img src={userData.image} alt="" className="user-image-userAccount" />
+        <h2 className="name-user-userAccount" >{userData.name}</h2>
+        <h2 className="name-role-userAccount">{userData.work}</h2>
+        <div className="btn-edit-data-user" onClick={toEditAccount}>Editar</div>
       </div>
-        <div>
-          <h1>Usuarios</h1>
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Email</th>
-              </tr>
-            </thead>
-            <tbody>
-              {usuarios.map(usuario => (
-                <tr key={usuario.idusuario}>
-                  <td>{usuario.idusuario}</td>
-                  <td>{usuario.usuario}</td>
-                  <td>{usuario.correo}</td>
-                </tr>
-              ))}
-              <tr>
-                <td colSpan="3">Cantidad de usuarios: {numUsuarios}</td>
-              </tr>
-            </tbody>
-          </table>
+      <div className="section-devices-userAccount">
+        <h1>Colaboradores</h1>
+        <div className="add-zone-userAccount">
+          <img className="add-zone-icon-userAccount" src={Agregar} style={{width:"30%"}} alt="" />
+          <h3 className="add-zone-text-userAccount">Agregar colaborador</h3>
         </div>
-        <div>
-  <h1>Señales</h1>
-  <table>
+      </div>
+      <div className="section-devices-userAccount">
+        <h1>Dispositivos agregados</h1>
+        <div className="add-zone-userAccount">
+          <img className="add-zone-icon-userAccount" src={Agregar} style={{width:"30%"}} alt="" />
+          <h3 className="add-zone-text-userAccount">Agregar dispositivo</h3>
+        </div>
+      </div>
+      <div className="section-devices-userAccount">
+        <h1>Zonas</h1>
+        <div className="add-zone-userAccount">
+          <img className="add-zone-icon-userAccount" src={Agregar} style={{width:"30%"}} alt=""/>
+          <h3 className="add-zone-text-userAccount">Agregar zona</h3>
+        </div>
+      </div>
+      <div>
+        <div style={{borderBottom:"solid #4b1e9e8c", padding:"3%"}} onClick={toHelp}>
+          <h2>Ayuda</h2>
+        </div>
+        <div style={{borderBottom:"solid #4b1e9e8c", padding:"3%"}} onClick={toHelp}>
+          <h2>Acerca de</h2>
+        </div>
+        <div style={{padding:"3%", paddingBottom:"0%"}} onClick={toHelp}>
+          <h2>Cerrar sesión</h2>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
+{/* <table>
     <thead>
       <tr>
         <th>Zona</th>
@@ -125,8 +151,27 @@ export default function Principal({userData}) {
         </tr>
       ))}
     </tbody>
-  </table>
-</div>
-    </div>
-  );
-}
+  </table> */}
+
+ {/* <h1>Colaboradores</h1>
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              {usuarios.map(usuario => (
+                <tr key={usuario.idusuario}>
+                  <td>{usuario.idusuario}</td>
+                  <td>{usuario.usuario}</td>
+                  <td>{usuario.correo}</td>
+                </tr>
+              ))}
+              <tr>
+                <td colSpan="3">Cantidad de usuarios: {numUsuarios}</td>
+              </tr>
+            </tbody>
+          </table> */}
