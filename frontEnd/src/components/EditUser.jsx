@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import Logo from "../assets/logo-domoticloud.png"
+import Back from "../assets/to-back.png"
 
 export default function EditUser({userData}){
     const navigate = useNavigate();
@@ -55,7 +56,7 @@ export default function EditUser({userData}){
         }
         console.log(newDataUser);
         localStorage.setItem('userData',JSON.stringify(newDataUser));
-        navigate('/UserAccount')
+        navigate('/userAccount')
       };
     return(
         <div className="body-principal">
@@ -64,28 +65,38 @@ export default function EditUser({userData}){
                 <img src={userData.image} alt="" className="user-image-principal" onClick={toUserAccount}/>
                 <img src={Logo} alt="" className="add-icon-principal" onClick={toIndex}/>
             </div>
-            <form onSubmit={handleSubmit}>
+            <div>
+                <img src={Back} alt="" style={{width:"9%",borderBottom:"1px solid #ba98ff69",borderRight:"1px solid #ba98ff69"}} onClick={toUserAccount} />
+            </div>
+            <div className="section-data-useraccount">
+                <img src={userData.image} alt="" className="user-image-userAccount" />
+                <h2 className="name-user-userAccount" >{name}</h2>
+                <h2 className="name-role-userAccount">{workstation}</h2>
+            </div>
+            <form onSubmit={handleSubmit} style={{padding:"8%", paddingTop:"0%"}}>
                 <div>
-                    <label>name:</label>
-                    <input type="text" value={name} onChange={handleNameChange} />
+                    <label className="title-data-login">name:</label>
+                    <input type="text" className="input-login" value={name} onChange={handleNameChange} />
                 </div>
                 <div>
-                    <label>user:</label>
-                    <input type="text" value={user} onChange={handleUserChange} />
+                    <label className="title-data-login">user:</label>
+                    <input type="text" className="input-login" value={user} onChange={handleUserChange} />
                 </div>
                 <div>
-                    <label>email:</label>
-                    <input type="email" value={email} onChange={handleEmailChange} />
+                    <label className="title-data-login">email:</label>
+                    <input type="email" className="input-login" value={email} onChange={handleEmailChange} />
                 </div>
                 <div>
-                    <label>pass:</label>
-                    <input type="password" value={pass} onChange={handlePassChange} />
+                    <label className="title-data-login">pass:</label>
+                    <input type="password" className="input-login" value={pass} onChange={handlePassChange} />
                 </div>
                 <div>
-                    <label>workstation:</label>
-                    <input type="text" value={workstation} onChange={handleWorkstationChange} />
+                    <label className="title-data-login">workstation:</label>
+                    <input type="text" className="input-login" value={workstation} onChange={handleWorkstationChange} />
                 </div>
-                <button className="btn-submit-data-user" type="submit">Guardar</button>
+                <div>
+                    <button className="btn-submit-data-user" type="submit">Guardar</button>
+                </div>
             </form>
         </div>
     );
