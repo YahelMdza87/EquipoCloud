@@ -389,15 +389,15 @@ h1,h2,h3,h4{
 }
 .section-devices-userAccount{
   border-top: solid #4b1e9e13;
-  width: 98%;
-  height: 25%;
+  width: auto;
+  height: auto;
   margin-left: 1%;
  }
 
 .add-zone-userAccount{
-  margin-top: 2%;
-  width: 30%;
-  height: 50%;
+  margin-bottom: 4%;
+  width: auto;
+  height: auto;
   border-radius: 19px;
   display: grid;
   grid-template-columns: 33% 33% 33%;

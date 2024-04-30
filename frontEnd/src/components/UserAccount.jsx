@@ -24,6 +24,9 @@ export default function Principal({userData}) {
   function toEditAccount (){
     navigate('/EditUser')
   }
+  function toHelp() {
+    navigate('/toHelp')
+  }
 
   useEffect(() => {
     fetch('http://localhost:3000/usuarios')
@@ -93,22 +96,33 @@ export default function Principal({userData}) {
       <div className="section-devices-userAccount">
         <h1>Colaboradores</h1>
         <div className="add-zone-userAccount">
-          <img className="add-zone-icon-userAccount" src={Agregar} alt="" />
+          <img className="add-zone-icon-userAccount" src={Agregar} style={{width:"30%"}} alt="" />
           <h3 className="add-zone-text-userAccount">Agregar colaborador</h3>
         </div>
       </div>
       <div className="section-devices-userAccount">
         <h1>Dispositivos agregados</h1>
         <div className="add-zone-userAccount">
-          <img className="add-zone-icon-userAccount" src={Agregar} alt="" />
+          <img className="add-zone-icon-userAccount" src={Agregar} style={{width:"30%"}} alt="" />
           <h3 className="add-zone-text-userAccount">Agregar dispositivo</h3>
         </div>
       </div>
       <div className="section-devices-userAccount">
         <h1>Zonas</h1>
         <div className="add-zone-userAccount">
-          <img className="add-zone-icon-userAccount" src={Agregar} alt="" />
+          <img className="add-zone-icon-userAccount" src={Agregar} style={{width:"30%"}} alt=""/>
           <h3 className="add-zone-text-userAccount">Agregar zona</h3>
+        </div>
+      </div>
+      <div>
+        <div style={{borderBottom:"solid #4b1e9e8c", padding:"3%"}} onClick={toHelp}>
+          <h2>Ayuda</h2>
+        </div>
+        <div style={{borderBottom:"solid #4b1e9e8c", padding:"3%"}} onClick={toHelp}>
+          <h2>Acerca de</h2>
+        </div>
+        <div style={{padding:"3%", paddingBottom:"0%"}} onClick={toHelp}>
+          <h2>Cerrar sesión</h2>
         </div>
       </div>
     </div>

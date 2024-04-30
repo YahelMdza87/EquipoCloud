@@ -11,6 +11,8 @@ import Principal from './components/Principal'
 import UserAccount from './components/UserAccount'
 import EditUser from './components/EditUser'
 import SignIn from './components/SignIn';
+import NotFound from './components/NotFound';
+import Maintenance from './components/Maintenance';
 const URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000/users";
 
 function App() {
@@ -24,6 +26,8 @@ function App() {
             <Route path="/userAccount" element={<UserAccount/>} />
             <Route path="/editUser" element={<EditUser/>} />
             <Route path="/signIn" element={<SignIn/>} />
+            <Route path="/toHelp" element={<Maintenance/>} />
+            <Route path='/*' element={<NotFound/>}></Route>
           </Routes>
       </GoogleOAuthProvider>
     </BrowserRouter>
