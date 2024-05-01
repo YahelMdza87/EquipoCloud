@@ -112,6 +112,7 @@ export default function EditUser({userData}){
             return response.json();
         })
         .then(user => {
+            console.log(user)
         })
         .catch(error => {
             console.error('Error:', error);
