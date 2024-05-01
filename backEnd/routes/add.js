@@ -13,7 +13,7 @@ router.post('/usu', async (req, res) => {
         const pass = req.body.pass;  
         //validacion de correo y usuario no vacios
         if (correo.trim() === "" || pass.trim() === "") {
-            res.status(200).json({"messsage":"Tu usuario, correo  o contraseña no puede estar vacio"});
+            res.status(200).json({"messsage":"Tu correo  o contraseña no puede estar vacio"});
             return;
         } else {
 
@@ -30,7 +30,7 @@ router.post('/usu', async (req, res) => {
                 const correoQuery = await itemsPool.query('SELECT correo FROM usuarios WHERE correo = ($1);', [correo]);
                 if (correoQuery.rows.length === 0) {
                     try {
-                        const result = await itemsPool.query('INSERT INTO usuarios (usuario,correo,nombre,cargo,contraseña) VALUES ($1,$2,$3,$4,$5)', [usu,correo,nombre,cargo,pass]);
+                        const result = await itemsPool.query('INSERT INTO usuarios (usuario,correo,nombre,cargo,pass) VALUES ($1,$2,$3,$4,$5)', [usu,correo,nombre,cargo,pass]);
                         res.status(200).json({"messsage":"Usuario dado de alta con exito"});
                         return;
                     } catch (error) {
