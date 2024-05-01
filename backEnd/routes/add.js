@@ -39,7 +39,7 @@ router.post('/usu', async (req, res) => {
                         return;
                     }            
                 } else {
-                    res.status(200).json({"mensaje": "El correo ya esta registrado a un usuario, ingrese otro"});
+                    res.status(200).json({"mensaje": "El correo ya esta registrado a otro cuenta de usuario, ingrese otro"});
                     return;
                 }
                 
