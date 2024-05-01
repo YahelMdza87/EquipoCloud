@@ -15,13 +15,44 @@ router.patch('/usuario', async (req, res) => {
                 res.status(200).json({"messsage":"Tu usuario, correo  o contraseña no puede estar vacio"});
                 return;
             } else {
-                try {                       
-                    const result = await itemsPool.query('UPDATE usuarios SET usuario = $1, correo = $2, nombre = $3, cargo = $4, pass = $5 WHERE idusuario = $6', [usuario,correo,nombre,cargo,pass,idusuario]);
-                    res.status(200).json({"messsage":"Usuario editado exitosamente"});
+                            //validacion de correo valido
+                            const validaciondecorreo = /\S+@\S+\.com/;
+                            if (validaciondecorreo.test(correo)) {
+                                
+                            } else {
+                                res.status(200).json({"messsage":"Tu correo no es valido "});
+                                return;
+                            }
+
+                //Validar si el correo ya esta en uso por otro usuario
+                try {
+                const correoQuery = await itemsPool.query('select idusuario from usuarios where correo = ($1);', [correo]);
+                        if (correoQuery.rows.length === 0) {
+                                try {                       
+                                    const result = await itemsPool.query('UPDATE usuarios SET usuario = $1, correo = $2, nombre = $3, cargo = $4, pass = $5 WHERE idusuario = $6', [usuario,correo,nombre,cargo,pass,idusuario]);
+                                    res.status(200).json({"messsage":"Usuario editado exitosamente"});
+                                } catch (error) {
+                                    console.error('Error al editar el usuario:', error);
+                                    res.status(500).json({"message":"Error interno del servidor al editar el usuario"});
+                                }  
+                        }else{
+                            if (parseInt(correoQuery.rows[0].idusuario) === parseInt(idusuario)) {
+                                try {                       
+                                    const result = await itemsPool.query('UPDATE usuarios SET usuario = $1, correo = $2, nombre = $3, cargo = $4, pass = $5 WHERE idusuario = $6', [usuario,correo,nombre,cargo,pass,idusuario]);
+                                    res.status(200).json({"messsage":"Usuario editado exitosamente"});
+                                } catch (error) {
+                                    console.error('Error al editar el usuario:', error);
+                                    res.status(500).json({"message":"Error interno del servidor al editar el usuario"});
+                                }  
+                            }else{
+                                res.status(200).json({"mensaje": "El correo ya esta registrado a otro cuenta de usuario, ingrese otro"});
+                                return;
+                            }
+                        }
                 } catch (error) {
-                    console.error('Error al editar el usuario:', error);
-                    res.status(500).json({"message":"Error interno del servidor al editar el usuario"});
-                }   
+                    console.error('Error interno del servidor', error);
+                    res.status(500).json({"message":"Error interno del servidor al cambiar alta usuario, verifica los datos"});
+                }     
             }
     }catch(error){
         res.status(500).json({"message":"Error interno del servidor al obtener cabecera de datos"});
