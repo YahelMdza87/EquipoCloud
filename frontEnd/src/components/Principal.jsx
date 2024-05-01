@@ -6,7 +6,8 @@ import User from "../assets/user.png"
 
 export default function Principal({userData}) {
   const navigate = useNavigate();
-  const [name, setName] = useState("")
+  const [name, setName] = useState("");
+  const [signals,setSignals] = useState("");
   //Usamos localStorage para obtener el usuario guardado en cookies
   const localStorageUser = JSON.parse(localStorage.getItem('userData'));
   if (localStorageUser){
@@ -19,14 +20,15 @@ export default function Principal({userData}) {
     navigate('/Principal')
   }
   useEffect(() => {
-    // fetch('https://domoticloud.onrender.com/searches/idusu', {
-        fetch('http://localhost:3000/searches/idusu', {
+    const id = 30;
+    // fetch('https://domoticloud.onrender.com/searches/allsignals', {
+        fetch('http://localhost:3000/searches/allsignals', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            correo: userData
+            idusu: id
         })
     })
     .then(response => {
@@ -36,16 +38,15 @@ export default function Principal({userData}) {
         return response.json();
     })
     .then(data => {
-        data.forEach(user => {
-            setName(user.nombre);
-        });
+      setSignals(data)
     })
     .catch(error => {
         console.error('Error:', error);
     });
 }, []);
-  
+function getAllSignals (){
 
+}
 
   return (
     <div className="body-principal">
@@ -64,6 +65,34 @@ export default function Principal({userData}) {
           <h3 className="add-zone-text-principal">Agregar area</h3>
         </div>
         
+      </div>
+      <div>
+        <button onClick={getAllSignals}>Obtener señales</button>
+        <div>
+          <table>
+            <thead>
+              <tr>
+                <th>Zona</th>
+                <th>Cuarto</th>
+                <th>Sensor</th>
+                <th>Señal</th>
+                <th>Valor</th>
+              </tr>
+            </thead>
+            <tbody>
+              {/* {signals.map((signal, index) => (
+                <tr key={index}>
+                  <td>{signal.nombrezona}</td>
+                  <td>{signal.cuarto}</td>
+                  <td>{signal.nombresensor}</td>
+                  <td>{signal.señal}</td>
+                  <td>{signal.valor}</td>
+                </tr>
+              ))} */}
+            </tbody>
+          </table>
+
+        </div>
       </div> 
     </div>
   );
