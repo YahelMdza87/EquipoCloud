@@ -16,10 +16,12 @@ import Maintenance from './components/Maintenance';
 import CreatePassword from './components/CreatePassword';
 const URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000/users";
 
+const googlecredencial = import.meta.env.VITE_CREDENCIAL_GOOGLE
+
 function App() {
   return (
     <BrowserRouter>
-      <GoogleOAuthProvider clientId={"468778218661-69jde72qsrpa89fk3ioor7b2gcn5hg9e.apps.googleusercontent.com"}>
+      <GoogleOAuthProvider clientId={googlecredencial}>
         <Routes>
           {/* Les pasamos las funciones para que las puedan llamar correctamente */}
             <Route path="/" element={<Login/>} />
