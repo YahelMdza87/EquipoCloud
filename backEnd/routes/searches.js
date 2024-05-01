@@ -19,7 +19,7 @@ router.post('/idusu', async (req, res) => {
     try{
     const correo = req.body.correo; 
     try {
-        const result = await itemsPool.query('SELECT idusuario FROM usuarios where correo = ($1);', [correo]);
+        const result = await itemsPool.query('SELECT * FROM usuarios where correo = ($1);', [correo]);
         res.send(result.rows); // Envía solo los datos de los usuarios
     } catch (error) {
         console.error('Error al obtener el id del usuarios', error);
