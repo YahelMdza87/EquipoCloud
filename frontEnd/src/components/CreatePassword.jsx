@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react';
 export default function CreatePassword(userData){
     const [password, setPassword] = useState("");
     const [Cpassword, setCPassword] = useState("");
+    const navigate = useNavigate();
     const localStorageUser = JSON.parse(localStorage.getItem('userData'));
     if (localStorageUser){
         userData=localStorageUser;
@@ -54,14 +55,13 @@ export default function CreatePassword(userData){
         })
         .then(response => {
             if (!response.ok) {
-                console.log("hola")
                 throw new Error('Hubo un problema al realizar la solicitud.');
             }
-            else{console.log("hola")}
             return response.json();
         })
         .then(data => {
-            console.log(data); // Hacer algo con la respuesta del servidor si es necesario
+            console.log(data); 
+            navigate('/principal')
         })
         .catch(error => {
             console.error('Error:', error);
