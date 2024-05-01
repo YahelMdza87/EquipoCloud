@@ -19,14 +19,15 @@ export default function CreatePassword(userData){
         setCPassword(event.target.value)   
     }
     function handleSuccess(){
-        if (password === Cpassword){
+        if (password === Cpassword && password!=="" && Cpassword!==""){
             console.log(password)  
             const newDataUser = {
-                name: userData.name,
-                user: "",
-                email: userData.email,
-                pass: password,
-                work: ""
+                idusuario: userData.idusuario,
+                usuario: userData.usuario,
+                pass: userData.pass,
+                nombre: userData.nombre,
+                correo: userData.correo,
+                cargo: userData.cargo
             }
             console.log(newDataUser) 
             enviarDatosUsuario(newDataUser);
@@ -39,38 +40,72 @@ export default function CreatePassword(userData){
     }
 
     function enviarDatosUsuario(data) {
-        console.log(data)
-        fetch('https://domoticloud.onrender.com/add/usu', {
-            // fetch('http://localhost:3000/add/usu', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                usu: "" ,
-                correo: data.email,
-                nombre: data.name,
-                cargo: "",
-                pass: data.pass
-            })
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Hubo un problema al realizar la solicitud.');
-            }
-            return response.json();
-        })
-        .then(user => {
-            console.log(user); 
-            user.forEach(element => {
-                localStorage.setItem("userData", element.correo);
-            });
-            navigate('/principal')
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
+        if(userData.idusuario!==""){
+            // fetch('https://domoticloud.onrender.com/changes/usu', {
+                fetch('http://localhost:3000/changes/usuario', {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        idusuario: data.idusuario,
+                        usuario: data.usuario ,
+                        pass: password,
+                        nombre: data.nombre,
+                        correo: data.correo,
+                        cargo: data.cargo
+                    })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Hubo un problema al realizar la solicitud.');
+                    }
+                    return response.json();
+                })
+                .then(user => {
+                    console.log(user)
+                    localStorage.setItem("userData", JSON.stringify(data.correo));
+                    navigate('/principal');
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+        else {
+            console.log(data)
+            // fetch('https://domoticloud.onrender.com/add/usu', {
+                fetch('http://localhost:3000/add/usu', {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        usuario: data.usuario ,
+                        pass: data.pass,
+                        nombre: data.nombre,
+                        correo: data.correo,
+                        cargo: data.cargo
+                    })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Hubo un problema al realizar la solicitud.');
+                    }
+                    return response.json();
+                })
+                .then(user => {
+                    console.log(user)
+                    localStorage.setItem("userData", JSON.stringify(data.correo));
+                    navigate('/principal');
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+
+        }
+        
     }
+    
     return(
         <div className="body-login">
             <div className="card">
