@@ -75,7 +75,6 @@ export default function Login() {
             'pass' : "",
             'workstation': ""
         };
-        console.log(userData);
         fetch('https://domoticloud.onrender.com/searches/idusu', {
             // fetch('http://localhost:3000/searches/idusu', {
             method: 'POST',
@@ -95,8 +94,8 @@ export default function Login() {
         .then(data => {
             if (data.length > 0) {
                 data.forEach(element => {
-                    console.log(element)
-                    if(element.pass === ""){
+                    if(element.pass === "" || element.pass===null || element.pass === undefined){
+                        console.log(element.pass)
                         localStorage.setItem("userData",JSON.stringify(userData));
                         navigate("/confirmPassword")
                     }

@@ -78,10 +78,10 @@ export default function EditUser({userData}){
       
     
       const handleSubmit = (event) => {
-        if (pass === ""){
-            alert("La contraseña no debe de estar vacía")
-        }
-        else{
+        // if (pass === ""){
+        //     alert("La contraseña no debe de estar vacía")
+        // }
+        // else{
         const newDataUser = {
             name: name,
             user: user,
@@ -112,12 +112,13 @@ export default function EditUser({userData}){
             return response.json();
         })
         .then(user => {
+            console.log(user)
         })
         .catch(error => {
             console.error('Error:', error);
         });
         localStorage.setItem('userData',JSON.stringify(newDataUser.email));
-      }};
+      };
     return(
         <div className="body-principal">
             <div className="header-principal">
