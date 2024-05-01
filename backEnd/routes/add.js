@@ -63,7 +63,7 @@ router.post('/usu', async (req, res) => {
                     try {                                   
                         const query1 = await itemsPool.query('UPDATE sensores SET valor = $1 where id_sensor = $2', [temp,idsensortemp]);
                         const query2 = await itemsPool.query('UPDATE sensores SET valor = $1 where id_sensor = $2', [hum,idsensorhum]);
-                        res.status(200).json({});
+                        res.status(200).json({"message":"Señales enviadas"});
                     } catch (error) {
                         console.error('Error al enviar señal:', error);
                         res.status(500).json({"message":"Error interno del servidor, los datos no son validos"});

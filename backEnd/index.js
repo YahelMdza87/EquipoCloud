@@ -34,6 +34,9 @@ app.use('/changes', changesRouter);
 import deleteRouter from './routes/delete.js';
 app.use('/delete', deleteRouter);
 
+import validationRouter from './routes/validation.js';
+app.use('/validation', validationRouter);
+
 app.listen(3000, () => {
     console.log('server started')
 });

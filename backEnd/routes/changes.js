@@ -117,7 +117,7 @@ router.patch('/sensor', async (req, res) => {
         } else {
                 try {                       
                     const result = await itemsPool.query('UPDATE sensores SET nombresensor = $1, fk_id_señal = $2 WHERE id_sensor = $3', [nuevosensor,idseñal,idsensor]);
-                    res.status(200).json({"messsage":"Sensor editada exitosamente"});
+                    res.status(200).json({"messsage":"Sensor editado exitosamente"});
                 } catch (error) {
                     console.error('Error al editar el sensor:', error);
                     res.status(500).json({"message":"Error interno del servidor al editar el sensor"});
