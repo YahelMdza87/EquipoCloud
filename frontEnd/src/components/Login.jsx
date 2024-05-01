@@ -22,8 +22,8 @@ export default function Login() {
     //Funcion por si el login se hace correctamente
     function handleSuccess() {
         const email = correo;
-        fetch('https://domoticloud.onrender.com/searches/idusu', {
-            // fetch('http://localhost:3000/searches/idusu', {
+        // fetch('https://domoticloud.onrender.com/searches/idusu', {
+            fetch('http://localhost:3000/searches/idusu', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -39,8 +39,20 @@ export default function Login() {
             return response.json();
         })
         .then(data => {
-            console.log(data); 
-            navigate('/principal')
+            if(data.length > 0){
+                data.forEach(element => {
+                    if(element.pass === password){
+                        localStorage.setItem("userData", JSON.stringify(email))
+                        navigate('/principal')
+                    }
+                    else{
+                        alert("Usuario y/o contraseña incorrectos")
+                    }
+                });
+            }
+            else{
+                alert("Usuario y/o contraseña incorrectos")
+            }
         })
         .catch(error => {
             console.error('Error:', error);
@@ -58,8 +70,44 @@ export default function Login() {
             'workstation': ""
         };
         console.log(userData);
-        localStorage.setItem("userData",JSON.stringify(userData));
-        navigate('/confirmPassword')
+        // fetch('https://domoticloud.onrender.com/searches/idusu', {
+            fetch('http://localhost:3000/searches/idusu', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                correo: credentialResponseDecoded.email
+            })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Hubo un problema al realizar la solicitud.');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.length > 0) {
+                data.forEach(element => {
+                    console.log(element)
+                    if(element.pass === ""){
+                        localStorage.setItem("userData",JSON.stringify(userData));
+                        navigate("/confirmPassword")
+                    }
+                    else{
+                        localStorage.setItem("userData",JSON.stringify(userData.email));
+                        navigate('/principal')
+                    }
+                });
+              } else {
+                localStorage.setItem("userData",JSON.stringify(userData));
+                navigate("/confirmPassword")
+              } 
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+        
     }
     return(
         

@@ -5,9 +5,12 @@ import Logo from "../assets/logo-domoticloud.png"
 import User from "../assets/user.png"
 
 export default function Principal({userData}) {
-  const [usuarios, setUsuarios] = useState([]);
-  const [numUsuarios, setNumUsuarios] = useState(0);
-  const [signals, setSignals] = useState([]);
+  // const [usuarios, setUsuarios] = useState([]);
+  // const [numUsuarios, setNumUsuarios] = useState(0);
+  // const [signals, setSignals] = useState([]);
+  const [name, setName] = useState("");
+  const [workstation, setWorkstation] = useState("");
+
   const navigate = useNavigate();
   
   //Usamos localStorage para obtener el usuario guardado en cookies
@@ -27,58 +30,38 @@ export default function Principal({userData}) {
   function toHelp() {
     navigate('/toHelp')
   }
-
+  function signOut() {
+    localStorage.removeItem("userData")
+    navigate('/')
+  }
+  
   useEffect(() => {
-    // fetch('http://localhost:3000/usuarios')
-    fetch('https://domoticloud.onrender.com/usuarios')
-      .then(response => response.json())
-      .then(data => setUsuarios(data))
-      .catch(error => console.error('Error fetching usuarios:', error));
-  
-    // fetch('http://localhost:3000/numusu')
-    fetch('https://domoticloud.onrender.com/numusu')
-      .then(response => response.json())
-      .then(data => setNumUsuarios(data))
-      .catch(error => console.error('Error fetching number of users:', error));
-
-      const obtenerSeñales = async () => {
-        try {
-          const response = await fetch('https://domoticloud.onrender.com/getallsignal', {
-          // const response = await fetch('http://localhost:3000/getallsignal', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              usu: 'Alan Montes'
-            })
-          });
-  
-          if (!response.ok) {
-            throw new Error('Hubo un problema al obtener las señales.');
-          }
-  
-          // Si la solicitud es exitosa, obtenemos los datos de la respuesta
-          const data = await response.json();
-          setSignals(data);
-        } catch (error) {
-          console.error('Error:', error);
-          // Manejar el error, por ejemplo, mostrar un mensaje al usuario
+    // fetch('https://domoticloud.onrender.com/searches/idusu', {
+        fetch('http://localhost:3000/searches/idusu', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            correo: userData
+        })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Hubo un problema al realizar la solicitud.');
         }
-      };
-  
-      // Llamar a la función para obtener las señales cuando el componente se monte
-      obtenerSeñales();
-
-      const intervalId = setInterval(obtenerSeñales, 2000);
-
-      // Limpiar el intervalo cuando el componente se desmonte
-      return () => clearInterval(intervalId);
-
-  }, []);
-
-
-  
+        return response.json();
+    })
+    .then(data => {
+        data.forEach(user => {
+            setName(user.nombre);
+            setWorkstation(user.cargo)
+        });
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}, []);
 
   return (
     <div className="body-principal">
@@ -89,8 +72,8 @@ export default function Principal({userData}) {
       </div>
       <div className="section-data-useraccount">
         <img src={User} alt="" className="user-image-userAccount" />
-        <h2 className="name-user-userAccount" >{userData.name}</h2>
-        <h2 className="name-role-userAccount">{userData.work}</h2>
+        <h2 className="name-user-userAccount" >{name}</h2>
+        <h2 className="name-role-userAccount">{workstation}</h2>
         <div className="btn-edit-data-user" onClick={toEditAccount}>Editar</div>
       </div>
       <div className="section-devices-userAccount">
@@ -121,14 +104,61 @@ export default function Principal({userData}) {
         <div style={{borderBottom:"solid #4b1e9e8c", padding:"3%"}} onClick={toHelp}>
           <h2>Acerca de</h2>
         </div>
-        <div style={{padding:"3%", paddingBottom:"0%"}} onClick={toHelp}>
+        <div style={{padding:"3%", paddingBottom:"0%"}} onClick={signOut}>
           <h2>Cerrar sesión</h2>
         </div>
       </div>
     </div>
   );
 }
+ // useEffect(() => {
+  //   // fetch('http://localhost:3000/usuarios')
+  //   fetch('https://domoticloud.onrender.com/usuarios')
+  //     .then(response => response.json())
+  //     .then(data => setUsuarios(data))
+  //     .catch(error => console.error('Error fetching usuarios:', error));
+  
+  //   // fetch('http://localhost:3000/numusu')
+  //   fetch('https://domoticloud.onrender.com/numusu')
+  //     .then(response => response.json())
+  //     .then(data => setNumUsuarios(data))
+  //     .catch(error => console.error('Error fetching number of users:', error));
 
+  //     const obtenerSeñales = async () => {
+  //       try {
+  //         const response = await fetch('https://domoticloud.onrender.com/getallsignal', {
+  //         // const response = await fetch('http://localhost:3000/getallsignal', {
+  //           method: 'POST',
+  //           headers: {
+  //             'Content-Type': 'application/json'
+  //           },
+  //           body: JSON.stringify({
+  //             usu: 'Alan Montes'
+  //           })
+  //         });
+  
+  //         if (!response.ok) {
+  //           throw new Error('Hubo un problema al obtener las señales.');
+  //         }
+  
+  //         // Si la solicitud es exitosa, obtenemos los datos de la respuesta
+  //         const data = await response.json();
+  //         setSignals(data);
+  //       } catch (error) {
+  //         console.error('Error:', error);
+  //         // Manejar el error, por ejemplo, mostrar un mensaje al usuario
+  //       }
+  //     };
+  
+  //     // Llamar a la función para obtener las señales cuando el componente se monte
+  //     obtenerSeñales();
+
+  //     const intervalId = setInterval(obtenerSeñales, 2000);
+
+  //     // Limpiar el intervalo cuando el componente se desmonte
+  //     return () => clearInterval(intervalId);
+
+  // }, []);
 
 {/* <table>
     <thead>

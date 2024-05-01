@@ -15,12 +15,46 @@ export default function EditUser({userData}){
     function toIndex(){
         navigate('/Principal')
     }
+    
+    const [id, setId] = useState(0);
+    const [name, setName] = useState("");
+    const [user, setUser] = useState("");
+    const [email, setEmail] = useState("");
+    const [pass, setPass] = useState("");
+    const [workstation, setWorkstation] = useState("");
 
-    const [name, setName] = useState(userData.name);
-    const [user, setUser] = useState(userData.user);
-    const [email, setEmail] = useState(userData.email);
-    const [pass, setPass] = useState(userData.pass);
-    const [workstation, setWorkstation] = useState(userData.work);
+    useEffect(() => {
+        // fetch('https://domoticloud.onrender.com/searches/idusu', {
+            fetch('http://localhost:3000/searches/idusu', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                correo: userData
+            })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Hubo un problema al realizar la solicitud.');
+            }
+            return response.json();
+        })
+        .then(data => {
+            data.forEach(user => {
+                console.log(user)
+                setId(user.idusuario)
+                setName(user.nombre);
+                setEmail(user.correo);
+                setPass(user.pass);
+                setUser(user.usuario);
+                setWorkstation(user.cargo);
+            });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }, []);
 
     const handleNameChange = (event) => {
         setName(event.target.value);
@@ -44,8 +78,10 @@ export default function EditUser({userData}){
       
     
       const handleSubmit = (event) => {
-        event.preventDefault();
-        // Aquí Alan, siento que puedes hacer mmds con tu base de datos
+        if (pass === ""){
+            alert("La contraseña no debe de estar vacía")
+        }
+        else{
         const newDataUser = {
             name: name,
             user: user,
@@ -53,10 +89,34 @@ export default function EditUser({userData}){
             pass: pass,
             work: workstation
         }
-        console.log(newDataUser);
-        localStorage.setItem('userData',JSON.stringify(newDataUser));
-        navigate('/userAccount')
-      };
+        event.preventDefault();
+        fetch('http://localhost:3000/changes/usuario', {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                idusuario: id,
+                usuario: user ,
+                pass: pass,
+                nombre: name,
+                correo: email,
+                cargo: workstation
+            })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Hubo un problema al realizar la solicitud.');
+            }
+            return response.json();
+        })
+        .then(user => {
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+        localStorage.setItem('userData',JSON.stringify(newDataUser.email));
+      }};
     return(
         <div className="body-principal">
             <div className="header-principal">
