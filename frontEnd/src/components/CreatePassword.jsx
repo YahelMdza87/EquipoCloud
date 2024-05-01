@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import React, { useState, useEffect } from 'react';
+const RouteChangeUser = import.meta.env.VITE_CHANGES_USUARIO || "http://localhost:3000/changes/usuario";
+const RouteAddUser = import.meta.env.VITE_ADD_USU || "http://localhost:3000/add/usu";
 
 export default function CreatePassword(userData){
     const [password, setPassword] = useState("");
@@ -41,8 +43,7 @@ export default function CreatePassword(userData){
 
     function enviarDatosUsuario(data) {
         if(userData.idusuario!==""){
-            // fetch('https://domoticloud.onrender.com/changes/usu', {
-                fetch('http://localhost:3000/changes/usuario', {
+                fetch(`${RouteChangeUser}`, {
                     method: 'PATCH',
                     headers: {
                         'Content-Type': 'application/json'
@@ -73,15 +74,14 @@ export default function CreatePassword(userData){
         }
         else {
             console.log(data)
-            // fetch('https://domoticloud.onrender.com/add/usu', {
-                fetch('http://localhost:3000/add/usu', {
-                    method: 'PATCH',
+                    fetch(`${RouteAddUser}`, {
+                    method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        usuario: data.usuario ,
-                        pass: data.pass,
+                        usu: data.usuario ,
+                        pass: password,
                         nombre: data.nombre,
                         correo: data.correo,
                         cargo: data.cargo

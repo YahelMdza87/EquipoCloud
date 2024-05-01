@@ -3,11 +3,12 @@ import Logo from "../assets/logo-domoticloud.png"
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import User from "../assets/user.png"
-
+const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || "http://localhost:3000/searches/idusu";
+const RoutegetSignals = import.meta.env.VITE_SEARCHES_ALLSIGNALS || "http://localhost:3000/searches/allsignals";
 export default function Principal({userData}) {
   const navigate = useNavigate();
   const [name, setName] = useState("");
-  const [signals,setSignals] = useState("");
+  const [signals,setSignals] = useState([]);
   //Usamos localStorage para obtener el usuario guardado en cookies
   const localStorageUser = JSON.parse(localStorage.getItem('userData'));
   if (localStorageUser){
@@ -20,15 +21,13 @@ export default function Principal({userData}) {
     navigate('/Principal')
   }
   useEffect(() => {
-    const id = 30;
-    // fetch('https://domoticloud.onrender.com/searches/allsignals', {
-        fetch('http://localhost:3000/searches/allsignals', {
+        fetch(`${RoutesearchUser}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            idusu: id
+            correo: userData
         })
     })
     .then(response => {
@@ -38,15 +37,49 @@ export default function Principal({userData}) {
         return response.json();
     })
     .then(data => {
-      setSignals(data)
+      data.forEach(element => {
+        setName(element.nombre)
+      });
     })
     .catch(error => {
         console.error('Error:', error);
     });
 }, []);
-function getAllSignals (){
-
-}
+  useEffect(() => {
+    const obtenerSeñales = async () => {
+      const id = 30;
+            try {
+              const response = await  fetch(`${RoutegetSignals}`, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  idusu: id
+                })
+              });
+      
+              if (!response.ok) {
+                throw new Error('Hubo un problema al obtener las señales.');
+              }
+      
+              // Si la solicitud es exitosa, obtenemos los datos de la respuesta
+              const data = await response.json();
+              setSignals(data);
+            } catch (error) {
+              console.error('Error:', error);
+              // Manejar el error, por ejemplo, mostrar un mensaje al usuario
+            }
+          };
+      
+          // Llamar a la función para obtener las señales cuando el componente se monte
+          obtenerSeñales();
+    
+          const intervalId = setInterval(obtenerSeñales, 2000);
+    
+          // Limpiar el intervalo cuando el componente se desmonte
+          return () => clearInterval(intervalId);
+}, []);
 
   return (
     <div className="body-principal">
@@ -56,7 +89,7 @@ function getAllSignals (){
         <img src={Logo} alt="" className="add-icon-principal" onClick={toIndex}/>
       </div>
       <div className="section-user-principal">
-        <h2 className="hello-user-principal" >Hola {name}</h2>
+        <h2 className="hello-user-principal">Hola {name}</h2>
       </div>
       <div className="section-devices-principal">
         <h1 style={{marginLeft:"2%", marginTop:"1%"}}>Zonas</h1>
@@ -67,7 +100,6 @@ function getAllSignals (){
         
       </div>
       <div>
-        <button onClick={getAllSignals}>Obtener señales</button>
         <div>
           <table>
             <thead>
@@ -80,7 +112,7 @@ function getAllSignals (){
               </tr>
             </thead>
             <tbody>
-              {/* {signals.map((signal, index) => (
+              {signals.map((signal, index) => (
                 <tr key={index}>
                   <td>{signal.nombrezona}</td>
                   <td>{signal.cuarto}</td>
@@ -88,7 +120,7 @@ function getAllSignals (){
                   <td>{signal.señal}</td>
                   <td>{signal.valor}</td>
                 </tr>
-              ))} */}
+              ))}
             </tbody>
           </table>
 

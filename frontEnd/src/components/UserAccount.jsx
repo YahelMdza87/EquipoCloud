@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import Logo from "../assets/logo-domoticloud.png"
 import User from "../assets/user.png"
+const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || "http://localhost:3000/searches/idusu";
 
 export default function Principal({userData}) {
   // const [usuarios, setUsuarios] = useState([]);
@@ -36,8 +37,7 @@ export default function Principal({userData}) {
   }
   
   useEffect(() => {
-    // fetch('https://domoticloud.onrender.com/searches/idusu', {
-        fetch('http://localhost:3000/searches/idusu', {
+      fetch(`${RoutesearchUser}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

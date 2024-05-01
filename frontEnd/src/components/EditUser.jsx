@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import Logo from "../assets/logo-domoticloud.png"
 import Back from "../assets/to-back.png"
 import User from "../assets/user.png"
+const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || "http://localhost:3000/searches/idusu";
+
 export default function EditUser({userData}){
     const navigate = useNavigate();
     const localStorageUser = JSON.parse(localStorage.getItem('userData'));
@@ -25,7 +27,7 @@ export default function EditUser({userData}){
 
     useEffect(() => {
         // fetch('https://domoticloud.onrender.com/searches/idusu', {
-            fetch('http://localhost:3000/searches/idusu', {
+            fetch(`${RoutesearchUser}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
