@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import Logo from "../assets/logo-domoticloud.png"
 import Back from "../assets/to-back.png"
-
+import User from "../assets/user.png"
 export default function EditUser({userData}){
     const navigate = useNavigate();
     const localStorageUser = JSON.parse(localStorage.getItem('userData'));
@@ -51,8 +51,7 @@ export default function EditUser({userData}){
             user: user,
             email: email,
             pass: pass,
-            work: workstation,
-            image: userData.image
+            work: workstation
         }
         console.log(newDataUser);
         localStorage.setItem('userData',JSON.stringify(newDataUser));
@@ -62,14 +61,14 @@ export default function EditUser({userData}){
         <div className="body-principal">
             <div className="header-principal">
                 <h2 className="header-title-principal">Domoticloud</h2>
-                <img src={userData.image} alt="" className="user-image-principal" onClick={toUserAccount}/>
+                <img src={User} alt="" className="user-image-principal" onClick={toUserAccount}/>
                 <img src={Logo} alt="" className="add-icon-principal" onClick={toIndex}/>
             </div>
             <div>
                 <img src={Back} alt="" style={{width:"9%",borderBottom:"1px solid #ba98ff69",borderRight:"1px solid #ba98ff69"}} onClick={toUserAccount} />
             </div>
             <div className="section-data-useraccount">
-                <img src={userData.image} alt="" className="user-image-userAccount" />
+                <img src={User} alt="" className="user-image-userAccount" />
                 <h2 className="name-user-userAccount" >{name}</h2>
                 <h2 className="name-role-userAccount">{workstation}</h2>
             </div>

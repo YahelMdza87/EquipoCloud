@@ -2,7 +2,7 @@ import Agregar from "../assets/add-device.png"
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import Logo from "../assets/logo-domoticloud.png"
-
+import User from "../assets/user.png"
 
 export default function Principal({userData}) {
   const [usuarios, setUsuarios] = useState([]);
@@ -29,22 +29,22 @@ export default function Principal({userData}) {
   }
 
   useEffect(() => {
-    fetch('http://localhost:3000/usuarios')
-    // fetch('https://domoticloud.onrender.com/usuarios')
+    // fetch('http://localhost:3000/usuarios')
+    fetch('https://domoticloud.onrender.com/usuarios')
       .then(response => response.json())
       .then(data => setUsuarios(data))
       .catch(error => console.error('Error fetching usuarios:', error));
   
-    fetch('http://localhost:3000/numusu')
-    // fetch('https://domoticloud.onrender.com/numusu')
+    // fetch('http://localhost:3000/numusu')
+    fetch('https://domoticloud.onrender.com/numusu')
       .then(response => response.json())
       .then(data => setNumUsuarios(data))
       .catch(error => console.error('Error fetching number of users:', error));
 
       const obtenerSeñales = async () => {
         try {
-          // const response = await fetch('https://domoticloud.onrender.com/getallsignal', {
-          const response = await fetch('http://localhost:3000/getallsignal', {
+          const response = await fetch('https://domoticloud.onrender.com/getallsignal', {
+          // const response = await fetch('http://localhost:3000/getallsignal', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -84,11 +84,11 @@ export default function Principal({userData}) {
     <div className="body-principal">
       <div className="header-principal">
         <h2 className="header-title-principal">Domoticloud</h2>
-        <img src={userData.image} alt="" className="user-image-principal" onClick={toUserAccount}/>
+        <img src={User} alt="" className="user-image-principal" onClick={toUserAccount}/>
         <img src={Logo} alt="" className="add-icon-principal" onClick={toIndex}/>
       </div>
       <div className="section-data-useraccount">
-        <img src={userData.image} alt="" className="user-image-userAccount" />
+        <img src={User} alt="" className="user-image-userAccount" />
         <h2 className="name-user-userAccount" >{userData.name}</h2>
         <h2 className="name-role-userAccount">{userData.work}</h2>
         <div className="btn-edit-data-user" onClick={toEditAccount}>Editar</div>

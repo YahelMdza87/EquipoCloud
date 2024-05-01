@@ -7,35 +7,18 @@ import '../App.css';
 
 export default function Login() {
     const navigate = useNavigate();
+    const [correo, setCorreo] = useState("");
+    const [password, setPassword] = useState("");
     //Cuando se rendereize el componente, comprobara si hay datos de usuario ya guardados en localStorage, si es así, direccionará automaticamente a /principal.jsx
 
-    // function enviarDatosUsuario(userData,userEmail) {
-        
-    //     fetch('https://domoticloud.onrender.com/usu', {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify({
-    //             usu: userData ,
-    //             correo: userEmail
-    //         })
-    //     })
-    //     .then(response => {
-    //         if (!response.ok) {
-    //             throw new Error('Hubo un problema al realizar la solicitud.');
-    //         }
-    //         return response.json();
-    //     })
-    //     .then(data => {
-    //         console.log(data); // Hacer algo con la respuesta del servidor si es necesario
-    //     })
-    //     .catch(error => {
-    //         console.error('Error:', error);
-    //     });
-    // }
     function toSignIn(){
         navigate('/signIn')
+    }
+    const handleEmail = (event) => {
+        setPassword(event.target.value)   
+    }
+    const handlePassword = (event) => {
+        setCPassword(event.target.value)   
     }
     //Funcion por si el login se hace correctamente
     function handleSuccess(credentialResponse) {
@@ -46,12 +29,11 @@ export default function Login() {
             'user' : "",
             'email' : credentialResponseDecoded.email,
             'pass' : "",
-            'workstation': "",
-            'image' : credentialResponseDecoded.picture
+            'workstation': ""
         };
         console.log(userData);
         localStorage.setItem("userData",JSON.stringify(userData));
-        navigate('/principal')
+        navigate('/confirmPassword')
     }
     return(
         
@@ -61,11 +43,11 @@ export default function Login() {
                 <div className="login-email-password">
                     <div>
                         <h3 className="title-data-login">Correo:</h3>
-                        <input className='input-login' type="text" placeholder='Correo...' />
+                        <input className='input-login' type="text" value={correo} onChange={handleEmail} placeholder='Correo...' />
                     </div>
                     <div>
                         <h3 className="title-data-login">Password:</h3>
-                        <input className='input-login' style={{marginBottom: "5%"}} type="text" placeholder='Password...' />
+                        <input className='input-login' style={{marginBottom: "5%"}} type="text" value={password} onChange={handlePassword} placeholder='Password...' />
                     </div>
                     <div>
                         <a href="" onClick={toSignIn}>¿No tienes cuenta? Crafteate una.</a>

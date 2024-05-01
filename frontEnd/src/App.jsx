@@ -13,6 +13,7 @@ import EditUser from './components/EditUser'
 import SignIn from './components/SignIn';
 import NotFound from './components/NotFound';
 import Maintenance from './components/Maintenance';
+import CreatePassword from './components/CreatePassword';
 const URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000/users";
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Routes>
           {/* Les pasamos las funciones para que las puedan llamar correctamente */}
             <Route path="/" element={<Login/>} />
+            <Route path="/confirmPassword" element={<CreatePassword/>}/>
             <Route path="/principal" element={<Principal/>} />
             <Route path="/userAccount" element={<UserAccount/>} />
             <Route path="/editUser" element={<EditUser/>} />
