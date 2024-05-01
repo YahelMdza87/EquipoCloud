@@ -9,30 +9,36 @@ export default function SignIn() {
     const navigate = useNavigate();
     //Cuando se rendereize el componente, comprobara si hay datos de usuario ya guardados en localStorage, si es así, direccionará automaticamente a /principal.jsx
 
-    // function enviarDatosUsuario(Email) {
-        
-    //     fetch('https://domoticloud.onrender.com/usu', {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify({
-    //             usu:   //             correo: userEmail
-    //         })
-    //     })
-    //     .then(response => {
-    //         if (!response.ok) {
-    //             throw new Error('Hubo un problema al realizar la solicitud.');
-    //         }
-    //         return response.json();
-    //     })
-    //     .then(data => {
-    //         console.log(data); // Hacer algo con la respuesta del servidor si es necesario
-    //     })
-    //     .catch(error => {
-    //         console.error('Error:', error);
-    //     });
-    // }
+    function enviarDatosUsuario(data) {
+        console.log(data)
+        // fetch('https://domoticloud.onrender.com/add/usu', {
+            fetch('http://localhost:3000/add/usu', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                usu: data.usu ,
+                correo: data.correo,
+                nombre: data.nombre,
+                cargo: data.cargo,
+                pass: data.pass
+            })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Hubo un problema al realizar la solicitud.');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data); 
+            navigate('/')
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
     function toLogin () {
         navigate('/');
     }
@@ -71,15 +77,14 @@ export default function SignIn() {
     function handleSuccess() {
         if (email===confirmEmail && password===confirmPassword){
             const newUser = {
-                'name' :        name,
-                'user' :        user,
-                'email' :       email,
-                'pass' :        password,
-                'workstation' : workstation,
-                'image' : "https://img.freepik.com/vector-premium/icono-circulo-usuario-anonimo-ilustracion-vector-estilo-plano-sombra_520826-1931.jpg"
+                usu : user,
+                correo : email,
+                nombre : name,
+                cargo : workstation,
+                pass : password
             }
             localStorage.setItem('userData', newUser);       
-            navigate('/')
+            enviarDatosUsuario(newUser);
         }
         else{
             alert("El correo y al contraseña deben de coincidir")
