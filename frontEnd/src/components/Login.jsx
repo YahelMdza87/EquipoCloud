@@ -22,8 +22,8 @@ export default function Login() {
     //Funcion por si el login se hace correctamente
     function handleSuccess() {
         const email = correo;
-        // fetch('https://domoticloud.onrender.com/add/usu', {
-            fetch('http://localhost:3000/searches/idusu', {
+        fetch('https://domoticloud.onrender.com/searches/idusu', {
+            // fetch('http://localhost:3000/searches/idusu', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
