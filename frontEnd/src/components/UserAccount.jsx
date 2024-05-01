@@ -29,22 +29,22 @@ export default function Principal({userData}) {
   }
 
   useEffect(() => {
-    fetch('http://localhost:3000/usuarios')
-    // fetch('https://domoticloud.onrender.com/usuarios')
+    // fetch('http://localhost:3000/usuarios')
+    fetch('https://domoticloud.onrender.com/usuarios')
       .then(response => response.json())
       .then(data => setUsuarios(data))
       .catch(error => console.error('Error fetching usuarios:', error));
   
-    fetch('http://localhost:3000/numusu')
-    // fetch('https://domoticloud.onrender.com/numusu')
+    // fetch('http://localhost:3000/numusu')
+    fetch('https://domoticloud.onrender.com/numusu')
       .then(response => response.json())
       .then(data => setNumUsuarios(data))
       .catch(error => console.error('Error fetching number of users:', error));
 
       const obtenerSeñales = async () => {
         try {
-          // const response = await fetch('https://domoticloud.onrender.com/getallsignal', {
-          const response = await fetch('http://localhost:3000/getallsignal', {
+          const response = await fetch('https://domoticloud.onrender.com/getallsignal', {
+          // const response = await fetch('http://localhost:3000/getallsignal', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

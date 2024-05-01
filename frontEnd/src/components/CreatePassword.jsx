@@ -39,8 +39,8 @@ export default function CreatePassword(userData){
     }
     function enviarDatosUsuario(data) {
         console.log(data)
-        // fetch('https://domoticloud.onrender.com/add/usu', {
-            fetch('http://localhost:3000/add/usu', {
+        fetch('https://domoticloud.onrender.com/add/usu', {
+            // fetch('http://localhost:3000/add/usu', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
