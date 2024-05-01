@@ -50,7 +50,7 @@ router.delete('/colaborador', async (req, res) => {
                 }   
 });
 
-//RUTA PARA ELIMINAR COLABORADORES
+//RUTA PARA ELIMINAR COMUNIDAD
 router.delete('/comunidad', async (req, res) => {
     const idcomu = req.body.idcomu; 
                 try {                       
