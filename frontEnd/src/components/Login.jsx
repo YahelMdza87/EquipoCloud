@@ -23,8 +23,8 @@ export default function Login() {
     function handleSuccess() {
         const email = correo;
         if (email !== "" && password !== ""){
-             fetch('https://domoticloud.onrender.com/searches/idusu', {
-                // fetch('http://localhost:3000/searches/idusu', {
+            //  fetch('https://domoticloud.onrender.com/searches/idusu', {
+                fetch('http://localhost:3000/searches/idusu', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -75,8 +75,8 @@ export default function Login() {
             'pass' : "",
             'workstation': ""
         };
-        fetch('https://domoticloud.onrender.com/searches/idusu', {
-            // fetch('http://localhost:3000/searches/idusu', {
+        // fetch('https://domoticloud.onrender.com/searches/idusu', {
+            fetch('http://localhost:3000/searches/idusu', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -95,8 +95,16 @@ export default function Login() {
             if (data.length > 0) {
                 data.forEach(element => {
                     if(element.pass === "" || element.pass===null || element.pass === undefined){
-                        console.log(element.pass)
-                        localStorage.setItem("userData",JSON.stringify(userData));
+                        const newData = {
+                            idusuario: element.idusuario,
+                            usuario: element.usuario,
+                            pass: element.pass,
+                            nombre: element.nombre,
+                            correo: element.correo,
+                            cargo: element.cargo
+                        }
+                        console.log(newData,"------")
+                        localStorage.setItem("userData",JSON.stringify(newData));
                         navigate("/confirmPassword")
                     }
                     else{
@@ -105,7 +113,15 @@ export default function Login() {
                     }
                 });
               } else {
-                localStorage.setItem("userData",JSON.stringify(userData));
+                const newData = {
+                    idusuario: "",
+                    usuario: "",
+                    pass: "",
+                    nombre: userData.name,
+                    correo: userData.email,
+                    cargo: ""
+                }
+                localStorage.setItem("userData",JSON.stringify(newData));
                 navigate("/confirmPassword")
               } 
         })
