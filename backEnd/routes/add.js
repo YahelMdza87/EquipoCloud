@@ -12,8 +12,8 @@ router.post('/usu', async (req, res) => {
         const cargo = req.body.cargo;  
         const pass = req.body.pass;  
         //validacion de correo y usuario no vacios
-        if (usu.trim() === "" || correo.trim() === "" || pass.trim() === "") {
-            res.status(200).json({"messsage":"Tu usuario o correo no puede estar vacio"});
+        if (correo.trim() === "" || pass.trim() === "") {
+            res.status(200).json({"messsage":"Tu password o correo no puede estar vacio"});
             return;
         } else {
 
