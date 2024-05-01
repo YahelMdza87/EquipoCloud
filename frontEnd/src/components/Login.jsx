@@ -22,41 +22,47 @@ export default function Login() {
     //Funcion por si el login se hace correctamente
     function handleSuccess() {
         const email = correo;
-        // fetch('https://domoticloud.onrender.com/searches/idusu', {
-            fetch('http://localhost:3000/searches/idusu', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                correo: email
-            })
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Hubo un problema al realizar la solicitud.');
-            }
-            return response.json();
-        })
-        .then(data => {
-            if(data.length > 0){
-                data.forEach(element => {
-                    if(element.pass === password){
-                        localStorage.setItem("userData", JSON.stringify(email))
-                        navigate('/principal')
+        if (email !== "" && password !== ""){
+             // fetch('https://domoticloud.onrender.com/searches/idusu', {
+                fetch('http://localhost:3000/searches/idusu', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        correo: email
+                    })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Hubo un problema al realizar la solicitud.');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if(data.length > 0){
+                        data.forEach(element => {
+                            if(element.pass === password){
+                                localStorage.setItem("userData", JSON.stringify(email))
+                                navigate('/principal')
+                            }
+                            else{
+                                alert("Usuario y/o contraseña incorrectos")
+                            }
+                        });
                     }
                     else{
                         alert("Usuario y/o contraseña incorrectos")
                     }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
                 });
-            }
-            else{
-                alert("Usuario y/o contraseña incorrectos")
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
+        }
+        else {
+            alert('No dejes campos vacíos')
+        }
+       
     }
     //Funcion por si el login se hace correctamente
     function handleSuccessGoogle(credentialResponse) {
