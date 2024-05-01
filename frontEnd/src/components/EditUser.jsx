@@ -24,8 +24,8 @@ export default function EditUser({userData}){
     const [workstation, setWorkstation] = useState("");
 
     useEffect(() => {
-        // fetch('https://domoticloud.onrender.com/searches/idusu', {
-            fetch('http://localhost:3000/searches/idusu', {
+        fetch('https://domoticloud.onrender.com/searches/idusu', {
+            // fetch('http://localhost:3000/searches/idusu', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -90,7 +90,8 @@ export default function EditUser({userData}){
             work: workstation
         }
         event.preventDefault();
-        fetch('http://localhost:3000/changes/usuario', {
+        fetch('https://domoticloud.onrender.com/changes/usuario', {
+        // fetch('http://localhost:3000/changes/usuario', {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'

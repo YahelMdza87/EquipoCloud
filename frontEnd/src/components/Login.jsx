@@ -23,8 +23,8 @@ export default function Login() {
     function handleSuccess() {
         const email = correo;
         if (email !== "" && password !== ""){
-             // fetch('https://domoticloud.onrender.com/searches/idusu', {
-                fetch('http://localhost:3000/searches/idusu', {
+             fetch('https://domoticloud.onrender.com/searches/idusu', {
+                // fetch('http://localhost:3000/searches/idusu', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -76,8 +76,8 @@ export default function Login() {
             'workstation': ""
         };
         console.log(userData);
-        // fetch('https://domoticloud.onrender.com/searches/idusu', {
-            fetch('http://localhost:3000/searches/idusu', {
+        fetch('https://domoticloud.onrender.com/searches/idusu', {
+            // fetch('http://localhost:3000/searches/idusu', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

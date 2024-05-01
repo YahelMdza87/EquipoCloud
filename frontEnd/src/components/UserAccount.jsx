@@ -36,8 +36,8 @@ export default function Principal({userData}) {
   }
   
   useEffect(() => {
-    // fetch('https://domoticloud.onrender.com/searches/idusu', {
-        fetch('http://localhost:3000/searches/idusu', {
+    fetch('https://domoticloud.onrender.com/searches/idusu', {
+        // fetch('http://localhost:3000/searches/idusu', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
