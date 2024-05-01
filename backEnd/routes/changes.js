@@ -2,6 +2,32 @@ import express from 'express';
 const router = express.Router();
 import { itemsPool } from '../index.js';
 
+//RUTA PARA EDITAR USUARIO
+router.patch('/usuario', async (req, res) => {
+    try{
+        const idusuario = req.body.idusuario; 
+        const usuario = req.body.usuario; 
+        const pass = req.body.pass; 
+        const nombre = req.body.nombre; 
+        const correo = req.body.correo; 
+        const cargo = req.body.cargo; 
+            if (usu.trim() === "" || correo.trim() === "" || pass.trim() === "") {
+                res.status(200).json({"messsage":"Tu usuario, correo  o contraseña no puede estar vacio"});
+                return;
+            } else {
+                try {                       
+                    const result = await itemsPool.query('UPDATE usuarios SET usuario = $1, correo = $2, nombre = $3, cargo = $4, constraseña = $5 WHERE idusuario = $6', [usuario,correo,nombre,cargo,pass,idusuario]);
+                    res.status(200).json({"messsage":"Usuario editado exitosamente"});
+                } catch (error) {
+                    console.error('Error al editar la zona:', error);
+                    res.status(500).json({"message":"Error interno del servidor al editar la zona"});
+                }   
+            }
+    }catch(error){
+        res.status(500).json({"message":"Error interno del servidor al obtener cabecera de datos"});
+    }
+});
+
 //RUTA PARA EDITAR ZONAS
 router.patch('/zona', async (req, res) => {
     const idzona = req.body.idzona; 
