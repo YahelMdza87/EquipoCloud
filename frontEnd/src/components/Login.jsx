@@ -3,7 +3,7 @@ import { jwtDecode } from "jwt-decode";
 import React, { useState, useEffect } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 import '../App.css';
-
+const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || "http://localhost:3000/searches/idusu";
 export default function Login() {
     const navigate = useNavigate();
     const [correo, setEmail] = useState("");
@@ -23,8 +23,7 @@ export default function Login() {
     function handleSuccess() {
         const email = correo;
         if (email !== "" && password !== ""){
-            //  fetch('https://domoticloud.onrender.com/searches/idusu', {
-                fetch('http://localhost:3000/searches/idusu', {
+                fetch(`${RoutesearchUser}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -75,8 +74,7 @@ export default function Login() {
             'pass' : "",
             'workstation': ""
         };
-        // fetch('https://domoticloud.onrender.com/searches/idusu', {
-            fetch('http://localhost:3000/searches/idusu', {
+        fetch(`${RoutesearchUser}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

@@ -21,7 +21,7 @@ const googlecredencial = import.meta.env.VITE_CREDENCIAL_GOOGLE
 function App() {
   return (
     <BrowserRouter>
-      <GoogleOAuthProvider clientId={googlecredencial}>
+      <GoogleOAuthProvider clientId={`${googlecredencial}`}>
         <Routes>
           {/* Les pasamos las funciones para que las puedan llamar correctamente */}
             <Route path="/" element={<Login/>} />
