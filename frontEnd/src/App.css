@@ -67,7 +67,7 @@ h1,h2,h3,h4{
 .title-data-login{
   text-align: left;
   margin-bottom: 2%;
-  color: #BB98FF;
+  color: #ba98ff69;
   font-size: 1.4vw;
 }
 .input-login{
@@ -180,6 +180,8 @@ h1,h2,h3,h4{
  width: 30%;
 }
 
+
+
 @media only screen and (max-width: 768px) {
   /* #DDCBFF
  #8A2BE2
@@ -196,14 +198,22 @@ h1,h2,h3,h4{
    height: 100%;
    background-color: #4A1E9E;
  }
+ 
  .card {
  padding: 6vw;
  border-radius: 10px;
- height: 25%;
+ height: auto;
  width: 60%;
  background-color: white;
  }
- h1,h2,h3,h4{
+ .card-signIn {
+  padding: 1vw;
+  border-radius: 10px;
+  height: auto;
+  width: 60%;
+  background-color: white;
+  }
+ h1,h2,h3,h4,label{
    color: #4A1E9E;
  }
  .title-login{
@@ -229,8 +239,11 @@ h1,h2,h3,h4{
    border: 0;
    border-radius: 10px;
    color: #4A1E9E;
-   width: 100%;
+   width: 95%;
    border-bottom: solid #BB98FF;
+ }
+ .login-email-password {
+  padding: 3vw;
  }
  .login-email-password a{
   font-size: 2.2vw;
@@ -246,15 +259,11 @@ h1,h2,h3,h4{
    width: 100%;
    background-color: #4A1E9E;
    display: grid;
+   position: sticky;
+   top: 0;
    grid-template-columns: repeat(3,1fr);
  }
- .header-principal{
-  height: 7%;
-  width: 100%;
-  background-color: #4A1E9E;
-  display: grid;
-  grid-template-columns: 20%, 60%,20%;
-}
+
 .header-title-principal{
   grid-column: 2;
   grid-row: 1;
@@ -338,4 +347,90 @@ h1,h2,h3,h4{
  height: 50%;
  width: 30%;
 }
+/* User Account */
+.name-user-userAccount{
+  font-size: 4.5vw;
+  grid-column: 2;
+  grid-row: 3;
+  align-self: center;
+}
+.section-data-useraccount{
+  display: grid;
+  grid-template-columns: 50% 50%;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  height: auto;
+  padding: 6%;
+}
+.user-image-userAccount{
+  border-radius: 51px;
+  grid-column: 1;
+  margin-right: 3%;
+  grid-row: 1/8;
+  justify-self: right;
+}
+.name-role-userAccount{
+  color: #7a7a7a88;
+  font-size: 4vw;
+  align-self: start;
+  grid-column: 2;
+  grid-row: 4;
+}
+
+.btn-edit-data-user{
+  width: 30%;
+  text-align: center;
+  border-radius: 20px;
+  align-self: start;
+  grid-column: 2;
+  grid-row: 5;
+  background-color: #4A1E9E;
+}
+.section-devices-userAccount{
+  border-top: solid #4b1e9e13;
+  width: auto;
+  height: auto;
+  margin-left: 1%;
+ }
+
+.add-zone-userAccount{
+  margin-bottom: 4%;
+  width: auto;
+  height: auto;
+  border-radius: 19px;
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  grid-template-rows: 33% 33% 33%;
+  background-color: #DDCBFF;
+}
+.add-zone-userAccount:hover{
+  background-color: #4A1E9E;
+  cursor: pointer;
+}
+.add-zone-icon-userAccount{
+  grid-row: 1;
+  grid-column: 1;
+  width: 100%;
+}
+.add-zone-text-userAccount{
+  grid-row: 3;
+  align-self: flex-end;
+  margin: 20%;
+  grid-column:1 / 2;
+  font-size: 2.6vw;
+  
+  white-space: nowrap;
+}
+
+.btn-submit-data-user{
+  width: auto;
+  padding: 5%;
+  border: 0;
+  text-align: center;
+  border-radius: 20px;
+  margin-top: 2%;
+  background-color: #4A1E9E;
+}
+
 }
