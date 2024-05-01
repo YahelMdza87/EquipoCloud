@@ -37,10 +37,11 @@ export default function CreatePassword(userData){
             alert("Las contraseñas no coinciden")
         }
     }
+
     function enviarDatosUsuario(data) {
         console.log(data)
-        fetch('https://domoticloud.onrender.com/add/usu', {
-            // fetch('http://localhost:3000/add/usu', {
+        // fetch('https://domoticloud.onrender.com/add/usu', {
+            fetch('http://localhost:3000/add/usu', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -59,8 +60,11 @@ export default function CreatePassword(userData){
             }
             return response.json();
         })
-        .then(data => {
-            console.log(data); 
+        .then(user => {
+            console.log(user); 
+            user.forEach(element => {
+                localStorage.setItem("userData", element.correo);
+            });
             navigate('/principal')
         })
         .catch(error => {
