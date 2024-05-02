@@ -3,6 +3,7 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import './Omar.css'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import './components/Login'
 import { GoogleOAuthProvider } from '@react-oauth/google'
@@ -14,6 +15,9 @@ import SignIn from './components/SignIn';
 import NotFound from './components/NotFound';
 import Maintenance from './components/Maintenance';
 import CreatePassword from './components/CreatePassword';
+import OmarUno from './components/OmarUno';
+import OmarDos from './components/OmarDos';
+import OmarTres from './components/OmarTres';
 const URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000/users";
 
 const googlecredencial = import.meta.env.VITE_CREDENCIAL_GOOGLE
@@ -32,6 +36,9 @@ function App() {
             <Route path="/signIn" element={<SignIn/>} />
             <Route path="/toHelp" element={<Maintenance/>} />
             <Route path='/*' element={<NotFound/>}></Route>
+            <Route path='/omarUno' element={<OmarUno/>}></Route>
+            <Route path='/omarDos' element={<OmarDos/>}></Route>
+            <Route path='/omarTres' element={<OmarTres/>}></Route>
           </Routes>
       </GoogleOAuthProvider>
     </BrowserRouter>
