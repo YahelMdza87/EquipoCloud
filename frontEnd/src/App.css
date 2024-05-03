@@ -242,6 +242,7 @@ h1,h2,h3,h4{
    width: 95%;
    border-bottom: solid #BB98FF;
  }
+ 
  .login-email-password {
   padding: 3vw;
  }
@@ -308,8 +309,8 @@ h1,h2,h3,h4{
 }
 .section-devices-principal{
  border-top: solid #4b1e9e13;
- width: 98%;
- height: 30%;
+ width: 100%;
+ height: auto;
  margin-left: 1%;
 }
 .div-add-zone-principal{
@@ -338,6 +339,33 @@ h1,h2,h3,h4{
   margin: 19%;
   white-space: nowrap;
 }
+.background-principal{
+  top: 0;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1e0944c7;
+  height: 100%;
+  width: 100%;
+}
+.card-principal{
+  padding: 4%;
+  width: 70%;
+  height: auto;
+  border-radius: 35px;
+  background-color: white;
+}
+.list-principal{
+  margin-top: 1%;
+  background-color: #DDCBFF;
+  width: 100%;
+  border-radius: 5px;
+ }
+ .list-principal option:hover{
+  background-color: #4A1E9E;
+ }
+
 .see-users-principal{
  background-color: #4A1E9E;
  color: white;
