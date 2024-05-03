@@ -1,17 +1,63 @@
 import "../App.css"
 import React, { useState, useEffect } from 'react';
-export default function CreateZoneForm({onClose}){
+
+const RouteAddZone = import.meta.env.VITE_ADD_ZONA || "http://localhost:3000/add/zona"
+
+export default function CreateZoneForm({onClose, id}){
     const [zoneName, setZoneName] = useState("");
     const [typeZone, setTypeZone] = useState("");
-
     const handleEmail = (event) => {
         setZoneName(event.target.value)   
     }
     const handleZone = (event) => {
         setTypeZone(event.target.value);
+        
       };
     function handleSuccess(){
-        
+        if(zoneName!=="" && typeZone!==""){
+            let idEdificio = 0;
+            if(typeZone==="casa"){
+                idEdificio="1";
+            }
+            else if(typeZone==="oficina"){
+                idEdificio="2";
+            }
+            else if (typeZone==="bodega"){
+                idEdificio="3";
+            }
+            else if (typeZone==="plaza"){
+                idEdificio="4";
+            }
+            else {
+                idEdificio="5";
+            }
+            fetch(`${RouteAddZone}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                nombrezona: zoneName,
+                idusu: JSON.stringify(id.idUser),
+                idtipoedificio: idEdificio
+            })
+            })
+            .then(response => {
+                if(!response.ok){
+                    throw new Error('Hubo un problema al realizar la solicitud')
+                }
+                return response.json();
+            })
+            .then(data=> {
+                console.log("Zona creada con exito");
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });     
+        }
+        else{
+            alert("Debes de llenar todos los campos");
+        }
     }
 
     return(
@@ -27,9 +73,12 @@ export default function CreateZoneForm({onClose}){
                         <h3 className="title-data-login">Tipo de zona:</h3>
                         <select className="list-principal" value={typeZone} onChange={handleZone}>
                             <option value="">Seleccionar...</option>
-                            <option value="opcion1">casa</option>
-                            <option value="opcion2">oficina</option>
-                            <option value="opcion3">almacen</option>
+                            <option value="casa">Casa</option>
+                            <option value="oficina">Oficina</option>
+                            <option value="bodega">Bodega</option>
+                            <option value="plaza">Plaza</option>
+                            <option value="almacen">Almacen</option>
+                            <option value="plaza grandota">Plaza grandota</option>
                         </select>
                     </div>
                     <div style={{marginTop:"5%", display:"flex", justifyContent:"center", textWrap:"nowrap"}}>
