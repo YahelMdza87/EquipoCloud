@@ -235,5 +235,4 @@ router.post('/colaborador', async (req, res) => {
 
 
 
-
 export default router;
