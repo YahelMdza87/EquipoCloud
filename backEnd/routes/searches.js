@@ -185,4 +185,22 @@ router.post('/sensors', async(req, res) => {
     }
 });
 
+//RUTA PARA LECTURA DE FOCO
+router.post('/rele', async(req, res) => {
+    try{
+    const idsensor = req.body.idsensor; 
+        try {                                   
+            const result = await itemsPool.query('select valor from sensores where id_sensor = $1',[idsensor]);
+            res.status(200).json(result.rows);
+        } catch (error) {
+            console.error('Error al obtener la señal:', error);
+            res.status(500).json({"message":"Error al obtener la señal"});
+        }  
+    }catch(error){
+        res.status(500).json({"message":"Error interno del servidor al obtener cabecera de datos"});
+    }
+});
+
+
+
 export default router;
