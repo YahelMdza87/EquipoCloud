@@ -194,4 +194,26 @@ router.patch('/signal', async (req, res) => {
     }  
 });
 
+//RUTA PARA CAMBIAR ESTADO DEL RELE
+router.patch('/rele', async (req, res) => {
+    try{
+    const idsensor = req.body.idsensor;
+            try {                                   
+                const query1 = await itemsPool.query('select valor from sensores where id_sensor = $1', [idsensor]);
+                if(parseInt(query1.rows[0].valor) === parseInt(0)){
+                    const query2 = await itemsPool.query("UPDATE sensores SET valor = '1' where id_sensor = $1",[idsensor]);
+                    res.status(200).json({"message":"Señales enviadas, sensor encendido"});
+                }else{
+                    const query2 = await itemsPool.query("UPDATE sensores SET valor = '0' where id_sensor = $1",[idsensor]);
+                    res.status(200).json({"message":"Señales enviadas, sensor apagado"});
+                }
+            } catch (error) {
+                console.error('Error al enviar señal:', error);
+                res.status(500).json({"message":"Error interno del servidor, los datos no son validos"});
+            }  
+    }catch(error){
+        res.status(500).json({"message":"Error interno del servidor al obtener cabecera de datos"});
+    } 
+});
+
 export default router;

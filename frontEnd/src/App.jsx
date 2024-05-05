@@ -18,7 +18,12 @@ import CreatePassword from './components/CreatePassword';
 import OmarUno from './components/OmarUno';
 import OmarDos from './components/OmarDos';
 import OmarTres from './components/OmarTres';
+import AdminMenu from './components/AdminMenu';
 import SeeZone from './components/SeeZone';
+import Statistics from './components/Statistics';
+import ManageCounts from './components/ManageCounts';
+import Licences from './components/Licenses';
+import VariableConfig from './components/VariableConfig';
 const URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000/users";
 
 const googlecredencial = import.meta.env.VITE_CREDENCIAL_GOOGLE
@@ -41,6 +46,11 @@ function App() {
             <Route path='/omarUno' element={<OmarUno/>}></Route>
             <Route path='/omarDos' element={<OmarDos/>}></Route>
             <Route path='/omarTres' element={<OmarTres/>}></Route>
+            <Route path='/AdminMenu' element={<AdminMenu/>}></Route>
+            <Route path='/Statistics' element={<Statistics/>}></Route>
+            <Route path='/ManageCounts' element={<ManageCounts/>}></Route>
+            <Route path='/Licenses' element={<Licences/>}></Route>
+            <Route path='/VariableConfig' element={<VariableConfig/>}></Route>
           </Routes>
       </GoogleOAuthProvider>
     </BrowserRouter>
