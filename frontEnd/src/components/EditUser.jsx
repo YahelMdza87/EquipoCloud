@@ -43,15 +43,22 @@ export default function EditUser({userData}){
             return response.json();
         })
         .then(data => {
-            data.forEach(user => {
-                console.log(user)
-                setId(user.idusuario)
-                setName(user.nombre);
-                setEmail(user.correo);
-                setPass(user.pass);
-                setUser(user.usuario);
-                setWorkstation(user.cargo);
-            });
+            if(data && data.length>0){
+                data.forEach(user => {
+                    console.log(user)
+                    setId(user.idusuario)
+                    setName(user.nombre);
+                    setEmail(user.correo);
+                    setPass(user.pass);
+                    setUser(user.usuario);
+                    setWorkstation(user.cargo);
+                });
+              }
+              else{
+                alert("Debes de iniciar sesión");
+                navigate('/')
+              }
+           
         })
         .catch(error => {
             console.error('Error:', error);

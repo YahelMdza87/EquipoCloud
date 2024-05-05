@@ -12,10 +12,9 @@ export default function Principal({userData}) {
   const navigate = useNavigate();
   const [idUser, setIdUser] = useState(0);
   const [name, setName] = useState("");
-  const [idZona, setIdZona] = useState(0);
-  const [nameZone, setNameZone] = useState([]);
+  const [idZona, setIdZona] = useState("");
   const [signals,setSignals] = useState([]);
-  const [zonas, setZonas] = useState([]);
+  const [zones, setZones] = useState([]);
   const [showAddZoneForm, setShowAddZoneForm] = useState(false);
   //Usamos localStorage para obtener el usuario guardado en cookies
   const localStorageUser = JSON.parse(localStorage.getItem('userData'));
@@ -29,15 +28,17 @@ export default function Principal({userData}) {
     navigate('/Principal')
   }
   const toZone = (event) => {
-    setIdZona(event.target.id)
-    setNameZone(event.target.value)
-    const selectedZone ={
-      id: idZona,
-      nameZone: nameZone
-    }
-    localStorage.setItem("idZona", JSON.stringify(selectedZone));
-    navigate('/seeZone');
+    const selectedId = event.target.closest(".div-add-zone-principal").id;
+    setIdZona(selectedId)
   }
+  useEffect(() => {
+    if (idZona !== "") {
+      const selectedZone = idZona;
+      localStorage.setItem("idZona", JSON.stringify(selectedZone));
+      navigate('/seeZone');
+    }
+  }, [idZona]);
+  
   //Obtener los datos del usuario
   useEffect(() => {
         fetch(`${RoutesearchUser}`, {
@@ -56,7 +57,7 @@ export default function Principal({userData}) {
         return response.json();
     })
     .then(data => {
-      if(!data.length===0){
+      if(data && data.length>0){
         data.forEach(element => {
           console.log(element)
           setName(element.nombre);
@@ -64,6 +65,7 @@ export default function Principal({userData}) {
         });
       }
       else{
+        console.log(data)
         alert("Debes de iniciar sesión");
         navigate('/')
       }
@@ -127,7 +129,7 @@ export default function Principal({userData}) {
       return response.json();
     })
     .then(data => {
-      setZonas(data) 
+      setZones(data) 
     })
     .catch(error => {
       console.error('Error:', error);
@@ -153,13 +155,12 @@ export default function Principal({userData}) {
         <h2 className="hello-user-principal">Hola {name}</h2>
       </div>
       <h1 style={{marginLeft:"2%", marginTop:"1%", borderTop:"solid #4b1e9e13"}}>Zonas</h1>
-      <div className="section-devices-principal">
-        
+      <div className="section-devices-principal"> 
         <div className="div-add-zone-principal" style={{backgroundColor:"#DDCBFF"}} onClick={addZone}>
           <img className="add-zone-icon-principal" src={Agregar} alt="" />
           <h3 className="add-zone-text-principal">Agregar area</h3>
         </div>
-        { zonas.map((zona,index) => (
+        { zones.map((zona,index) => (
           <div id={zona.id_zona} key={index} className="div-add-zone-principal"  onClick={toZone}>
             <h3 style={{fontSize:"2.8vw", color:"#DDCBFF",gridColumn:"1/5", gridRow:"1", whiteSpace:"nowrap", overflow:"hidden",textOverflow:"ellipsis"}}>{zona.nombrezona}</h3>
             <img src={CuartoIcono} alt="" style={{gridColumn:"2", gridRow:"2"}} />

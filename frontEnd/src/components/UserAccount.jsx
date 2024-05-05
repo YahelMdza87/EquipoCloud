@@ -53,10 +53,17 @@ export default function Principal({userData}) {
         return response.json();
     })
     .then(data => {
-        data.forEach(user => {
-            setName(user.nombre);
-            setWorkstation(user.cargo)
+      if(data && data.length>0){
+        data.forEach(element => {
+          console.log(element)
+          setName(element.nombre);
+          setWorkstation(element.cargo);
         });
+      }
+      else{
+        alert("Debes de iniciar sesión");
+        navigate('/')
+      }
     })
     .catch(error => {
         console.error('Error:', error);

@@ -24,6 +24,7 @@ import Statistics from './components/Statistics';
 import ManageCounts from './components/ManageCounts';
 import Licences from './components/Licenses';
 import VariableConfig from './components/VariableConfig';
+import SeeRoom from './components/SeeRoom';
 const URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000/users";
 
 const googlecredencial = import.meta.env.VITE_CREDENCIAL_GOOGLE
@@ -38,6 +39,7 @@ function App() {
             <Route path="/confirmPassword" element={<CreatePassword/>}/>
             <Route path="/principal" element={<Principal/>} />
             <Route path="/seeZone" element={<SeeZone/>}/>
+            <Route path="/seeRoom" element={<SeeRoom/>}/>
             <Route path="/userAccount" element={<UserAccount/>} />
             <Route path="/editUser" element={<EditUser/>} />
             <Route path="/signIn" element={<SignIn/>} />
