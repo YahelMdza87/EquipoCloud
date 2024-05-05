@@ -379,6 +379,15 @@ h1,h2,h3,h4{
  height: 50%;
  width: 30%;
 }
+/* SeeZone */
+.section-image-zone{
+  padding: 10%;
+  display: flex;
+  height: 30%;
+  border-bottom: solid #4b1e9e13;
+  
+}
+
 /* User Account */
 .name-user-userAccount{
   font-size: 4.5vw;

@@ -12,6 +12,8 @@ export default function Principal({userData}) {
   const navigate = useNavigate();
   const [idUser, setIdUser] = useState(0);
   const [name, setName] = useState("");
+  const [idZona, setIdZona] = useState(0);
+  const [nameZone, setNameZone] = useState([]);
   const [signals,setSignals] = useState([]);
   const [zonas, setZonas] = useState([]);
   const [showAddZoneForm, setShowAddZoneForm] = useState(false);
@@ -26,8 +28,15 @@ export default function Principal({userData}) {
   function toIndex(){
     navigate('/Principal')
   }
-  const toRoom = (event) => {
-    console.log(event.target.id)
+  const toZone = (event) => {
+    setIdZona(event.target.id)
+    setNameZone(event.target.value)
+    const selectedZone ={
+      id: idZona,
+      nameZone: nameZone
+    }
+    localStorage.setItem("idZona", JSON.stringify(selectedZone));
+    navigate('/seeZone');
   }
   //Obtener los datos del usuario
   useEffect(() => {
@@ -47,10 +56,17 @@ export default function Principal({userData}) {
         return response.json();
     })
     .then(data => {
-      data.forEach(element => {
-        setName(element.nombre);
-        setIdUser(element.idusuario);
-      });
+      if(!data.length===0){
+        data.forEach(element => {
+          console.log(element)
+          setName(element.nombre);
+          setIdUser(element.idusuario);
+        });
+      }
+      else{
+        alert("Debes de iniciar sesión");
+        navigate('/')
+      }
     })
     .catch(error => {
         console.error('Error:', error);
@@ -111,7 +127,7 @@ export default function Principal({userData}) {
       return response.json();
     })
     .then(data => {
-      setZonas(data)
+      setZonas(data) 
     })
     .catch(error => {
       console.error('Error:', error);
@@ -144,7 +160,7 @@ export default function Principal({userData}) {
           <h3 className="add-zone-text-principal">Agregar area</h3>
         </div>
         { zonas.map((zona,index) => (
-          <div id={zona.id_zona} key={index} className="div-add-zone-principal" onClick={toRoom}>
+          <div id={zona.id_zona} key={index} className="div-add-zone-principal"  onClick={toZone}>
             <h3 style={{fontSize:"2.8vw", color:"#DDCBFF",gridColumn:"1/5", gridRow:"1", whiteSpace:"nowrap", overflow:"hidden",textOverflow:"ellipsis"}}>{zona.nombrezona}</h3>
             <img src={CuartoIcono} alt="" style={{gridColumn:"2", gridRow:"2"}} />
           </div>

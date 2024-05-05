@@ -18,6 +18,7 @@ import CreatePassword from './components/CreatePassword';
 import OmarUno from './components/OmarUno';
 import OmarDos from './components/OmarDos';
 import OmarTres from './components/OmarTres';
+import SeeZone from './components/SeeZone';
 const URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000/users";
 
 const googlecredencial = import.meta.env.VITE_CREDENCIAL_GOOGLE
@@ -31,6 +32,7 @@ function App() {
             <Route path="/" element={<Login/>} />
             <Route path="/confirmPassword" element={<CreatePassword/>}/>
             <Route path="/principal" element={<Principal/>} />
+            <Route path="/seeZone" element={<SeeZone/>}/>
             <Route path="/userAccount" element={<UserAccount/>} />
             <Route path="/editUser" element={<EditUser/>} />
             <Route path="/signIn" element={<SignIn/>} />
