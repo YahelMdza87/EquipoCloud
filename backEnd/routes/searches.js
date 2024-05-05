@@ -151,6 +151,23 @@ router.post('/zonas', async(req, res) => {
 
 });
 
+//RUTA PARA UNA ZONA EN ESPECIFICO
+router.post('/zona', async(req, res) => {
+    try{
+    const idzona = req.body.idzona; 
+        try {                                   
+            const result = await itemsPool.query('select id_zona, nombrezona, usuarios.usuario as usuarioDueño, tipoedificio.tipoedificio as TipoDeEdificio from zonas INNER JOIN usuarios ON zonas.fk_id_usuario = usuarios.idusuario INNER JOIN tipoedificio ON zonas.fk_id_tipoedificio = tipoedificio.id_tipoedificio where id_zona =$1',[idzona]);
+            res.status(200).json(result.rows);
+        } catch (error) {
+            console.error('Error al obtener la zona:', error);
+            res.status(500).json({"message":'Error al obtener la zona'});
+        }  
+    }catch(error){
+        res.status(500).json({"message":"Error interno del servidor al obtener cabecera de datos"});
+    }
+
+});
+
 
 //RUTA PARA LOS CUARTOS DE UN USUARIO
 router.post('/cuartos', async(req, res) => {
