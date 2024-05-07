@@ -186,6 +186,23 @@ router.post('/cuartos', async(req, res) => {
 
 });
 
+//RUTA PARA UN CUARTO EN ESPECIFICO
+router.post('/cuarto', async(req, res) => {
+    try{
+    const idcuarto = req.body.idcuarto; 
+        try {                                   
+            const result = await itemsPool.query('select id_cuarto, cuarto , (SELECT count(id_sensor) FROM sensores WHERE fk_id_cuarto = cuartos.id_cuarto) AS numerosensoresactivos from cuartos where id_cuarto =$1',[idcuarto]);
+            res.status(200).json(result.rows);
+        } catch (error) {
+            console.error('Error al obtener el cuarto:', error);
+            res.status(500).json({"message":"Error al obtener el cuarto"});
+        }
+    }catch(error){
+        res.status(500).json({"message":"Error interno del servidor al obtener cabecera de datos"});
+    }  
+
+});
+
 //RUTA PARA LOS SENSORES DE UN USUARIO
 router.post('/sensors', async(req, res) => {
     try{
