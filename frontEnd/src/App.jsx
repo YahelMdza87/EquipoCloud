@@ -29,6 +29,7 @@ const URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000/users";
 
 
 import './Admin.css'
+import SeeSensor from './components/SeeSensor';
 
 const googlecredencial = import.meta.env.VITE_CREDENCIAL_GOOGLE
 
@@ -43,6 +44,7 @@ function App() {
             <Route path="/principal" element={<Principal/>} />
             <Route path="/seeZone" element={<SeeZone/>}/>
             <Route path="/seeRoom" element={<SeeRoom/>}/>
+            <Route path="/seeSensor" element={<SeeSensor/>}/>
             <Route path="/userAccount" element={<UserAccount/>} />
             <Route path="/editUser" element={<EditUser/>} />
             <Route path="/signIn" element={<SignIn/>} />

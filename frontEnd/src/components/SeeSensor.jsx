@@ -5,33 +5,24 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import User from "../assets/user.png"
 import CuartoIcono from "../assets/cuarto-icono.png"
-import CreateRoomForm from "./CreateRoomForm";
 import DeleteComponent from "./DeleteComponent";
-const RouteGetRoom = import.meta.env.VITE_SEARCHES_CUARTO || "http://localhost:3000/searches/cuarto";
-const RouteGetRooms = import.meta.env.VITE_SEARCHES_CUARTOS || "http://localhost:3000/searches/cuartos";
-const RouteGetAllSensors = import.meta.env.VITE_SEARCHES_SENSORS || "http://localhost:3000/searches/sensors";
+const RouteGetSensor = import.meta.env.VITE_SEARCHES_SENSOR || "http://localhost:3000/searches/sensor";
 const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || "http://localhost:3000/searches/idusu";
-export default function SeeRoom({selectedRoom,userData}){
+export default function SeeSensor({selectedSensor,userData}){
     const navigate = useNavigate();
-    const localStorageSelectedRoom = JSON.parse(localStorage.getItem("idRoom"));
+    const localStorageSelectedSensor = JSON.parse(localStorage.getItem("idDevice"));
     const localStorageUser = JSON.parse(localStorage.getItem("userData"));
     const localStorageWichComponent = JSON.parse(localStorage.getItem("wichComponent"));
-    const [idRoom, setIdRoom] = useState("");
-    const [idDevice, setIdDevice] = useState("");
-    const [nameRoom, setNameRoom] = useState("");
     const [user, setUser] = useState([]);
-    const [numDevices, setNumDevices] = useState("");
-    const [allDevices, setAllDevices] = useState([]);
-    const [showAddRoomForm, setShowAddRoomForm] = useState(false);
     const [showConfirmDelete, setShowConfirmDelete] = useState(false);
-    if(localStorageSelectedRoom){
-        selectedRoom = localStorageSelectedRoom;
+    if(localStorageSelectedSensor){
+        selectedSensor = localStorageSelectedSensor;
     }
     if(localStorageUser){
         userData = localStorageUser;
     }
-    if(!localStorageWichComponent==="room"){
-        localStorage.setItem("wichComponent", JSON.stringify("room"))
+    if(!localStorageWichComponent==="sensor"){
+        localStorage.setItem("wichComponent", JSON.stringify("sensor"))
     }
     function toUserAccount(){
         navigate('/UserAccount')
@@ -39,18 +30,6 @@ export default function SeeRoom({selectedRoom,userData}){
     function toIndex(){
     navigate('/Principal')
     }
-    const toSensor = (event) => {
-        const selectedId = event.target.closest(".div-add-zone-principal").id;
-        console.log(selectedId)
-        setIdDevice(selectedId)
-      }
-      useEffect(() => {
-        if (idDevice !== "") {
-          const selectedZone = idDevice;
-          localStorage.setItem("idDevice", JSON.stringify(selectedZone));
-          navigate('/seeSensor');
-        }
-      }, [idDevice]);
     //Obtener datos de usuario
     useEffect(() => {
         fetch(`${RoutesearchUser}`, {
@@ -84,16 +63,16 @@ export default function SeeRoom({selectedRoom,userData}){
         console.error('Error:', error);
     });
     }, []);
-
-    //Obtener todos los cuartos
+    
     useEffect(() => {
-        fetch(`${RouteGetRoom}`, {
+        console.log(selectedSensor)
+        fetch(`${RouteGetSensor}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            idcuarto: selectedRoom
+            idsensor: selectedSensor
         })
     })
     .then(response => {
@@ -103,68 +82,27 @@ export default function SeeRoom({selectedRoom,userData}){
         return response.json();
     })
     .then(data => {
+        console.log(data)
       if(data && data.length>0){
         data.forEach(element => {
             console.log('hola')
-            setIdRoom(element.id_cuarto)
-            setNameRoom(element.cuarto);
-            setNumDevices(element.numerosensoresactivos);
         });
       }
       else{
-        alert("Debiste de haber seleccionado una zona");
-        navigate('/')
+        // alert("Debiste de haber seleccionado una zona");
+        // navigate('/')
       }
     })
     .catch(error => {
         console.error('Error:', error);
     });
     }, []);
-
-    //Obtener todos los sensores
-    useEffect(() => {
-        if(numDevices>0){
-            fetch(`${RouteGetAllSensors}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                idcuarto: selectedRoom
-            })
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Hubo un problema al realizar la solicitud.');
-            }
-            return response.json();
-        })
-        .then(data => {
-            if(data && data.length>0){
-                    setAllDevices(data)
-              }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-    }
-    }, [numDevices]);
-
-    function addRoom() {
-        setShowAddRoomForm(true);
-    }
-
-
     function toDelete(){
         console.log(idRoom)
         setShowConfirmDelete(true);
     }
     function closeDelete(){
         setShowConfirmDelete(false);
-    }
-
-    function closeAddRoomModal() {
-        setShowAddRoomForm(false);
     }
 
     return(
@@ -174,9 +112,9 @@ export default function SeeRoom({selectedRoom,userData}){
                 <img src={User} alt="" className="user-image-principal" onClick={toUserAccount}/>
                 <img src={Logo} alt="" className="add-icon-principal" onClick={toIndex}/>
             </div>
-            <div style={{alignItems:"center", justifyItems:"center", textAlign:"center"}}><h1>{nameRoom}</h1></div>
+            <div style={{alignItems:"center", justifyItems:"center", textAlign:"center"}}><h1>hola</h1></div>
             <div className="section-image-zone">
-                <img style={{objectFit:"cover", width:"100%", borderRadius:"20px"}} src="https://media.admagazine.com/photos/62b4b828cce4cfe1db2ed95e/4:3/w_2664,h_1998,c_limit/Dormitorio.jpg" alt="" />
+                <img style={{objectFit:"cover", width:"100%", borderRadius:"20px"}} src="https://planner5d.com/blog/content/images/2022/06/sidekix-media-iu4K1XPnNAY-unsplash.jpg" alt="" />
             </div>
             <h1 style={{marginLeft:"2%", marginTop:"1%"}}>Dispositivos</h1>
             <div className="section-devices-principal">
@@ -184,12 +122,6 @@ export default function SeeRoom({selectedRoom,userData}){
                     <img className="add-zone-icon-principal" src={Agregar} alt="" />
                     <h3 className="add-zone-text-principal">Agregar device</h3>
                 </div>
-                { allDevices.map((sensor,index) => (
-                <div id={sensor.id_sensor} key={index} className="div-add-zone-principal"  onClick={toSensor}>
-                    <h3 style={{fontSize:"2.8vw", color:"#DDCBFF",gridColumn:"1/5", gridRow:"1", whiteSpace:"nowrap", overflow:"hidden",textOverflow:"ellipsis"}}>{sensor.nombresensor}</h3>
-                    <img src={CuartoIcono} alt="" style={{gridColumn:"2", gridRow:"2"}} />
-                </div>
-                ))}
              </div>
             {showConfirmDelete && ( 
                 <DeleteComponent onClose={closeDelete} id={{idRoom}} wich={{localStorageWichComponent}}/>
