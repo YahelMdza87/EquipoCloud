@@ -186,7 +186,24 @@ router.post('/cuartos', async(req, res) => {
 
 });
 
-//RUTA PARA LOS SENSORES DE UN USUARIO
+//RUTA PARA UN CUARTO EN ESPECIFICO
+router.post('/cuarto', async(req, res) => {
+    try{
+    const idcuarto = req.body.idcuarto; 
+        try {                                   
+            const result = await itemsPool.query('select id_cuarto, cuarto , (SELECT count(id_sensor) FROM sensores WHERE fk_id_cuarto = cuartos.id_cuarto) AS numerosensoresactivos from cuartos where id_cuarto =$1',[idcuarto]);
+            res.status(200).json(result.rows);
+        } catch (error) {
+            console.error('Error al obtener el cuarto:', error);
+            res.status(500).json({"message":"Error al obtener el cuarto"});
+        }
+    }catch(error){
+        res.status(500).json({"message":"Error interno del servidor al obtener cabecera de datos"});
+    }  
+
+});
+
+//RUTA PARA LOS SENSORES DE UN CUARTO
 router.post('/sensors', async(req, res) => {
     try{
     const idcuarto = req.body.idcuarto; 
@@ -196,6 +213,22 @@ router.post('/sensors', async(req, res) => {
         } catch (error) {
             console.error('Error al obtener los sensores:', error);
             res.status(500).json({"message":"Error al obtener los sensores del usuario"});
+        }  
+    }catch(error){
+        res.status(500).json({"message":"Error interno del servidor al obtener cabecera de datos"});
+    }
+});
+
+//RUTA PARA BUSCAR SENSORES DE UN CUARTO
+router.post('/sensor', async(req, res) => {
+    try{
+    const idsensor = req.body.idsensor; 
+        try {                                   
+            const result = await itemsPool.query('select id_sensor, nombresensor, valor, señales.señal from sensores INNER JOIN señales ON sensores.fk_id_señal = señales.id_señal where id_sensor =$1',[idsensor]);
+            res.status(200).json(result.rows);
+        } catch (error) {
+            console.error('Error al obtener el sensor:', error);
+            res.status(500).json({"message":"Error al obtener el sensor del usuario"});
         }  
     }catch(error){
         res.status(500).json({"message":"Error interno del servidor al obtener cabecera de datos"});
