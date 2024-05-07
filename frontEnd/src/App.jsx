@@ -27,6 +27,9 @@ import VariableConfig from './components/VariableConfig';
 import SeeRoom from './components/SeeRoom';
 const URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000/users";
 
+
+import './Admin.css'
+
 const googlecredencial = import.meta.env.VITE_CREDENCIAL_GOOGLE
 
 function App() {

@@ -82,6 +82,23 @@ router.post('/allsignals', async(req, res) => {
 });
 
 //RUTA PARA OBTENER LAS COMUNIDADES ADMINISTRADAS POR EL USUARIO
+router.post('/comunidad', async(req, res) => {
+    try{
+    const idcomunidad = req.body.idcomunidad; 
+        try {                                   
+            const result = await itemsPool.query('Select id_comunidad, nombrecomunidad FROM comunidades  where id_comunidad = $1',[idcomunidad]);
+            res.status(200).json(result.rows);
+        } catch (error) {
+            console.error('Error al obtener comunidad', error);
+            res.status(500).json({"message":"Error al obtener comunidad"});
+        }  
+    }catch(error){
+        res.status(500).json({"message":"Error interno del servidor al obtener cabecera de datos"});
+    }
+
+});
+
+//RUTA PARA OBTENER LAS COMUNIDADES ADMINISTRADAS POR EL USUARIO
 router.post('/admincomunidad', async(req, res) => {
     try{
     const idadminusu = req.body.idadminusu; 
@@ -121,7 +138,7 @@ router.post('/colabdecomunidad', async(req, res) => {
     try{
     const idcomunidad = req.body.idcomunidad; 
         try {                                   
-            const result = await itemsPool.query('select id_colaborador, usuarios.usuario as colaborador from colaboradores INNER JOIN usuarios ON colaboradores.fk_id_usuario = usuarios.idusuario where fk_id_comunidad = ($1);', [idcomunidad]);  
+            const result = await itemsPool.query('select id_colaborador, usuarios.usuario as colaborador, usuarios.correo from colaboradores INNER JOIN usuarios ON colaboradores.fk_id_usuario = usuarios.idusuario where fk_id_comunidad = ($1);', [idcomunidad]);  
             res.status(200).json(result.rows);
         } catch (error) {
             console.error('Error al obtener los colaboradores de tu comunidad:', error);
