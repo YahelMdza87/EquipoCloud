@@ -49,7 +49,7 @@ export default function CreateZoneForm({onClose, id}){
                 return response.json();
             })
             .then(data=> {
-                console.log("Zona creada con exito");
+                onClose();
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -82,7 +82,7 @@ export default function CreateZoneForm({onClose, id}){
                         </select>
                     </div>
                     <div style={{marginTop:"5%", display:"flex", justifyContent:"center", textWrap:"nowrap"}}>
-                    <button className="btn-submit-data-user" type="button" onClick={handleSuccess}>Iniciar sesión</button>
+                    <button className="btn-submit-data-user" type="button" onClick={handleSuccess}>Crear zona</button>
                     </div>
                 </div>
 

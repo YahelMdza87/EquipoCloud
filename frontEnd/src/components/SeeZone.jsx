@@ -14,6 +14,7 @@ export default function SeeZone({selectedZone,userData}){
     const navigate = useNavigate();
     const localStorageSelectedZone = JSON.parse(localStorage.getItem("idZona"));
     const localStorageUser = JSON.parse(localStorage.getItem("userData"));
+    const localStorageWichComponent = JSON.parse(localStorage.getItem("wichComponent"));
     const [idZone, setIdZone] = useState("");
     const [idRoom, setIdRoom] = useState("");
     const [user, setUser] = useState([]);
@@ -27,6 +28,9 @@ export default function SeeZone({selectedZone,userData}){
     }
     if(localStorageUser){
         userData = localStorageUser;
+    }
+    if(!localStorageWichComponent==="zone"){
+        localStorage.setItem("wichComponent", JSON.stringify("zone"))
     }
     function toUserAccount(){
         navigate('/UserAccount')

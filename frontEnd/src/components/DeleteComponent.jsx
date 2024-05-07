@@ -1,38 +1,146 @@
 import "../App.css"
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
-const RouteDeleteZone = import.meta.env.VITE_ADD_CUARTO || "http://localhost:3000/delete/zona"
-
-export default function DeleteComponent({onClose, id}){
+const RouteDeleteZone = import.meta.env.VITE_DELETE_ZONA || "http://localhost:3000/delete/zona";
+const RouteDeleteRoom = import.meta.env.VITE_DELETE_CUARTO || "http://localhost:3000/delete/cuarto";
+const RouteDeleteSensor = import.meta.env.VITE_DELETE_SENSOR || "http://localhost:3000/delete/sensor";
+const RouteDeleteComunity = import.meta.env.VITE_DELETE_COMUNIDAD || "http://localhost:3000/delete/comunidad";
+const RouteDeleteCollaborator = import.meta.env.VITE_DELETE_COLABORADOR || "http://localhost:3000/delete/colaborador";
+export default function DeleteComponent({onClose, id, wich}){
     const navigate = useNavigate();
     function handleCancel(){
         onClose();
         console.log(id)
     }
     function handleSuccess(){
-        fetch(`${RouteDeleteZone}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                idzona: JSON.stringify(id.idZone)
+        if(wich==="room"){
+            fetch(`${RouteDeleteRoom}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    idcuarto: JSON.stringify(id.idZone)
+                })
             })
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Hubo un problema al realizar la solicitud.');
-            }
-            return response.json();
-        })
-        .then(data => {
-            alert("Zona eliminada exitosamente")
-            onClose();
-            navigate("/principal")
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Hubo un problema al realizar la solicitud.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                alert("Zona eliminada exitosamente")
+                onClose();
+                navigate("/principal")
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+
+        }
+        else if (wich==="zone"){
+            fetch(`${RouteDeleteZone}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    idzona: JSON.stringify(id.idZone)
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Hubo un problema al realizar la solicitud.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                alert("Zona eliminada exitosamente")
+                onClose();
+                navigate("/principal")
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+        else if (wich==="comunity"){
+            fetch(`${RouteDeleteComunity}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    idcomu: JSON.stringify(id.idZone)
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Hubo un problema al realizar la solicitud.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                alert("Zona eliminada exitosamente")
+                onClose();
+                navigate("/principal")
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+
+        }
+        else if (wich==="sensor"){
+            fetch(`${RouteDeleteSensor}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    idsensor: JSON.stringify(id.idZone)
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Hubo un problema al realizar la solicitud.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                alert("Zona eliminada exitosamente")
+                onClose();
+                navigate("/principal")
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+        else if (wich==="collaborator"){
+            fetch(`${RouteDeleteCollaborator}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    idcolab: JSON.stringify(id.idZone)
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Hubo un problema al realizar la solicitud.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                alert("Zona eliminada exitosamente")
+                onClose();
+                navigate("/principal")
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+        
     }
 
     return(

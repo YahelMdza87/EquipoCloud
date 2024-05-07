@@ -7,25 +7,27 @@ import User from "../assets/user.png"
 import CuartoIcono from "../assets/cuarto-icono.png"
 import CreateRoomForm from "./CreateRoomForm";
 import DeleteComponent from "./DeleteComponent";
-const RouteGetZone = import.meta.env.VITE_SEARCHES_ZONA || "http://localhost:3000/searches/zona";
+const RouteGetRoom = import.meta.env.VITE_SEARCHES_CUARTO || "http://localhost:3000/searches/cuarto";
 const RouteGetRooms = import.meta.env.VITE_SEARCHES_CUARTOS || "http://localhost:3000/searches/cuartos"
 const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || "http://localhost:3000/searches/idusu";
 export default function SeeRoom({selectedRoom,userData}){
     const navigate = useNavigate();
     const localStorageSelectedRoom = JSON.parse(localStorage.getItem("idRoom"));
     const localStorageUser = JSON.parse(localStorage.getItem("userData"));
+    const localStorageWichComponent = JSON.parse(localStorage.getItem("wichComponent"));
     const [idRoom, setIdRoom] = useState("");
     const [user, setUser] = useState([]);
-    const [nameZone, setNameZone] = useState("");
+    const [nameRoom, setNameRoom] = useState("");
     const [showAddRoomForm, setShowAddRoomForm] = useState(false);
     const [showConfirmDelete, setShowConfirmDelete] = useState(false);
-    const [rooms, setRooms] = useState([]);
     if(localStorageSelectedRoom){
         selectedRoom = localStorageSelectedRoom;
-        console.log(selectedRoom)
     }
     if(localStorageUser){
         userData = localStorageUser;
+    }
+    if(!localStorageWichComponent==="room"){
+        localStorage.setItem("wichComponent", JSON.stringify("room"))
     }
     function toUserAccount(){
         navigate('/UserAccount')
@@ -65,6 +67,40 @@ export default function SeeRoom({selectedRoom,userData}){
         console.error('Error:', error);
     });
     }, []);
+
+    useEffect(() => {
+        fetch(`${RouteGetRoom}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            idcuarto: selectedRoom
+        })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Hubo un problema al realizar la solicitud.');
+        }
+        return response.json();
+    })
+    .then(data => {
+      if(data && data.length>0){
+        data.forEach(element => {
+            console.log('hola')
+            setIdRoom(element.idcuarto)
+            setNameRoom(element.cuarto);
+        });
+      }
+      else{
+        alert("Debiste de haber seleccionado una zona");
+        navigate('/')
+      }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+    }, []);
     function addRoom() {
         setShowAddRoomForm(true);
     }
@@ -87,7 +123,7 @@ export default function SeeRoom({selectedRoom,userData}){
                 <img src={User} alt="" className="user-image-principal" onClick={toUserAccount}/>
                 <img src={Logo} alt="" className="add-icon-principal" onClick={toIndex}/>
             </div>
-            <div style={{alignItems:"center", justifyItems:"center", textAlign:"center"}}><h1>{nameZone}</h1></div>
+            <div style={{alignItems:"center", justifyItems:"center", textAlign:"center"}}><h1>{nameRoom}</h1></div>
             <div className="section-image-zone">
                 <img style={{objectFit:"cover", width:"100%", borderRadius:"20px"}} src="https://planner5d.com/blog/content/images/2022/06/sidekix-media-iu4K1XPnNAY-unsplash.jpg" alt="" />
             </div>
@@ -99,7 +135,7 @@ export default function SeeRoom({selectedRoom,userData}){
                 </div>
              </div>
             {showConfirmDelete && ( 
-                <DeleteComponent onClose={closeDelete} id={{idZone}} />
+                <DeleteComponent onClose={closeDelete} id={{idZone}} wich={{localStorageWichComponent}}/>
             )}
             <div style={{justifyItems:"center", alignItems:"center", textAlign:"center"}}><img src={Basura} alt="" onClick={toDelete}/></div>
         </div>

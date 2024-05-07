@@ -111,6 +111,8 @@ export default function Principal({userData}) {
   //           return () => clearInterval(intervalId);
   // }, [signals]);
   //Obtener todas las zonas
+  
+  /* Get todas las zonas*/
   useEffect(() => {
     if(idUser){
       fetch(`${RoutegetZones}`, {
@@ -135,7 +137,7 @@ export default function Principal({userData}) {
       console.error('Error:', error);
     });
   }
-  }, [idUser]);
+  }, [idUser], [showAddZoneForm]);
 
   function addZone() {
     setShowAddZoneForm(true);
