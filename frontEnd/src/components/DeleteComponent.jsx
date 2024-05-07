@@ -13,14 +13,16 @@ export default function DeleteComponent({onClose, id, wich}){
         console.log(id)
     }
     function handleSuccess(){
-        if(wich==="room"){
+        console.log(wich.localStorageWichComponent)
+        console.log(id);
+        if(wich.localStorageWichComponent==="room"){
             fetch(`${RouteDeleteRoom}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    idcuarto: JSON.stringify(id.idZone)
+                    idcuarto: JSON.stringify(id.idRoom)
                 })
             })
             .then(response => {
@@ -30,7 +32,7 @@ export default function DeleteComponent({onClose, id, wich}){
                 return response.json();
             })
             .then(data => {
-                alert("Zona eliminada exitosamente")
+                alert("Cuarto eliminada exitosamente")
                 onClose();
                 navigate("/principal")
             })

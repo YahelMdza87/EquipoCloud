@@ -8,7 +8,8 @@ import CuartoIcono from "../assets/cuarto-icono.png"
 import CreateRoomForm from "./CreateRoomForm";
 import DeleteComponent from "./DeleteComponent";
 const RouteGetRoom = import.meta.env.VITE_SEARCHES_CUARTO || "http://localhost:3000/searches/cuarto";
-const RouteGetRooms = import.meta.env.VITE_SEARCHES_CUARTOS || "http://localhost:3000/searches/cuartos"
+const RouteGetRooms = import.meta.env.VITE_SEARCHES_CUARTOS || "http://localhost:3000/searches/cuartos";
+const RouteGetAllSensors = import.meta.env.VITE_SEARCHES_SENSORS || "http://localhost:3000/searches/sensors";
 const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || "http://localhost:3000/searches/idusu";
 export default function SeeRoom({selectedRoom,userData}){
     const navigate = useNavigate();
@@ -16,8 +17,10 @@ export default function SeeRoom({selectedRoom,userData}){
     const localStorageUser = JSON.parse(localStorage.getItem("userData"));
     const localStorageWichComponent = JSON.parse(localStorage.getItem("wichComponent"));
     const [idRoom, setIdRoom] = useState("");
-    const [user, setUser] = useState([]);
     const [nameRoom, setNameRoom] = useState("");
+    const [user, setUser] = useState([]);
+    const [numDevices, setNumDevices] = useState("");
+    const [allDevices, setAllDevices] = useState([]);
     const [showAddRoomForm, setShowAddRoomForm] = useState(false);
     const [showConfirmDelete, setShowConfirmDelete] = useState(false);
     if(localStorageSelectedRoom){
@@ -88,8 +91,9 @@ export default function SeeRoom({selectedRoom,userData}){
       if(data && data.length>0){
         data.forEach(element => {
             console.log('hola')
-            setIdRoom(element.idcuarto)
+            setIdRoom(element.id_cuarto)
             setNameRoom(element.cuarto);
+            setNumDevices(element.numerosensoresactivos);
         });
       }
       else{
@@ -101,11 +105,41 @@ export default function SeeRoom({selectedRoom,userData}){
         console.error('Error:', error);
     });
     }, []);
+
+    useEffect(() => {
+        if(numDevices){
+            fetch(`${RouteGetAllSensors}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                idcuarto: selectedRoom
+            })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Hubo un problema al realizar la solicitud.');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if(data && data.length>0){
+                    setAllDevices(data)
+              }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+    }, [numDevices]);
+
     function addRoom() {
         setShowAddRoomForm(true);
     }
   
     function toDelete(){
+        console.log(idRoom)
         setShowConfirmDelete(true);
     }
     function closeDelete(){
@@ -135,7 +169,7 @@ export default function SeeRoom({selectedRoom,userData}){
                 </div>
              </div>
             {showConfirmDelete && ( 
-                <DeleteComponent onClose={closeDelete} id={{idZone}} wich={{localStorageWichComponent}}/>
+                <DeleteComponent onClose={closeDelete} id={{idRoom}} wich={{localStorageWichComponent}}/>
             )}
             <div style={{justifyItems:"center", alignItems:"center", textAlign:"center"}}><img src={Basura} alt="" onClick={toDelete}/></div>
         </div>
