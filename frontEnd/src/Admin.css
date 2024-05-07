@@ -1,0 +1,277 @@
+/* BODY DEL CUERPO HTML --------------------------------- */
+
+.admin-body-principal{
+    background-color: #ffffff;
+    width: 100%;
+    height: 100%;
+  }
+
+
+
+/* ESTILOS DEL HEADER --------------------------------- */
+
+
+.admin-header{
+    height: 15%;
+    width: 100%;
+    margin: 0%;
+    background-color: #4A1E9E;
+    display: grid;
+    position: sticky;
+    top: 0;
+    grid-template-columns: repeat(5,1fr);
+}
+
+.admin-header-title-menu{
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: center;
+    align-self: center;
+    margin: 0;
+}
+
+.admin-header-title-menu:hover{
+    color: #edebf1;
+    background-color: rgba(73, 0, 70, 0.13);
+    padding: 2%;
+    border-radius: 10%;
+    cursor: pointer;
+}
+
+
+.admin-header-title-principal{
+    grid-column: 3;
+    grid-row: 1;
+    justify-self: center;
+    align-self: center;
+    margin: 0;
+}
+
+.admin-header-title-user{
+    grid-column: 4;
+    grid-row: 1;
+    justify-self: center;
+    align-self: center;
+    margin: 0;
+}
+
+.admin-user-image-principal{
+    grid-column: 5;
+    grid-row: 1;
+    border-radius:60px;
+    width:  17%;
+    height: 80%;
+    justify-self:right;
+    align-self: center;
+    margin-right: 30%;
+}
+
+.admin-user-image-principal:hover{
+    background-color: #ffffff;
+    cursor: pointer;
+  }
+
+.admin-add-icon-principal{
+    grid-column:1;
+    grid-row: 1;
+    width:  17%;
+    height: 80%;
+    justify-self:left;
+    align-self: center;
+    margin-left: 30%;
+}
+
+.admin-add-icon-principal:hover{
+    cursor: pointer;
+    border-radius: 20px;
+    background-color: #ffffff1a;
+  }
+
+/* DIV TIPO NAV CENTRAL ------------------------------------------- */
+
+.fount{
+    color: #4A1E9E;
+    font-size: 2vw;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+img{
+    width:100%;
+    height: 100%;
+}
+
+.admin-img-nav{
+    width: 50%;
+    height: 50%;
+}
+
+.admin-center-nav{
+    display: grid;
+    position: sticky;
+    grid-template-columns: repeat(1,1fr);
+    margin: 0%;
+    padding: 0%;
+    width: 100%;
+    height: 85%;
+    background-color: rgb(244, 248, 248);
+}
+
+.admin-nav{
+    margin: 0%;
+    padding: 0%;
+    width: 80%;
+    height: 95%;
+    grid-column: 1;
+    grid-row: 1;
+    align-self: center;
+    justify-self: center;
+
+    display: grid;
+    position: sticky;
+    grid-template-columns: repeat(2,2fr);
+}
+
+/* Elemento 1 */
+
+.admin-nav-element-1{
+    margin: 0%;
+    padding: 0%;
+    width: 98%;
+    height: 95%;
+    background-color: #33156E;
+    grid-column: 1;
+    grid-row: 1;
+    align-self: center;
+    justify-self: center;
+    border-top-left-radius: 2.5vw;
+    box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.329);
+
+}
+
+.admin-nav-element-1:hover{
+    background-color: #33156e6b;
+    cursor: pointer;
+}
+
+.admin-subnav-1{
+    height: 80%;
+    width: 90%;
+    background-color: #DDCBFF;
+    margin: 5%;
+    border-radius: 15px;
+    box-shadow: -7px -7px 10px rgba(255, 255, 255, 0.25);
+    color:#4A1E9E;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+
+/* Elemento 2 */
+
+
+.admin-nav-element-2{
+    margin: 0%;
+    padding: 0%;
+    width: 98%;
+    height: 95%;
+    background-color: #ECE8F5;
+    grid-column: 2;
+    grid-row: 1;
+    align-self: center;
+    justify-self: center;
+    border-top-right-radius: 2.5vw;
+    box-shadow: -7px 7px 10px rgba(0, 0, 0, 0.356);
+}
+
+.admin-nav-element-2:hover{
+    background-color: #1a02527a;
+    cursor: pointer;
+}
+
+.admin-subnav-2{
+    height: 80%;
+    width: 90%;
+    background-color: #DDCBFF;
+    margin: 5%;
+    border-radius: 15px;
+    box-shadow: 7px -7px 10px rgba(255, 255, 255, 0.25);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ELEMENTO 3 */
+
+.admin-nav-element-3{
+    margin: 0%;
+    padding: 0%;
+    width: 98%;
+    height: 95%;
+    background-color: #9278C4;
+    grid-column: 1;
+    grid-row: 2;
+    align-self: center;
+    justify-self: center;
+    border-bottom-left-radius: 2.5vw;
+    box-shadow: 7px -7px 10px rgba(0, 0, 0, 0.356);
+}
+
+.admin-nav-element-3:hover{
+    background-color: #9378c48a;
+    cursor: pointer;
+}
+
+.admin-subnav-3{
+    height: 80%;
+    width: 90%;
+    background-color: #DDCBFF;
+    margin: 5%;
+    border-radius: 15px;
+    box-shadow: -7px 7px 10px rgba(255, 255, 255, 0.25);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ELEMENTO 4 */
+
+.admin-nav-element-4{
+    margin: 0%;
+    padding: 0%;
+    width: 98%;
+    height: 95%;
+    background-color: #250F4F;
+    grid-column: 2;
+    grid-row: 2;
+    align-self: center;
+    justify-self: center;
+    border-bottom-right-radius: 2.5vw;
+    box-shadow: -7px -7px 10px rgba(0, 0, 0, 0.356);
+}
+
+.admin-nav-element-4:hover{
+    background-color: #250f4f73;
+    cursor: pointer;
+}
+
+.admin-subnav-4{
+    height: 80%;
+    width: 90%;
+    background-color: #DDCBFF;
+    margin: 5%;
+    border-radius: 15px;
+    box-shadow: 7px 7px 10px rgba(255, 255, 255, 0.25);
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
