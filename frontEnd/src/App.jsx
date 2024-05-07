@@ -25,6 +25,9 @@ import Licences from './components/Licenses';
 import VariableConfig from './components/VariableConfig';
 const URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000/users";
 
+
+import './Admin.css'
+
 const googlecredencial = import.meta.env.VITE_CREDENCIAL_GOOGLE
 
 function App() {

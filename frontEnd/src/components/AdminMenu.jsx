@@ -11,7 +11,6 @@ export default function AdminMenu (){
         navigate('/Principal')
       }
     
-
     return (
         <div className="body-principal">
             <div className="header-principal">
@@ -19,6 +18,7 @@ export default function AdminMenu (){
                 <img src={User} alt="" className="user-image-principal" onClick={toUserAccount}/>
                 <img src={Logo} alt="" className="add-icon-principal" onClick={toIndex}/>
             </div>
+            
         </div>
     )
 }
