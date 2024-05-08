@@ -52,6 +52,71 @@ router.get('/numusu', async (req, res) => {
     }
 });
 
+//RUTA PARA OBTENER NÚMERO DE ZONAS
+router.get('/numzonas', async (req, res) => {
+    try {
+        const result = await itemsPool.query('select count(id_zona) from zonas;');
+        res.send(result.rows[0].count);
+    } catch (error) {
+        console.error('Error al obtener zonas', error);
+        res.status(500).json({"message":"Error al obtener zonas"});
+    }
+});
+
+//RUTA PARA OBTENER NÚMERO DE CUARTOS
+router.get('/numcuartos', async (req, res) => {
+    try {
+        const result = await itemsPool.query('select count(id_cuarto) from cuartos;');
+        res.send(result.rows[0].count);
+    } catch (error) {
+        console.error('Error al obtener cuartos', error);
+        res.status(500).json({"message":"Error al obtener cuartos"});
+    }
+});
+
+//RUTA PARA OBTENER NÚMERO DE SENSORES
+router.get('/numsensores', async (req, res) => {
+    try {
+        const result = await itemsPool.query('select count(id_sensor) from sensores;');
+        res.send(result.rows[0].count);
+    } catch (error) {
+        console.error('Error al obtener sensores', error);
+        res.status(500).json({"message":"Error al obtener sensores"});
+    }
+});
+
+//RUTA PARA OBTENER NÚMERO DE COMUNIDADES
+router.get('/numcomunidades', async (req, res) => {
+    try {
+        const result = await itemsPool.query('select count(id_comunidad) from comunidades;');
+        res.send(result.rows[0].count);
+    } catch (error) {
+        console.error('Error al obtener comunidades', error);
+        res.status(500).json({"message":"Error al obtener comunidades"});
+    }
+});
+
+//RUTA PARA OBTENER NÚMERO DE COLABORADORES
+router.get('/numcolaboradores', async (req, res) => {
+    try {
+        const result = await itemsPool.query('select count(id_colaborador) from colaboradores;');
+        res.send(result.rows[0].count);
+    } catch (error) {
+        console.error('Error al obtener colaboradores', error);
+        res.status(500).json({"message":"Error al obtener colaboradores"});
+    }
+});
+
+//RUTA PARA OBTENER NÚMERO DE PESO DE ALMACENAMIENTO DE LA BASE DE DATOS
+router.get('/storage', async (req, res) => {
+    try {
+        const result = await itemsPool.query("SELECT pg_size_pretty(pg_database_size('domoticloud')) AS storage;");
+        res.send(result.rows);
+    } catch (error) {
+        console.error('Error al obtener el tamaño de almacenamiento ocupado', error);
+        res.status(500).json({"message":"Error al obtener el tamaño de almacenamiento ocupado"});
+    }
+});
 
 //RUTA PARA OBTENER TODOS LOS TIPOS DE SEÑALES
 router.get('/signal', async (req, res) => {
