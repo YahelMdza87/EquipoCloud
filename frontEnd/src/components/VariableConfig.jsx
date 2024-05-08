@@ -25,7 +25,20 @@ export default function VariableConfig (){
                 <h2 className="admin-header-title-principal">Domoticloud</h2>
                 <h2 className="admin-header-title-user">Configuración de variables</h2>
                 <img src={User} alt="" className="admin-user-image-principal" onClick={toUserAccount}/>
+           </div>
+           <div className="admin-center-nav">
+                    <div className="divVariables">
+                    <div className="statistic">
+                            <div className="title-statistic"><p>Número de usuarios <br></br>en la plataforma</p></div>
+                                <div className="content-statistic"><p>{}</p></div>
+                            </div>
+                            <div className="statistic">
+                                <div className="title-statistic"><p>Número de zonas activas <br></br>en la plataforma</p></div>
+                                <div className="content-statistic"><p>{}</p></div>
+                            </div>
+                    </div>
             </div>
+
         </div>
     )
 }
