@@ -8,10 +8,8 @@ import User from "../assets/user.png"
 import CuartoIcono from "../assets/cuarto-icono.png"
 import CreateRoomForm from "./CreateRoomForm";
 import DeleteComponent from "./DeleteComponent";
-const RouteGetRoom = import.meta.env.VITE_SEARCHES_CUARTO || "http://localhost:3000/searches/cuarto";
-const RouteGetRooms = import.meta.env.VITE_SEARCHES_CUARTOS || "http://localhost:3000/searches/cuartos";
-const RouteGetAllSensors = import.meta.env.VITE_SEARCHES_SENSORS || "http://localhost:3000/searches/sensors";
 const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || "http://localhost:3000/searches/idusu";
+const RoutesearchCommunity = import.meta.env.VITE_SEARCHES_COMUNIDAD || "http://localhost:3000/searches/comunidad";
 export default function SeeCommunity({selectedCommunity,userData}){
     const navigate = useNavigate();
     const localStorageSelectedCommunity = JSON.parse(localStorage.getItem("idRoom"));
@@ -78,13 +76,13 @@ export default function SeeCommunity({selectedCommunity,userData}){
     }, []);
 
     useEffect(() => {
-        fetch(`${RoutesearchUser}`, {
+        fetch(`${RoutesearchCommunity}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            correo: userData
+            idcomunidad: selectedCommunity
         })
     })
     .then(response => {
