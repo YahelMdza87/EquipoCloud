@@ -41,6 +41,18 @@ router.get('/usuarios', async (req, res) => {
     }
 });
 
+//RUTA PARA OBTENER CORREO
+router.get('/correousers', async (req, res) => {
+    try {
+        const result = await itemsPool.query('SELECT correo FROM usuarios');
+        res.send(result.rows); // Envía solo los datos de los usuarios
+    } catch (error) {
+        console.error('Error al obtener correo de los usuarios', error);
+        res.status(500).json({"message":"Error al obtener el correo de los usuarios"});
+    }
+});
+
+
 //RUTA PARA OBTENER NÚMERO DE USUARIOS
 router.get('/numusu', async (req, res) => {
     try {
