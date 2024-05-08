@@ -1,46 +1,30 @@
 import "../App.css"
 import React, { useState, useEffect } from 'react';
-export default function CloseSesion({onClose}){
+import { useNavigate } from "react-router-dom";
+const RouteDeleteZone = import.meta.env.VITE_DELETE_ZONA || "http://localhost:3000/delete/zona";
+const RouteDeleteRoom = import.meta.env.VITE_DELETE_CUARTO || "http://localhost:3000/delete/cuarto";
+const RouteDeleteSensor = import.meta.env.VITE_DELETE_SENSOR || "http://localhost:3000/delete/sensor";
+const RouteDeleteComunity = import.meta.env.VITE_DELETE_COMUNIDAD || "http://localhost:3000/delete/comunidad";
+const RouteDeleteCollaborator = import.meta.env.VITE_DELETE_COLABORADOR || "http://localhost:3000/delete/colaborador";
+export default function DeleteComponent({onClose}){
+    const navigate = useNavigate();
+    function handleCancel(){
+        onClose();
+    }
     function handleSuccess(){
-       
-            console.log(roomName)
-            console.log(id)
-            fetch(`${RouteAddRoom}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                idzona: JSON.stringify(id.idZone),
-                nombrecuarto: roomName
-            })
-            })
-            .then(response => {
-                if(!response.ok){
-                    throw new Error('Hubo un problema al realizar la solicitud')
-                }
-                return response.json();
-            })
-            .then(data=> {
-                
-                onClose()
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });     
+        onClose();
+        localStorage.clear()
+        navigate("/")
     }
 
     return(
         <div className="background-principal" onClick={onClose}>
             <div className="card-principal" onClick={(e) => e.stopPropagation()}>
                 <div className="login-email-password">
-                    <h2 className="title-login">Crear cuarto</h2>
-                    <div>
-                        <h3 className="title-data-login">Nombre:</h3>
-                        <input className='input-login' type="text" value={roomName} onChange={handleRoomName} placeholder='Nombre de la zona...' />
-                    </div>
-                    <div style={{marginTop:"5%", display:"flex", justifyContent:"center", textWrap:"nowrap"}}>
-                    <button className="btn-submit-data-user" type="button" onClick={handleSuccess}>Crear cuarto</button>
+                    <h2 style={{fontSize:"5.3vw", marginBottom:"6%"}} className="title-login">¿Estas seguro de cerrar sesión? {name}</h2>
+                    <div style={{display:"flex", alignItems:"center", textAlign:"center", justifyContent:"center"}}>
+                    <button style={{marginRight:"4%", backgroundColor:"#DDCBFF"}} className="btn-submit-data-user" type="button" onClick={handleCancel}>No, cancelar</button>
+                    <button className="btn-submit-data-user" type="button" onClick={handleSuccess}>Sí, cerrar sesión</button>
                     </div>
                 </div>
 
