@@ -6,7 +6,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import User from "../assets/user.png"
 import CuartoIcono from "../assets/cuarto-icono.png"
-import CreateRoomForm from "./CreateRoomForm";
+import CreateCollaboratorForm from "./CreateCollaboratorForm";
 import DeleteComponent from "./DeleteComponent";
 const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || "http://localhost:3000/searches/idusu";
 const RoutesearchCommunity = import.meta.env.VITE_SEARCHES_COMUNIDAD || "http://localhost:3000/searches/comunidad";
@@ -16,12 +16,10 @@ export default function SeeCommunity({selectedCommunity,userData}){
     const localStorageUser = JSON.parse(localStorage.getItem("userData"));
     const localStorageWichComponent = JSON.parse(localStorage.getItem("wichComponent"));
     const [idRoom, setIdRoom] = useState("");
-    const [idDevice, setIdDevice] = useState("");
-    const [nameRoom, setNameRoom] = useState("");
+    const [idCommunity, setIdCommunity] = useState("");
+    const [community, setCommunity] = useState([]);
     const [user, setUser] = useState([]);
-    const [numDevices, setNumDevices] = useState("");
-    const [allDevices, setAllDevices] = useState([]);
-    const [showAddRoomForm, setShowAddRoomForm] = useState(false);
+    const [showAddCollaboratorForm, setShowAddCollaboratorForm] = useState(false);
     const [showConfirmDelete, setShowConfirmDelete] = useState(false);
     if(localStorageSelectedCommunity){
         selectedCommunity = localStorageSelectedCommunity;
@@ -95,7 +93,8 @@ export default function SeeCommunity({selectedCommunity,userData}){
         console.log(data)
       if(data && data.length>0){
         data.forEach(element => {
-            setUser(element)
+            setCommunity(element)
+            setIdCommunity(element.id_comunidad)
         });
       }
       else{
@@ -109,8 +108,8 @@ export default function SeeCommunity({selectedCommunity,userData}){
     });
     }, []);
 
-    function addRoom() {
-        setShowAddRoomForm(true);
+    function addCollaborator() {
+        setShowAddCollaboratorForm(true);
     }
 
 
@@ -122,8 +121,8 @@ export default function SeeCommunity({selectedCommunity,userData}){
         setShowConfirmDelete(false);
     }
 
-    function closeAddRoomModal() {
-        setShowAddRoomForm(false);
+    function closeAddCollaboratorModal() {
+        setShowAddCollaboratorForm(false);
     }
 
     return(
@@ -136,19 +135,22 @@ export default function SeeCommunity({selectedCommunity,userData}){
             <div>
                 <img src={Back} alt="" style={{width:"9%",borderBottom:"1px solid #ba98ff69",borderRight:"1px solid #ba98ff69"}} onClick={goBack} />
             </div>
-            <div style={{alignItems:"center", justifyItems:"center", textAlign:"center"}}><h1>hola</h1></div>
+            <div style={{alignItems:"center", justifyItems:"center", textAlign:"center"}}> <h1>{community.nombrecomunidad}</h1></div>
             <div className="section-image-zone">
                 <img style={{objectFit:"cover", width:"100%", borderRadius:"20px"}} src="https://media.admagazine.com/photos/62b4b828cce4cfe1db2ed95e/4:3/w_2664,h_1998,c_limit/Dormitorio.jpg" alt="" />
             </div>
             <h1 style={{marginLeft:"2%", marginTop:"1%"}}>Colaboradores</h1>
             <div className="section-devices-principal">
-                <div className="div-add-zone-principal" style={{backgroundColor:"#DDCBFF"}}>
+                <div className="div-add-zone-principal" style={{backgroundColor:"#DDCBFF"}} onClick={addCollaborator}>
                     <img className="add-zone-icon-principal" src={Agregar} alt="" />
                     <h3 className="add-zone-text-principal">Agregar colaborador</h3>
                 </div>
              </div>
             {showConfirmDelete && ( 
                 <DeleteComponent onClose={closeDelete} id={{idRoom}} wich={{localStorageWichComponent}}/>
+            )}
+            {showAddCollaboratorForm && ( 
+                <CreateCollaboratorForm onClose={closeAddCollaboratorModal} id={{idCommunity}} />
             )}
             {/* <div style={{justifyItems:"center", alignItems:"center", textAlign:"center"}}><img src={Basura} alt="" onClick={toDelete}/></div> */}
         </div>
