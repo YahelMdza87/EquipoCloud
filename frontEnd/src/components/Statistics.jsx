@@ -2,13 +2,13 @@ import Logo from "../assets/logo-domoticloud.png"
 import User from "../assets/user.png"
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
-const RoutesearchStorage = import.meta.env.VITE_SEARCHES_STORAGE = "http://localhost:3000/searches/storage"
-const RoutesearchNumUsers = import.meta.env.VITE_SEARCHES_NUMUSU = "http://localhost:3000/searches/numusu"
-const RoutesearchNumZonas = import.meta.env.VITE_SEARCHES_NUMZONAS = "http://localhost:3000/searches/numzonas"
-const RoutesearchNumCuartos = import.meta.env.VITE_SEARCHES_NUMCUARTOS = "http://localhost:3000/searches/numcuartos"
-const RoutesearchNumSensores = import.meta.env.VITE_SEARCHES_NUMSENSORES = "http://localhost:3000/searches/numsensores"
-const RoutesearchNumComunidades = import.meta.env.VITE_SEARCHES_NUMCOMUNIDADES = "http://localhost:3000/searches/numcomunidades"
-const RoutesearchNumColaboradores = import.meta.env.VITE_SEARCHES_NUMCOLABORADORES = "http://localhost:3000/searches/numcolaboradores"
+const RoutesearchStorage = import.meta.env.VITE_SEARCHES_STORAGE || "http://localhost:3000/searches/storage"
+const RoutesearchNumUsers = import.meta.env.VITE_SEARCHES_NUMUSU || "http://localhost:3000/searches/numusu"
+const RoutesearchNumZonas = import.meta.env.VITE_SEARCHES_NUMZONAS || "http://localhost:3000/searches/numzonas"
+const RoutesearchNumCuartos = import.meta.env.VITE_SEARCHES_NUMCUARTOS || "http://localhost:3000/searches/numcuartos"
+const RoutesearchNumSensores = import.meta.env.VITE_SEARCHES_NUMSENSORES || "http://localhost:3000/searches/numsensores"
+const RoutesearchNumComunidades = import.meta.env.VITE_SEARCHES_NUMCOMUNIDADES || "http://localhost:3000/searches/numcomunidades"
+const RoutesearchNumColaboradores = import.meta.env.VITE_SEARCHES_NUMCOLABORADORES || "http://localhost:3000/searches/numcolaboradores"
 
 export default function Statistics (){
     const [numusu, setNumusu] = useState(null);
