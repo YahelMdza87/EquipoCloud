@@ -111,7 +111,7 @@ export default function SeeSensor({selectedSensor,userData}){
     };
             obtenerSeñales();
 
-        const intervalId = setInterval(obtenerSeñales, 4000);
+        const intervalId = setInterval(obtenerSeñales, 2000);
 
         // Limpiar el intervalo cuando el componente se desmonte
         return () => clearInterval(intervalId);

@@ -157,7 +157,7 @@ const toCommunity = (event) => {
 }
 useEffect(() => {
   if (idCommunity !== "") {
-    const selectedCommunity = idZona;
+    const selectedCommunity = idCommunity;
     localStorage.setItem("idCommunity", JSON.stringify(selectedCommunity));
     navigate('/seeCommunity');
   }

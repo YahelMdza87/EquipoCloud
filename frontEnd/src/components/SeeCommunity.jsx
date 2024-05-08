@@ -12,7 +12,7 @@ const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || "http://localhost
 const RoutesearchCommunity = import.meta.env.VITE_SEARCHES_COMUNIDAD || "http://localhost:3000/searches/comunidad";
 export default function SeeCommunity({selectedCommunity,userData}){
     const navigate = useNavigate();
-    const localStorageSelectedCommunity = JSON.parse(localStorage.getItem("idRoom"));
+    const localStorageSelectedCommunity = JSON.parse(localStorage.getItem("idCommunity"));
     const localStorageUser = JSON.parse(localStorage.getItem("userData"));
     const localStorageWichComponent = JSON.parse(localStorage.getItem("wichComponent"));
     const [idRoom, setIdRoom] = useState("");
@@ -92,15 +92,16 @@ export default function SeeCommunity({selectedCommunity,userData}){
         return response.json();
     })
     .then(data => {
+        console.log(data)
       if(data && data.length>0){
         data.forEach(element => {
             setUser(element)
         });
       }
       else{
-        console.log(data)
-        alert("Debes de iniciar sesión");
-        navigate('/')
+        // console.log(data)
+        // alert("Debes de iniciar sesión");
+        // navigate('/')
       }
     })
     .catch(error => {
