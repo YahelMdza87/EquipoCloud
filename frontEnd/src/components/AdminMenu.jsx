@@ -54,7 +54,7 @@ export default function AdminMenu (){
                                 <h2 className="fount">Administración de variables</h2>
                                 </div>
                                     <div className="admin-img-nav">
-                                        <img src={gear}/>
+                                        <img className="admin-img" src={gear}/>
                                     </div>
                                 <div style={{height:"20%"}}>
                                 <h3 className="fount">Configuración de variables</h3>
