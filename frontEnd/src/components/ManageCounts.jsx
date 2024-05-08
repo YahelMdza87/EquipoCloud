@@ -27,6 +27,7 @@ export default function ManageCounts (){
                 <h2 className="admin-header-title-user">Cuentas activas</h2>
                 <img src={User} alt="" className="admin-user-image-principal" onClick={toUserAccount}/>
             </div>
+            
         </div>
     )
 }
