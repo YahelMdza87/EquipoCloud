@@ -4,6 +4,7 @@ import Basura from "../assets/icono-basura.png"
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import User from "../assets/user.png"
+import Back from "../assets/to-back.png"
 import CuartoIcono from "../assets/cuarto-icono.png"
 import CreateRoomForm from "./CreateRoomForm";
 import DeleteComponent from "./DeleteComponent";
@@ -34,6 +35,9 @@ export default function SeeZone({selectedZone,userData}){
     }
     function toUserAccount(){
         navigate('/UserAccount')
+    }
+    function goBack(){
+        window.history.back();
     }
     function toIndex(){
     navigate('/Principal')
@@ -165,22 +169,25 @@ export default function SeeZone({selectedZone,userData}){
                 <img src={User} alt="" className="user-image-principal" onClick={toUserAccount}/>
                 <img src={Logo} alt="" className="add-icon-principal" onClick={toIndex}/>
             </div>
+            <div>
+                <img src={Back} alt="" style={{width:"9%",borderBottom:"1px solid #ba98ff69",borderRight:"1px solid #ba98ff69"}} onClick={goBack} />
+            </div>
             <div style={{alignItems:"center", justifyItems:"center", textAlign:"center"}}><h1>{nameZone}</h1></div>
             <div className="section-image-zone">
                 <img style={{objectFit:"cover", width:"100%", borderRadius:"20px"}} src="https://planner5d.com/blog/content/images/2022/06/sidekix-media-iu4K1XPnNAY-unsplash.jpg" alt="" />
             </div>
             <h1 style={{marginLeft:"2%", marginTop:"1%"}}>Dispositivos</h1>
             <div className="section-devices-principal">
-                <div className="add-zone-userAccount" style={{backgroundColor:"#DDCBFF"}}>
+                <div className="div-add-zone-principal" style={{backgroundColor:"#DDCBFF"}}>
                     <img className="add-zone-icon-principal" src={Agregar} alt="" />
-                    <h3 className="add-zone-text-principal">Agregar device</h3>
+                    <h3 className="add-zone-text-principal">Agregar dispositivo</h3>
                 </div>
              </div>
             <h1 style={{marginLeft:"2%", marginTop:"1%"}}>Cuartos</h1>
             <div className="section-devices-principal">
-                <div className="add-zone-userAccount" style={{backgroundColor:"#DDCBFF"}} onClick={addRoom}>
+                <div className="div-add-zone-principal" style={{backgroundColor:"#DDCBFF"}} onClick={addRoom}>
                     <img className="add-zone-icon-principal" src={Agregar} alt="" />
-                    <h3 className="add-zone-text-principal">Agregar device</h3>
+                    <h3 className="add-zone-text-principal">Agregar cuarto</h3>
                 </div>
                 { rooms.map((room,index) => (
                 <div id={room.id_cuarto} key={index} className="div-add-zone-principal"  onClick={toRoom}>

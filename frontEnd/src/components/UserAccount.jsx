@@ -3,15 +3,16 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import Logo from "../assets/logo-domoticloud.png"
 import User from "../assets/user.png"
+import Back from "../assets/to-back.png"
+import CuartoIcono from "../assets/cuarto-icono.png"
 const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || "http://localhost:3000/searches/idusu";
-
+const RoutegetZones = import.meta.env.VITE_SEARCHES_ZONAS || "http://localhost:3000/searches/zonas"
 export default function Principal({userData}) {
-  // const [usuarios, setUsuarios] = useState([]);
-  // const [numUsuarios, setNumUsuarios] = useState(0);
-  // const [signals, setSignals] = useState([]);
+  const [idUser, setIdUser] = useState("");
   const [name, setName] = useState("");
   const [workstation, setWorkstation] = useState("");
-
+  const [zones, setZones] = useState([]);
+  const [idZona, setIdZona] = useState("");
   const navigate = useNavigate();
   
   //Usamos localStorage para obtener el usuario guardado en cookies
@@ -19,6 +20,21 @@ export default function Principal({userData}) {
   if (localStorageUser){
     userData=localStorageUser;
   }
+  function goBack(){
+    window.history.back();
+}
+  const toZone = (event) => {
+    const selectedId = event.target.closest(".div-add-zone-principal").id;
+    setIdZona(selectedId)
+  }
+  useEffect(() => {
+    if (idZona !== "") {
+      const selectedZone = idZona;
+      localStorage.setItem("idZona", JSON.stringify(selectedZone));
+      navigate('/seeZone');
+    }
+  }, [idZona]);
+
   function toUserAccount(){
     navigate('/UserAccount')
   }
@@ -35,7 +51,34 @@ export default function Principal({userData}) {
     localStorage.removeItem("userData")
     navigate('/')
   }
-  
+
+
+  useEffect(() => {
+    if(idUser){
+      fetch(`${RoutegetZones}`, {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+          idusu: idUser
+      })
+    })
+    .then(response => {
+      if (!response.ok) {
+          throw new Error('Hubo un problema al realizar la solicitud.');
+      }
+      return response.json();
+    })
+    .then(data => {
+      setZones(data) 
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+  }
+  }, [idUser]);
+
   useEffect(() => {
       fetch(`${RoutesearchUser}`, {
         method: 'POST',
@@ -56,6 +99,7 @@ export default function Principal({userData}) {
       if(data && data.length>0){
         data.forEach(element => {
           console.log(element)
+          setIdUser(element.idusuario)
           setName(element.nombre);
           setWorkstation(element.cargo);
         });
@@ -83,26 +127,32 @@ export default function Principal({userData}) {
         <h2 className="name-role-userAccount">{workstation}</h2>
         <div className="btn-edit-data-user" onClick={toEditAccount}>Editar</div>
       </div>
-      <div className="section-devices-userAccount">
-        <h1>Colaboradores</h1>
-        <div className="add-zone-userAccount">
-          <img className="add-zone-icon-userAccount" src={Agregar} style={{width:"30%"}} alt="" />
-          <h3 className="add-zone-text-userAccount">Agregar colaborador</h3>
+      <h1>Comunidades</h1>
+      <div className="section-devices-principal">
+        <div className="div-add-zone-principal" style={{backgroundColor:"#DDCBFF"}}>
+          <img className="add-zone-icon-principal" src={Agregar} style={{width:"30%"}} alt="" />
+          <h3 className="add-zone-text-principal">Agregar colaborador</h3>
         </div>
       </div>
-      <div className="section-devices-userAccount">
-        <h1>Dispositivos agregados</h1>
-        <div className="add-zone-userAccount">
-          <img className="add-zone-icon-userAccount" src={Agregar} style={{width:"30%"}} alt="" />
-          <h3 className="add-zone-text-userAccount">Agregar dispositivo</h3>
+      <h1>Dispositivos agregados</h1>
+      <div className="section-devices-principal">
+        <div className="div-add-zone-principal" style={{backgroundColor:"#DDCBFF"}}>
+          <img className="add-zone-icon-principal" src={Agregar} style={{width:"30%"}} alt="" />
+          <h3 className="add-zone-text-principal">Agregar dispositivo</h3>
         </div>
       </div>
-      <div className="section-devices-userAccount">
-        <h1>Zonas</h1>
-        <div className="add-zone-userAccount">
-          <img className="add-zone-icon-userAccount" src={Agregar} style={{width:"30%"}} alt=""/>
-          <h3 className="add-zone-text-userAccount">Agregar zona</h3>
-        </div>
+      <h1>Zonas</h1>
+      <div className="section-devices-principal">
+        {/* <div className="div-add-zone-principal" style={{backgroundColor:"#DDCBFF"}}>
+          <img className="add-zone-icon-principal" src={Agregar} style={{width:"30%"}} alt=""/>
+          <h3 className="add-zone-text-principal">Agregar zona</h3>
+        </div> */}
+        { zones.map((zona,index) => (
+          <div id={zona.id_zona} key={index} className="div-add-zone-principal"  onClick={toZone}>
+            <h3 style={{fontSize:"2.8vw", color:"#DDCBFF", gridRow:"1", whiteSpace:"nowrap", overflow:"hidden",textOverflow:"ellipsis"}}>{zona.nombrezona}</h3>
+            <img src={CuartoIcono} alt="" style={{gridRow:"2"}} />
+          </div>
+        ))}
       </div>
       <div>
         <div style={{borderBottom:"solid #4b1e9e8c", padding:"3%"}} onClick={toHelp}>
@@ -118,97 +168,3 @@ export default function Principal({userData}) {
     </div>
   );
 }
- // useEffect(() => {
-  //   // fetch('http://localhost:3000/usuarios')
-  //   fetch('https://domoticloud.onrender.com/usuarios')
-  //     .then(response => response.json())
-  //     .then(data => setUsuarios(data))
-  //     .catch(error => console.error('Error fetching usuarios:', error));
-  
-  //   // fetch('http://localhost:3000/numusu')
-  //   fetch('https://domoticloud.onrender.com/numusu')
-  //     .then(response => response.json())
-  //     .then(data => setNumUsuarios(data))
-  //     .catch(error => console.error('Error fetching number of users:', error));
-
-  //     const obtenerSeñales = async () => {
-  //       try {
-  //         const response = await fetch('https://domoticloud.onrender.com/getallsignal', {
-  //         // const response = await fetch('http://localhost:3000/getallsignal', {
-  //           method: 'POST',
-  //           headers: {
-  //             'Content-Type': 'application/json'
-  //           },
-  //           body: JSON.stringify({
-  //             usu: 'Alan Montes'
-  //           })
-  //         });
-  
-  //         if (!response.ok) {
-  //           throw new Error('Hubo un problema al obtener las señales.');
-  //         }
-  
-  //         // Si la solicitud es exitosa, obtenemos los datos de la respuesta
-  //         const data = await response.json();
-  //         setSignals(data);
-  //       } catch (error) {
-  //         console.error('Error:', error);
-  //         // Manejar el error, por ejemplo, mostrar un mensaje al usuario
-  //       }
-  //     };
-  
-  //     // Llamar a la función para obtener las señales cuando el componente se monte
-  //     obtenerSeñales();
-
-  //     const intervalId = setInterval(obtenerSeñales, 2000);
-
-  //     // Limpiar el intervalo cuando el componente se desmonte
-  //     return () => clearInterval(intervalId);
-
-  // }, []);
-
-{/* <table>
-    <thead>
-      <tr>
-        <th>Zona</th>
-        <th>Cuarto</th>
-        <th>Sensor</th>
-        <th>Señal</th>
-        <th>Valor</th>
-      </tr>
-    </thead>
-    <tbody>
-      {signals.map((signal, index) => (
-        <tr key={index}>
-          <td>{signal.nombrezona}</td>
-          <td>{signal.cuarto}</td>
-          <td>{signal.nombresensor}</td>
-          <td>{signal.señal}</td>
-          <td>{signal.valor}</td>
-        </tr>
-      ))}
-    </tbody>
-  </table> */}
-
- {/* <h1>Colaboradores</h1>
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Email</th>
-              </tr>
-            </thead>
-            <tbody>
-              {usuarios.map(usuario => (
-                <tr key={usuario.idusuario}>
-                  <td>{usuario.idusuario}</td>
-                  <td>{usuario.usuario}</td>
-                  <td>{usuario.correo}</td>
-                </tr>
-              ))}
-              <tr>
-                <td colSpan="3">Cantidad de usuarios: {numUsuarios}</td>
-              </tr>
-            </tbody>
-          </table> */}

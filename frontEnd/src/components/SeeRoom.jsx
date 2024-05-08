@@ -1,6 +1,7 @@
 import Logo from "../assets/logo-domoticloud.png"
 import Agregar from "../assets/add-device.png"
 import Basura from "../assets/icono-basura.png"
+import Back from "../assets/to-back.png"
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import User from "../assets/user.png"
@@ -35,6 +36,9 @@ export default function SeeRoom({selectedRoom,userData}){
     }
     function toUserAccount(){
         navigate('/UserAccount')
+    }
+    function goBack(){
+        window.history.back();
     }
     function toIndex(){
     navigate('/Principal')
@@ -174,13 +178,16 @@ export default function SeeRoom({selectedRoom,userData}){
                 <img src={User} alt="" className="user-image-principal" onClick={toUserAccount}/>
                 <img src={Logo} alt="" className="add-icon-principal" onClick={toIndex}/>
             </div>
+            <div>
+                <img src={Back} alt="" style={{width:"9%",borderBottom:"1px solid #ba98ff69",borderRight:"1px solid #ba98ff69"}} onClick={goBack} />
+            </div>
             <div style={{alignItems:"center", justifyItems:"center", textAlign:"center"}}><h1>{nameRoom}</h1></div>
             <div className="section-image-zone">
                 <img style={{objectFit:"cover", width:"100%", borderRadius:"20px"}} src="https://media.admagazine.com/photos/62b4b828cce4cfe1db2ed95e/4:3/w_2664,h_1998,c_limit/Dormitorio.jpg" alt="" />
             </div>
             <h1 style={{marginLeft:"2%", marginTop:"1%"}}>Dispositivos</h1>
             <div className="section-devices-principal">
-                <div className="add-zone-userAccount" style={{backgroundColor:"#DDCBFF"}}>
+                <div className="div-add-zone-principal" style={{backgroundColor:"#DDCBFF"}}>
                     <img className="add-zone-icon-principal" src={Agregar} alt="" />
                     <h3 className="add-zone-text-principal">Agregar device</h3>
                 </div>

@@ -74,44 +74,6 @@ export default function Principal({userData}) {
         console.error('Error:', error);
     });
   }, []);
-  //Obtener las señales
-  // useEffect(() => {
-  //     const obtenerSeñales = async () => {
-  //       const id = 30;
-  //             try {
-  //               const response = await  fetch(`${RoutegetSignals}`, {
-  //                 method: 'POST',
-  //                 headers: {
-  //                   'Content-Type': 'application/json'
-  //                 },
-  //                 body: JSON.stringify({
-  //                   idusu: id
-  //                 })
-  //               });
-        
-  //               if (!response.ok) {
-  //                 throw new Error('Hubo un problema al obtener las señales.');
-  //               }
-        
-  //               // Si la solicitud es exitosa, obtenemos los datos de la respuesta
-  //               const data = await response.json();
-  //               setSignals(data);
-  //             } catch (error) {
-  //               console.error('Error:', error);
-  //               // Manejar el error, por ejemplo, mostrar un mensaje al usuario
-  //             }
-  //           };
-        
-  //           // Llamar a la función para obtener las señales cuando el componente se monte
-  //           obtenerSeñales();
-      
-  //           const intervalId = setInterval(obtenerSeñales, 2000);
-      
-  //           // Limpiar el intervalo cuando el componente se desmonte
-  //           return () => clearInterval(intervalId);
-  // }, [signals]);
-  //Obtener todas las zonas
-  
   /* Get todas las zonas*/
   useEffect(() => {
     if(idUser){
@@ -160,12 +122,12 @@ export default function Principal({userData}) {
       <div className="section-devices-principal"> 
         <div className="div-add-zone-principal" style={{backgroundColor:"#DDCBFF"}} onClick={addZone}>
           <img className="add-zone-icon-principal" src={Agregar} alt="" />
-          <h3 className="add-zone-text-principal">Agregar area</h3>
+          <h3 className="add-zone-text-principal">Agregar zona</h3>
         </div>
         { zones.map((zona,index) => (
           <div id={zona.id_zona} key={index} className="div-add-zone-principal"  onClick={toZone}>
-            <h3 style={{fontSize:"2.8vw", color:"#DDCBFF",gridColumn:"1/5", gridRow:"1", whiteSpace:"nowrap", overflow:"hidden",textOverflow:"ellipsis"}}>{zona.nombrezona}</h3>
-            <img src={CuartoIcono} alt="" style={{gridColumn:"2", gridRow:"2"}} />
+            <h3 style={{fontSize:"2.8vw", color:"#DDCBFF", gridRow:"1", whiteSpace:"nowrap", overflow:"hidden",textOverflow:"ellipsis"}}>{zona.nombrezona}</h3>
+            <img src={CuartoIcono} alt="" style={{gridRow:"2"}} />
           </div>
         ))}
       </div>

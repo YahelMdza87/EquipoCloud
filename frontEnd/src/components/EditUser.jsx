@@ -14,6 +14,9 @@ export default function EditUser({userData}){
     function toUserAccount(){
         navigate('/UserAccount')
     }
+    function goBack(){
+        window.history.back();
+    }
     function toIndex(){
         navigate('/Principal')
     }
@@ -136,7 +139,7 @@ export default function EditUser({userData}){
                 <img src={Logo} alt="" className="add-icon-principal" onClick={toIndex}/>
             </div>
             <div>
-                <img src={Back} alt="" style={{width:"9%",borderBottom:"1px solid #ba98ff69",borderRight:"1px solid #ba98ff69"}} onClick={toUserAccount} />
+                <img src={Back} alt="" style={{width:"9%",borderBottom:"1px solid #ba98ff69",borderRight:"1px solid #ba98ff69"}} onClick={goBack} />
             </div>
             <div className="section-data-useraccount">
                 <img src={User} alt="" className="user-image-userAccount" />

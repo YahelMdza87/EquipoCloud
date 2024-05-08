@@ -1,7 +1,8 @@
 import Logo from "../assets/logo-domoticloud.png"
 import Agregar from "../assets/add-device.png"
 import Basura from "../assets/icono-basura.png"
-import React, { useState, useEffect } from 'react';
+import Back from "../assets/to-back.png"
+import React, { useState, useEffect, useRef} from 'react';
 import { useNavigate } from "react-router-dom";
 import User from "../assets/user.png"
 import CuartoIcono from "../assets/cuarto-icono.png"
@@ -14,7 +15,14 @@ export default function SeeSensor({selectedSensor,userData}){
     const localStorageUser = JSON.parse(localStorage.getItem("userData"));
     const localStorageWichComponent = JSON.parse(localStorage.getItem("wichComponent"));
     const [user, setUser] = useState([]);
+    const [idSensor, setIdSensor] = useState("");
+    const [nameSensor, setNameSensor] = useState("");
+    const [valueSensor, setValueSensor] = useState("");
+    const [typeSignal, setTypeSignal] = useState("");
     const [showConfirmDelete, setShowConfirmDelete] = useState(false);
+    
+
+    const gaugeRef = useRef(null);
     if(localStorageSelectedSensor){
         selectedSensor = localStorageSelectedSensor;
     }
@@ -26,6 +34,9 @@ export default function SeeSensor({selectedSensor,userData}){
     }
     function toUserAccount(){
         navigate('/UserAccount')
+    }
+    function goBack(){
+        window.history.back();
     }
     function toIndex(){
     navigate('/Principal')
@@ -63,10 +74,12 @@ export default function SeeSensor({selectedSensor,userData}){
         console.error('Error:', error);
     });
     }, []);
-    
+
     useEffect(() => {
+    const obtenerSeñales = async () => {
         console.log(selectedSensor)
-        fetch(`${RouteGetSensor}`, {
+        try{
+        const response = await fetch(`${RouteGetSensor}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -74,29 +87,52 @@ export default function SeeSensor({selectedSensor,userData}){
         body: JSON.stringify({
             idsensor: selectedSensor
         })
-    })
-    .then(response => {
+    });
+
         if (!response.ok) {
             throw new Error('Hubo un problema al realizar la solicitud.');
         }
-        return response.json();
-    })
-    .then(data => {
+        const data = await response.json();
         console.log(data)
-      if(data && data.length>0){
         data.forEach(element => {
-            console.log('hola')
-        });
+            setIdSensor(element.id_sensor);
+            setNameSensor(element.nombresensor);
+            setValueSensor(element.valor);
+            setTypeSignal(element.señal)
+            if (gaugeRef.current) {
+                const signalFloat = parseFloat(element.valor);
+                
+                setGaugeValue(gaugeRef.current, (signalFloat/100));
+              }
+            });
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    };
+            obtenerSeñales();
+
+        const intervalId = setInterval(obtenerSeñales, 4000);
+
+        // Limpiar el intervalo cuando el componente se desmonte
+        return () => clearInterval(intervalId);
+
+    }, []); 
+    function setGaugeValue(gauge, value) {
+        if (value < 0 || value > 1) {
+          return;
+        }
+      
+        gauge.querySelector(".gauge__fill").style.transform = `rotate(${
+          value / 2
+        }turn)`;
+        gauge.querySelector(".gauge__cover").textContent = `${Math.round(
+          value * 100
+        )}%`;
       }
-      else{
-        // alert("Debiste de haber seleccionado una zona");
-        // navigate('/')
-      }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-    }, []);
+
+
+
+
     function toDelete(){
         console.log(idRoom)
         setShowConfirmDelete(true);
@@ -104,6 +140,7 @@ export default function SeeSensor({selectedSensor,userData}){
     function closeDelete(){
         setShowConfirmDelete(false);
     }
+    
 
     return(
         <div className="body-principal">
@@ -112,17 +149,37 @@ export default function SeeSensor({selectedSensor,userData}){
                 <img src={User} alt="" className="user-image-principal" onClick={toUserAccount}/>
                 <img src={Logo} alt="" className="add-icon-principal" onClick={toIndex}/>
             </div>
-            <div style={{alignItems:"center", justifyItems:"center", textAlign:"center"}}><h1>hola</h1></div>
-            <div className="section-image-zone">
-                <img style={{objectFit:"cover", width:"100%", borderRadius:"20px"}} src="https://planner5d.com/blog/content/images/2022/06/sidekix-media-iu4K1XPnNAY-unsplash.jpg" alt="" />
+            <div>
+                <img src={Back} alt="" style={{width:"9%",borderBottom:"1px solid #ba98ff69",borderRight:"1px solid #ba98ff69"}} onClick={goBack} />
             </div>
-            <h1 style={{marginLeft:"2%", marginTop:"1%"}}>Dispositivos</h1>
-            <div className="section-devices-principal">
-                <div className="add-zone-userAccount" style={{backgroundColor:"#DDCBFF"}}>
-                    <img className="add-zone-icon-principal" src={Agregar} alt="" />
-                    <h3 className="add-zone-text-principal">Agregar device</h3>
+            <div style={{alignItems:"center", justifyItems:"center", textAlign:"center"}}><h1>{nameSensor}</h1></div>
+            <div className="section-image-zone" style={{borderBottom:"0"}}>
+                <img style={{objectFit:"cover", width:"100%", borderRadius:"20px"}} src="https://www.elpais.cr/wp-content/uploads/2023/04/Dispositivos-digitales.jpg" alt="" />
+            </div>
+            <div className="values-devices-SeeSensor">
+                <div className="section-value-SeeSensor">
+                    <h3 style={{gridRow:"1"}}>Señal:</h3>
+                    <p style={{gridRow:"2"}}>{typeSignal}</p>
                 </div>
-             </div>
+                <div className="section-value-SeeSensor">
+                    <h3 style={{gridRow:"1"}}>Comunidad:</h3>
+                    <p style={{gridRow:"2"}}>No hay ningúna comunidad asignada</p>
+                </div>
+                <div className="section-value-SeeSensor">
+                    <h3 style={{gridRow:"1"}}>Valor:</h3>
+                    <div className="gauge" ref={gaugeRef}>
+                    <div className="gauge__body">
+                        <div className="gauge__fill"></div>
+                        <div className="gauge__cover"></div>
+                    </div>
+                    </div>
+                </div>
+                <div className="section-value-SeeSensor">
+                    <h3 style={{gridRow:"1"}}>Señal:</h3>
+                    <h3 style={{gridRow:"2"}}>{typeSignal}</h3>
+                </div>
+            </div>
+            
             {showConfirmDelete && ( 
                 <DeleteComponent onClose={closeDelete} id={{idRoom}} wich={{localStorageWichComponent}}/>
             )}
