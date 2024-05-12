@@ -9,6 +9,7 @@ import CommunityIcon from "../assets/comunidad-icono.png"
 import CloseSesion from "./CloseSesion";
 import CreateCommunity from "./CreateCommunity";
 const RoutegetCommunitys = import.meta.env.VITE_SEARCHES_ADMINCOMUNIDAD || "http://localhost:3000/searches/admincomunidad";
+const RoutegetSharedCommunitys = import.meta.env.VITE_SEARCHES_COLABENCOMUNIDAD || "http://localhost:3000/searches/colabencomunidad";
 const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || "http://localhost:3000/searches/idusu";
 const RoutegetZones = import.meta.env.VITE_SEARCHES_ZONAS || "http://localhost:3000/searches/zonas"
 export default function Principal({userData}) {
@@ -17,6 +18,7 @@ export default function Principal({userData}) {
   const [workstation, setWorkstation] = useState("");
   const [zones, setZones] = useState([]);
   const [communitys, setCommunitys] = useState([]);
+  const [sharedCommunitys, setSharedCommunitys] = useState([]);
   const [idCommunity, setIdCommunity] = useState("");
   const [idZona, setIdZona] = useState("");
   const [showCloseSesion, setShowCloseSesion] = useState(false);
@@ -82,6 +84,33 @@ export default function Principal({userData}) {
     .then(data => {
       console.log(data)
       setCommunitys(data) 
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+  }
+  }, [idUser], [showAddCommunityForm]);
+  
+  useEffect(() => {
+    if(idUser){
+      fetch(`${RoutegetSharedCommunitys}`, {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+          idadminusu: idUser
+      })
+    })
+    .then(response => {
+      if (!response.ok) {
+          throw new Error('Hubo un problema al realizar la solicitud.');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log(data)
+      setSharedCommunitys(data) 
     })
     .catch(error => {
       console.error('Error:', error);
@@ -155,6 +184,11 @@ const toCommunity = (event) => {
   console.log(selectedId)
   setIdCommunity(selectedId)
 }
+const toSharedCommunity = (event) => {
+  const selectedId = event.target.closest(".div-add-zone-principal").id;
+  console.log(selectedId)
+  setIdCommunity(selectedId)
+}
 useEffect(() => {
   if (idCommunity !== "") {
     const selectedCommunity = idCommunity;
@@ -193,15 +227,16 @@ function closeDelete(){
                 <div id={community.id_comunidad} key={index} className="div-add-zone-principal"  onClick={toCommunity}>
                     <h3 style={{fontSize:"2.8vw", color:"#DDCBFF", gridRow:"1", whiteSpace:"nowrap", overflow:"hidden",textOverflow:"ellipsis"}}>{community.nombrecomunidad}</h3>
                     <img src={CommunityIcon} alt="" style={{gridRow:"2"}} />
+                    <h3 style={{fontSize:"2.8vw", color:"#DDCBFF", gridRow:"3", whiteSpace:"nowrap", overflow:"hidden",textOverflow:"ellipsis"}}>Propietario</h3>
                 </div>
                 ))}
-      </div>
-      <h1>Dispositivos agregados</h1>
-      <div className="section-devices-principal">
-        <div className="div-add-zone-principal" style={{backgroundColor:"#DDCBFF"}}>
-          <img className="add-zone-icon-principal" src={Agregar} style={{width:"30%"}} alt="" />
-          <h3 className="add-zone-text-principal">Agregar dispositivo</h3>
-        </div>
+        { sharedCommunitys.map((sharedCommunity,index) => (
+                <div id={sharedCommunity.id_comunidad} key={index} className="div-add-zone-principal"  onClick={toSharedCommunity}>
+                    <h3 style={{fontSize:"2.8vw", color:"#DDCBFF", gridRow:"1", whiteSpace:"nowrap", overflow:"hidden",textOverflow:"ellipsis"}}>{sharedCommunity.nombrecomunidad}</h3>
+                    <img src={CommunityIcon} alt="" style={{gridRow:"2"}} />
+                    <h3 style={{fontSize:"2.8vw", color:"#DDCBFF", gridRow:"3", whiteSpace:"nowrap", overflow:"hidden",textOverflow:"ellipsis"}}>Compartida</h3>
+                </div>
+                ))}
       </div>
       <h1>Zonas</h1>
       <div className="section-devices-principal">

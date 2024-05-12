@@ -6,6 +6,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import User from "../assets/user.png"
 import CuartoIcono from "../assets/cuarto-icono.png"
+import UserIcono from "../assets/user-icono.png"
 import CreateCollaboratorForm from "./CreateCollaboratorForm";
 import DeleteComponent from "./DeleteComponent";
 const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || "http://localhost:3000/searches/idusu";
@@ -196,7 +197,7 @@ export default function SeeCommunity({selectedCommunity,userData}){
              { collaborators.map((collaborator,index) => (
                 <div id={collaborator.id_colaborador} key={index} className="div-add-zone-principal"  onClick={toCollaborator}>
                     <h3 style={{fontSize:"2.8vw", color:"#DDCBFF", gridRow:"1", whiteSpace:"nowrap", overflow:"hidden",textOverflow:"ellipsis"}}>{collaborator.correo}</h3>
-                    <img src={CuartoIcono} alt="" style={{gridRow:"2"}} />
+                    <img src={UserIcono} alt="" style={{gridRow:"2"}} />
                 </div>
                 ))}
             {showConfirmDelete && ( 
