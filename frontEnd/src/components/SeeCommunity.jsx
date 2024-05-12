@@ -9,6 +9,8 @@ import CuartoIcono from "../assets/cuarto-icono.png"
 import CreateCollaboratorForm from "./CreateCollaboratorForm";
 import DeleteComponent from "./DeleteComponent";
 const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || "http://localhost:3000/searches/idusu";
+const RoutesearchEmails = import.meta.env.VITE_SEARCHES_CORREOUSERS || "http://localhost:3000/searches/correousers";
+const RoutesearchCollaborators = import.meta.env.VITE_SEARCHES_COLABDECOMUNIDAD ||  "http://localhost:3000/searches/colabdecomunidad";
 const RoutesearchCommunity = import.meta.env.VITE_SEARCHES_COMUNIDAD || "http://localhost:3000/searches/comunidad";
 export default function SeeCommunity({selectedCommunity,userData}){
     const navigate = useNavigate();
@@ -18,6 +20,8 @@ export default function SeeCommunity({selectedCommunity,userData}){
     const [idRoom, setIdRoom] = useState("");
     const [idCommunity, setIdCommunity] = useState("");
     const [community, setCommunity] = useState([]);
+    const [collaborators, setCollaborators] = useState([]);
+    const [emailsUsers, setEmailsUsers] = useState([]);
     const [user, setUser] = useState([]);
     const [showAddCollaboratorForm, setShowAddCollaboratorForm] = useState(false);
     const [showConfirmDelete, setShowConfirmDelete] = useState(false);
@@ -107,10 +111,49 @@ export default function SeeCommunity({selectedCommunity,userData}){
         console.error('Error:', error);
     });
     }, []);
-
+    useEffect(() => {
+        fetch(`${RoutesearchEmails}`)
+        .then(response => {
+            if (!response.ok) {
+            throw new Error('Hubo un problema al realizar la solicitud.');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data);
+            setEmailsUsers(data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }, []);
     function addCollaborator() {
         setShowAddCollaboratorForm(true);
     }
+    useEffect(() => {
+        fetch(`${RoutesearchCollaborators}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                idcomunidad: selectedCommunity
+            })
+        })
+        .then(response => {
+            if (!response.ok) {
+            throw new Error('Hubo un problema al realizar la solicitud.');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data);
+            setCollaborators(data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }, []);
 
 
     function toDelete(){
@@ -124,6 +167,10 @@ export default function SeeCommunity({selectedCommunity,userData}){
     function closeAddCollaboratorModal() {
         setShowAddCollaboratorForm(false);
     }
+    function toCollaborator(){
+
+    }
+
 
     return(
         <div className="body-principal">
@@ -146,6 +193,12 @@ export default function SeeCommunity({selectedCommunity,userData}){
                     <h3 className="add-zone-text-principal">Agregar colaborador</h3>
                 </div>
              </div>
+             { collaborators.map((collaborator,index) => (
+                <div id={collaborator.id_colaborador} key={index} className="div-add-zone-principal"  onClick={toCollaborator}>
+                    <h3 style={{fontSize:"2.8vw", color:"#DDCBFF", gridRow:"1", whiteSpace:"nowrap", overflow:"hidden",textOverflow:"ellipsis"}}>{collaborator.correo}</h3>
+                    <img src={CuartoIcono} alt="" style={{gridRow:"2"}} />
+                </div>
+                ))}
             {showConfirmDelete && ( 
                 <DeleteComponent onClose={closeDelete} id={{idRoom}} wich={{localStorageWichComponent}}/>
             )}
