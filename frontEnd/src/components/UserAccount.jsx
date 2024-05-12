@@ -212,7 +212,7 @@ function closeDelete(){
         <img src={Logo} alt="" className="add-icon-principal" onClick={toIndex}/>
       </div>
       <div className="section-data-useraccount">
-        <img src={User} alt="" className="user-image-userAccount" />
+        <img src={User} alt="" className="user-image-userAccount" style={{width:"40%"}}/>
         <h2 className="name-user-userAccount" >{name}</h2>
         <h2 className="name-role-userAccount">{workstation}</h2>
         <div className="btn-edit-data-user" onClick={toEditAccount}>Editar</div>
@@ -220,13 +220,13 @@ function closeDelete(){
       <h1>Comunidades</h1>
       <div className="section-devices-principal">
         <div className="div-add-zone-principal" style={{backgroundColor:"#DDCBFF"}} onClick={toCreateComunity}>
-          <img className="add-zone-icon-principal" src={Agregar} style={{width:"30%"}} alt="" />
+          <img className="add-zone-icon-principal" src={Agregar} alt="" />
           <h3 className="add-zone-text-principal">Agregar comunidad</h3>
         </div>
         { communitys.map((community,index) => (
                 <div id={community.id_comunidad} key={index} className="div-add-zone-principal"  onClick={toCommunity}>
                     <h3 style={{fontSize:"2.8vw", color:"#DDCBFF", gridRow:"1", whiteSpace:"nowrap", overflow:"hidden",textOverflow:"ellipsis"}}>{community.nombrecomunidad}</h3>
-                    <img src={CommunityIcon} alt="" style={{gridRow:"2"}} />
+                    <img src={CommunityIcon} alt="" style={{gridRow:"2", width:"30%"}} />
                     <h3 style={{fontSize:"2.8vw", color:"#DDCBFF", gridRow:"3", whiteSpace:"nowrap", overflow:"hidden",textOverflow:"ellipsis"}}>Propietario</h3>
                 </div>
                 ))}
@@ -240,14 +240,10 @@ function closeDelete(){
       </div>
       <h1>Zonas</h1>
       <div className="section-devices-principal">
-        {/* <div className="div-add-zone-principal" style={{backgroundColor:"#DDCBFF"}}>
-          <img className="add-zone-icon-principal" src={Agregar} style={{width:"30%"}} alt=""/>
-          <h3 className="add-zone-text-principal">Agregar zona</h3>
-        </div> */}
         { zones.map((zona,index) => (
           <div id={zona.id_zona} key={index} className="div-add-zone-principal"  onClick={toZone}>
             <h3 style={{fontSize:"2.8vw", color:"#DDCBFF", gridRow:"1", whiteSpace:"nowrap", overflow:"hidden",textOverflow:"ellipsis"}}>{zona.nombrezona}</h3>
-            <img src={CuartoIcono} alt="" style={{gridRow:"2"}} />
+            <img src={CuartoIcono} alt="" style={{gridRow:"2", width:"40%"}} />
           </div>
         ))}
       </div>

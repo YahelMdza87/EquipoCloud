@@ -191,8 +191,8 @@ export default function SeeZone({selectedZone,userData}){
                 </div>
                 { rooms.map((room,index) => (
                 <div id={room.id_cuarto} key={index} className="div-add-zone-principal"  onClick={toRoom}>
-                    <h3 style={{fontSize:"2.8vw", color:"#DDCBFF",gridColumn:"1/5", gridRow:"1", whiteSpace:"nowrap", overflow:"hidden",textOverflow:"ellipsis"}}>{room.cuarto}</h3>
-                    <img src={CuartoIcono} alt="" style={{gridColumn:"2", gridRow:"2"}} />
+                    <h3 style={{fontSize:"2.3vw", color:"#DDCBFF", gridRow:"1", whiteSpace:"nowrap", overflow:"hidden",textOverflow:"ellipsis"}}>{room.cuarto}</h3>
+                    <img src={CuartoIcono} alt="" style={{gridRow:"2", width:"30%"}} />
                 </div>
                 ))}
             </div>

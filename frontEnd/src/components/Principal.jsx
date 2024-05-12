@@ -118,7 +118,7 @@ export default function Principal({userData}) {
       <div className="section-user-principal">
         <h2 className="hello-user-principal">Hola {name}</h2>
       </div>
-      <h1 style={{marginLeft:"2%", marginTop:"1%", borderTop:"solid #4b1e9e13"}}>Zonas</h1>
+      <h1 style={{marginTop:"1%", fontSize:"2vw"}}>Zonas</h1>
       <div className="section-devices-principal"> 
         <div className="div-add-zone-principal" style={{backgroundColor:"#DDCBFF"}} onClick={addZone}>
           <img className="add-zone-icon-principal" src={Agregar} alt="" />
@@ -126,8 +126,8 @@ export default function Principal({userData}) {
         </div>
         { zones.map((zona,index) => (
           <div id={zona.id_zona} key={index} className="div-add-zone-principal"  onClick={toZone}>
-            <h3 style={{fontSize:"2.8vw", color:"#DDCBFF", gridRow:"1", whiteSpace:"nowrap", overflow:"hidden",textOverflow:"ellipsis"}}>{zona.nombrezona}</h3>
-            <img src={CuartoIcono} alt="" style={{gridRow:"2"}} />
+            <h3 className="name-divs-generated" style={{color:"#DDCBFF", gridRow:"1", whiteSpace:"nowrap", overflow:"hidden",textOverflow:"ellipsis"}}>{zona.nombrezona}</h3>
+            <img src={CuartoIcono} alt="" className="img-divs-generated" style={{gridRow:"2"}} />
           </div>
         ))}
       </div>

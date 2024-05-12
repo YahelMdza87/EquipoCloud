@@ -193,8 +193,8 @@ export default function SeeRoom({selectedRoom,userData}){
                 </div>
                 { allDevices.map((sensor,index) => (
                 <div id={sensor.id_sensor} key={index} className="div-add-zone-principal"  onClick={toSensor}>
-                    <h3 style={{fontSize:"2.8vw", color:"#DDCBFF",gridColumn:"1/5", gridRow:"1", whiteSpace:"nowrap", overflow:"hidden",textOverflow:"ellipsis"}}>{sensor.nombresensor}</h3>
-                    <img src={CuartoIcono} alt="" style={{gridColumn:"2", gridRow:"2"}} />
+                    <h3 style={{fontSize:"2.8vw", color:"#DDCBFF", gridRow:"1", whiteSpace:"nowrap", overflow:"hidden",textOverflow:"ellipsis"}}>{sensor.nombresensor}</h3>
+                    <img src={CuartoIcono} alt="" style={{gridRow:"2", width:"50%"}} />
                 </div>
                 ))}
              </div>
