@@ -4,6 +4,7 @@ import Logo from "../assets/logo-domoticloud.png"
 import Back from "../assets/to-back.png"
 import User from "../assets/user.png"
 const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || "http://localhost:3000/searches/idusu";
+const RoutechangesUser = import.meta.env.VITE_CHANGES_USUARIO || "http://localhost:3000/changes/usuario";
 
 export default function EditUser({userData}){
     const navigate = useNavigate();
@@ -29,7 +30,6 @@ export default function EditUser({userData}){
     const [workstation, setWorkstation] = useState("");
 
     useEffect(() => {
-        // fetch('https://domoticloud.onrender.com/searches/idusu', {
             fetch(`${RoutesearchUser}`, {
             method: 'POST',
             headers: {
@@ -102,9 +102,7 @@ export default function EditUser({userData}){
             work: workstation
         }
         event.preventDefault();
-        // fetch('https://domoticloud.onrender.com/changes/usuario', {
-        fetch('http://localhost:3000/changes/usuario', {
-            method: 'PATCH',
+        fetch(`${RoutechangesUser}`, {
             headers: {
                 'Content-Type': 'application/json'
             },

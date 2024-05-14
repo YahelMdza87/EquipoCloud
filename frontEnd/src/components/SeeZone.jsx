@@ -30,7 +30,8 @@ export default function SeeZone({selectedZone,userData}){
     if(localStorageUser){
         userData = localStorageUser;
     }
-    if(!localStorageWichComponent==="zone"){
+    if(!localStorageWichComponent==="zone" || localStorageWichComponent===""){
+        console.log("holaa")
         localStorage.setItem("wichComponent", JSON.stringify("zone"))
     }
     function toUserAccount(){

@@ -19,6 +19,7 @@ export default function Principal({userData}) {
   //Usamos localStorage para obtener el usuario guardado en cookies
   const localStorageUser = JSON.parse(localStorage.getItem('userData'));
   if (localStorageUser){
+    localStorage.setItem("wichComponent", JSON.stringify(""))
     userData=localStorageUser;
   }
   function toUserAccount(){
@@ -76,6 +77,7 @@ export default function Principal({userData}) {
   }, []);
   /* Get todas las zonas*/
   useEffect(() => {
+    console.log(idUser)
     if(idUser){
       fetch(`${RoutegetZones}`, {
       method: 'POST',

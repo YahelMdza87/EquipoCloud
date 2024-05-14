@@ -6,6 +6,7 @@ import User from "../assets/user.png"
 import Back from "../assets/to-back.png"
 import CuartoIcono from "../assets/cuarto-icono.png"
 import CommunityIcon from "../assets/comunidad-icono.png"
+import CommunityCoopIcon from "../assets/comunidad-coop-icono.png"
 import CloseSesion from "./CloseSesion";
 import CreateCommunity from "./CreateCommunity";
 const RoutegetCommunitys = import.meta.env.VITE_SEARCHES_ADMINCOMUNIDAD || "http://localhost:3000/searches/admincomunidad";
@@ -99,7 +100,7 @@ export default function Principal({userData}) {
           'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-          idadminusu: idUser
+          idcolabcomunidad: idUser
       })
     })
     .then(response => {
@@ -205,7 +206,7 @@ function closeDelete(){
   setShowCloseSesion(false);
 }
   return (
-    <div className="body-principal" style={{paddingBottom:"1%"}}>
+    <div className="body-principal">
       <div className="header-principal">
         <h2 className="header-title-principal">Domoticloud</h2>
         <img src={User} alt="" className="user-image-principal" onClick={toUserAccount}/>
@@ -232,10 +233,10 @@ function closeDelete(){
                 </div>
                 ))}
         { sharedCommunitys.map((sharedCommunity,index) => (
-                <div id={sharedCommunity.id_comunidad} key={index} className="div-add-zone-principal"  onClick={toSharedCommunity}>
-                    <h3 className="name-divs-generated" style={{gridRow:"1"}}>{sharedCommunity.nombrecomunidad}</h3>
-                    <img src={CommunityIcon} alt="" className="img-divs-generated" style={{gridRow:"2"}} />
-                    <h3 className="name-divs-generated" style={{gridRow:"3"}}>Compartida</h3>
+                <div id={sharedCommunity.id_comunidad} key={index} className="div-add-zone-principal-coop" onClick={toSharedCommunity}>
+                    <h3 className="name-divs-generated" style={{gridRow:"1", color:"#00ff2a"}}>{sharedCommunity.nombrecomunidad}</h3>
+                    <img src={CommunityCoopIcon} alt="" className="img-divs-generated" style={{gridRow:"2"}} />
+                    <h3 className="name-divs-generated" style={{gridRow:"3", color:"#00ff2a"}}>Compartida</h3>
                 </div>
                 ))}
       </div>

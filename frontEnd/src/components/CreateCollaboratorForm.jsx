@@ -32,8 +32,9 @@ export default function CreateCollaboratorForm({onClose, id, userData}){
     }
     function handleSuccess(){
         if(nameCollaborator!==""){
+            console.log(idUserCollaborator)
             console.log(nameCollaborator)
-            console.log()
+            console.log(id.idCommunity)
             addCollaborator().then(() => {
                 fetch(`${RouteAddCollaborator}`, {
                     method: 'POST',
