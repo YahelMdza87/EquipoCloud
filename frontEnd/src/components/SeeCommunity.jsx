@@ -181,11 +181,11 @@ export default function SeeCommunity({selectedCommunity,userData}){
                 <img src={Logo} alt="" className="add-icon-principal" onClick={toIndex}/>
             </div>
             <div>
-                <img src={Back} alt="" style={{width:"9%",borderBottom:"1px solid #ba98ff69",borderRight:"1px solid #ba98ff69"}} onClick={goBack} />
+                <img src={Back} alt="" className="to-back-button" onClick={goBack} />
             </div>
             <div style={{alignItems:"center", justifyItems:"center", textAlign:"center"}}> <h1>{community.nombrecomunidad}</h1></div>
             <div className="section-image-zone">
-                <img style={{objectFit:"cover", width:"100%", borderRadius:"20px"}} src="https://media.admagazine.com/photos/62b4b828cce4cfe1db2ed95e/4:3/w_2664,h_1998,c_limit/Dormitorio.jpg" alt="" />
+                <img className="image-zone" src="https://media.admagazine.com/photos/62b4b828cce4cfe1db2ed95e/4:3/w_2664,h_1998,c_limit/Dormitorio.jpg" alt="" />
             </div>
             <h1 style={{marginLeft:"2%", marginTop:"1%"}}>Colaboradores</h1>
             <div className="section-devices-principal">
@@ -196,8 +196,8 @@ export default function SeeCommunity({selectedCommunity,userData}){
              </div>
              { collaborators.map((collaborator,index) => (
                 <div id={collaborator.id_colaborador} key={index} className="div-add-zone-principal"  onClick={toCollaborator}>
-                    <h3 style={{fontSize:"2.8vw", color:"#DDCBFF", gridRow:"1", whiteSpace:"nowrap", overflow:"hidden",textOverflow:"ellipsis"}}>{collaborator.correo}</h3>
-                    <img src={UserIcono} alt="" style={{gridRow:"2"}} />
+                    <h3 className="name-divs-generated" style={{gridRow:"1"}}>{collaborator.correo}</h3>
+                    <img src={UserIcono} alt="" className="img-divs-generated" style={{gridRow:"2"}} />
                 </div>
                 ))}
             {showConfirmDelete && ( 

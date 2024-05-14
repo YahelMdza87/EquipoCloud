@@ -170,19 +170,13 @@ export default function SeeZone({selectedZone,userData}){
                 <img src={Logo} alt="" className="add-icon-principal" onClick={toIndex}/>
             </div>
             <div>
-                <img src={Back} alt="" style={{width:"9%",borderBottom:"1px solid #ba98ff69",borderRight:"1px solid #ba98ff69"}} onClick={goBack} />
+                <img src={Back} alt="" className="to-back-button" onClick={goBack} />
             </div>
             <div style={{alignItems:"center", justifyItems:"center", textAlign:"center"}}><h1>{nameZone}</h1></div>
             <div className="section-image-zone">
-                <img style={{objectFit:"cover", width:"100%", borderRadius:"20px"}} src="https://planner5d.com/blog/content/images/2022/06/sidekix-media-iu4K1XPnNAY-unsplash.jpg" alt="" />
+                <img className="image-zone" src="https://planner5d.com/blog/content/images/2022/06/sidekix-media-iu4K1XPnNAY-unsplash.jpg" alt="" />
             </div>
-            <h1 style={{marginLeft:"2%", marginTop:"1%"}}>Dispositivos</h1>
-            <div className="section-devices-principal">
-                <div className="div-add-zone-principal" style={{backgroundColor:"#DDCBFF"}}>
-                    <img className="add-zone-icon-principal" src={Agregar} alt="" />
-                    <h3 className="add-zone-text-principal">Agregar dispositivo</h3>
-                </div>
-             </div>
+            <div style={{borderTop: "solid #4b1e9e13"}}></div>
             <h1 style={{marginLeft:"2%", marginTop:"1%"}}>Cuartos</h1>
             <div className="section-devices-principal">
                 <div className="div-add-zone-principal" style={{backgroundColor:"#DDCBFF"}} onClick={addRoom}>
@@ -191,8 +185,8 @@ export default function SeeZone({selectedZone,userData}){
                 </div>
                 { rooms.map((room,index) => (
                 <div id={room.id_cuarto} key={index} className="div-add-zone-principal"  onClick={toRoom}>
-                    <h3 style={{fontSize:"2.3vw", color:"#DDCBFF", gridRow:"1", whiteSpace:"nowrap", overflow:"hidden",textOverflow:"ellipsis"}}>{room.cuarto}</h3>
-                    <img src={CuartoIcono} alt="" style={{gridRow:"2", width:"30%"}} />
+                    <h3 className="name-divs-generated" style={{gridRow:"1"}}>{room.cuarto}</h3>
+                    <img src={CuartoIcono} alt="" className="img-divs-generated" style={{gridRow:"2"}}/>
                 </div>
                 ))}
             </div>

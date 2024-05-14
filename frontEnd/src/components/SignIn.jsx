@@ -93,7 +93,7 @@ export default function SignIn() {
         
         <div className="body-login">
             <div className="card-signIn">
-                <div style={{display:"grid"}}><img style={{width:"10%", justifySelf:"left"}} src={Salir} alt="" onClick={toLogin} /></div>
+                <div style={{display:"grid"}}><img style={{width:"6%", justifySelf:"left", cursor:"pointer"}} src={Salir} alt="" onClick={toLogin} /></div>
                 <h1 className="title-login">Registrarse</h1>
                 <div className="login-email-password">
                     <div>
@@ -118,11 +118,11 @@ export default function SignIn() {
                     </div>
                     <div>
                         <h3 className="title-data-login">Contraseña:</h3>
-                        <input className='input-login' style={{marginBottom: "5%"}} value={password} type="password" onChange={handlePass} placeholder='Contraseña...' />
+                        <input className='input-login' value={password} type="password" onChange={handlePass} placeholder='Contraseña...' />
                     </div>
                     <div>
                         <h3 className="title-data-login">Confirmar contraseña:</h3>
-                        <input className='input-login' style={{marginBottom: "5%"}} value={confirmPassword} type="password" onChange={handleCPass} placeholder='Confirmar contraseña...' />
+                        <input className='input-login' value={confirmPassword} type="password" onChange={handleCPass} placeholder='Confirmar contraseña...' />
                     </div>
                 </div>
                 <div style={{marginTop:"1%", display:"flex", justifyContent:"center", padding:"3%"}}>

@@ -179,12 +179,13 @@ export default function SeeRoom({selectedRoom,userData}){
                 <img src={Logo} alt="" className="add-icon-principal" onClick={toIndex}/>
             </div>
             <div>
-                <img src={Back} alt="" style={{width:"9%",borderBottom:"1px solid #ba98ff69",borderRight:"1px solid #ba98ff69"}} onClick={goBack} />
+                <img src={Back} alt="" className="to-back-button" onClick={goBack} />
             </div>
             <div style={{alignItems:"center", justifyItems:"center", textAlign:"center"}}><h1>{nameRoom}</h1></div>
             <div className="section-image-zone">
-                <img style={{objectFit:"cover", width:"100%", borderRadius:"20px"}} src="https://media.admagazine.com/photos/62b4b828cce4cfe1db2ed95e/4:3/w_2664,h_1998,c_limit/Dormitorio.jpg" alt="" />
+                <img className="image-zone" src="https://media.admagazine.com/photos/62b4b828cce4cfe1db2ed95e/4:3/w_2664,h_1998,c_limit/Dormitorio.jpg" alt="" />
             </div>
+            <div style={{borderTop: "solid #4b1e9e13"}}></div>
             <h1 style={{marginLeft:"2%", marginTop:"1%"}}>Dispositivos</h1>
             <div className="section-devices-principal">
                 <div className="div-add-zone-principal" style={{backgroundColor:"#DDCBFF"}}>
@@ -193,8 +194,8 @@ export default function SeeRoom({selectedRoom,userData}){
                 </div>
                 { allDevices.map((sensor,index) => (
                 <div id={sensor.id_sensor} key={index} className="div-add-zone-principal"  onClick={toSensor}>
-                    <h3 style={{fontSize:"2.8vw", color:"#DDCBFF", gridRow:"1", whiteSpace:"nowrap", overflow:"hidden",textOverflow:"ellipsis"}}>{sensor.nombresensor}</h3>
-                    <img src={CuartoIcono} alt="" style={{gridRow:"2", width:"50%"}} />
+                    <h3 className="name-divs-generated" style={{gridRow:"1"}}>{sensor.nombresensor}</h3>
+                    <img src={CuartoIcono} alt="" className="img-divs-generated" style={{gridRow:"2"}} />
                 </div>
                 ))}
              </div>

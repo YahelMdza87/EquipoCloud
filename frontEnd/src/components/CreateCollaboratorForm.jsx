@@ -23,7 +23,7 @@ export default function CreateCollaboratorForm({onClose, id, userData}){
         setNameCollaborator(inputValue);
         if(inputValue.length>=6){
             const filterUsers = emailsUser.filter(email=> email.correo.toLowerCase().includes(inputValue) && email !== localStorage.getItem("userData"));
-            setSearchResults(filterUsers);
+            setSearchResults(filterUsers.length>0 ? filterUsers : [{ correo: "No hay ningún usuario registrado con ese correo."}]);
         }
         else {
             setSearchResults([]);

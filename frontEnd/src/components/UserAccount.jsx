@@ -205,18 +205,19 @@ function closeDelete(){
   setShowCloseSesion(false);
 }
   return (
-    <div className="body-principal">
+    <div className="body-principal" style={{paddingBottom:"1%"}}>
       <div className="header-principal">
         <h2 className="header-title-principal">Domoticloud</h2>
         <img src={User} alt="" className="user-image-principal" onClick={toUserAccount}/>
         <img src={Logo} alt="" className="add-icon-principal" onClick={toIndex}/>
       </div>
       <div className="section-data-useraccount">
-        <img src={User} alt="" className="user-image-userAccount" style={{width:"40%"}}/>
-        <h2 className="name-user-userAccount" >{name}</h2>
+        <img src={User} alt="" className="user-image-userAccount"/>
+        <h3 className="name-user-userAccount" >{name}</h3>
         <h2 className="name-role-userAccount">{workstation}</h2>
         <div className="btn-edit-data-user" onClick={toEditAccount}>Editar</div>
       </div>
+      <div style={{borderTop: "solid #4b1e9e13"}}></div>
       <h1>Comunidades</h1>
       <div className="section-devices-principal">
         <div className="div-add-zone-principal" style={{backgroundColor:"#DDCBFF"}} onClick={toCreateComunity}>
@@ -225,36 +226,37 @@ function closeDelete(){
         </div>
         { communitys.map((community,index) => (
                 <div id={community.id_comunidad} key={index} className="div-add-zone-principal"  onClick={toCommunity}>
-                    <h3 style={{fontSize:"2.8vw", color:"#DDCBFF", gridRow:"1", whiteSpace:"nowrap", overflow:"hidden",textOverflow:"ellipsis"}}>{community.nombrecomunidad}</h3>
-                    <img src={CommunityIcon} alt="" style={{gridRow:"2", width:"30%"}} />
-                    <h3 style={{fontSize:"2.8vw", color:"#DDCBFF", gridRow:"3", whiteSpace:"nowrap", overflow:"hidden",textOverflow:"ellipsis"}}>Propietario</h3>
+                    <h3 className="name-divs-generated" style={{gridRow:"1"}}>{community.nombrecomunidad}</h3>
+                    <img src={CommunityIcon} alt="" className="img-divs-generated" style={{gridRow:"2"}} />
+                    <h3 className="name-divs-generated" style={{gridRow:"3"}}>Propietario</h3>
                 </div>
                 ))}
         { sharedCommunitys.map((sharedCommunity,index) => (
                 <div id={sharedCommunity.id_comunidad} key={index} className="div-add-zone-principal"  onClick={toSharedCommunity}>
-                    <h3 style={{fontSize:"2.8vw", color:"#DDCBFF", gridRow:"1", whiteSpace:"nowrap", overflow:"hidden",textOverflow:"ellipsis"}}>{sharedCommunity.nombrecomunidad}</h3>
-                    <img src={CommunityIcon} alt="" style={{gridRow:"2"}} />
-                    <h3 style={{fontSize:"2.8vw", color:"#DDCBFF", gridRow:"3", whiteSpace:"nowrap", overflow:"hidden",textOverflow:"ellipsis"}}>Compartida</h3>
+                    <h3 className="name-divs-generated" style={{gridRow:"1"}}>{sharedCommunity.nombrecomunidad}</h3>
+                    <img src={CommunityIcon} alt="" className="img-divs-generated" style={{gridRow:"2"}} />
+                    <h3 className="name-divs-generated" style={{gridRow:"3"}}>Compartida</h3>
                 </div>
                 ))}
       </div>
+      <div style={{borderTop: "solid #4b1e9e13"}}></div>
       <h1>Zonas</h1>
       <div className="section-devices-principal">
         { zones.map((zona,index) => (
           <div id={zona.id_zona} key={index} className="div-add-zone-principal"  onClick={toZone}>
-            <h3 style={{fontSize:"2.8vw", color:"#DDCBFF", gridRow:"1", whiteSpace:"nowrap", overflow:"hidden",textOverflow:"ellipsis"}}>{zona.nombrezona}</h3>
-            <img src={CuartoIcono} alt="" style={{gridRow:"2", width:"40%"}} />
+            <h3 className="name-divs-generated" style={{gridRow:"1"}}>{zona.nombrezona}</h3>
+            <img src={CuartoIcono} alt="" className="img-divs-generated" style={{gridRow:"2"}}/>
           </div>
         ))}
       </div>
-      <div>
-        <div style={{borderBottom:"solid #4b1e9e8c", padding:"3%"}} onClick={toHelp}>
+      <div style={{marginTop:"4%"}}>
+        <div className="div-more-userAccount" onClick={toHelp}>
           <h2>Ayuda</h2>
         </div>
-        <div style={{borderBottom:"solid #4b1e9e8c", padding:"3%"}} onClick={toHelp}>
+        <div className="div-more-userAccount" onClick={toHelp}>
           <h2>Acerca de</h2>
         </div>
-        <div style={{padding:"3%", paddingBottom:"0%"}} onClick={toDelete}>
+        <div className="div-more-userAccount" onClick={toDelete}>
           <h2>Cerrar sesión</h2>
         </div>
       </div>

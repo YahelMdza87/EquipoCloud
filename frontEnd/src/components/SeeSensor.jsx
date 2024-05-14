@@ -150,12 +150,13 @@ export default function SeeSensor({selectedSensor,userData}){
                 <img src={Logo} alt="" className="add-icon-principal" onClick={toIndex}/>
             </div>
             <div>
-                <img src={Back} alt="" style={{width:"9%",borderBottom:"1px solid #ba98ff69",borderRight:"1px solid #ba98ff69"}} onClick={goBack} />
+                <img src={Back} alt="" className="to-back-button" onClick={goBack} />
             </div>
             <div style={{alignItems:"center", justifyItems:"center", textAlign:"center"}}><h1>{nameSensor}</h1></div>
-            <div className="section-image-zone" style={{borderBottom:"0"}}>
-                <img style={{objectFit:"cover", width:"100%", borderRadius:"20px"}} src="https://www.elpais.cr/wp-content/uploads/2023/04/Dispositivos-digitales.jpg" alt="" />
-            </div>
+            {/* <div className="section-image-zone" style={{borderBottom:"0"}}>
+                <img className="image-zone" src="https://www.elpais.cr/wp-content/uploads/2023/04/Dispositivos-digitales.jpg" alt="" />
+            </div> */}
+            <div style={{borderTop: "solid #4b1e9e13"}}></div>
             <div className="values-devices-SeeSensor">
                 <div className="section-value-SeeSensor">
                     <h3 style={{gridRow:"1"}}>Señal:</h3>

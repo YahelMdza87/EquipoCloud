@@ -5,6 +5,7 @@ td, tr{
   color: #4A1E9E;
 }
 #root {
+  background-color: #4A1E9E;
   margin: 0 auto;
   height: 100%;
   width: 100%;
@@ -52,7 +53,7 @@ body{
  }
  .body-login{
    width: 100%;
-   height: 100%;
+   height: auto;
    background-color: #4A1E9E;
    display: flex;
    align-items: center;
@@ -60,20 +61,21 @@ body{
  }
  
  .card {
- padding: 3vw;
- border-radius: 30px;
- height: auto;
- width: 30%;
- background-color: white;
+  margin: 7%;
+  padding: 3vw;
+  border-radius: 30px;
+  height: auto;
+  width: 30%;
+  background-color: white;
  }
  .card-signIn {
-  padding: 1vw;
-  border-radius: 10px;
+  padding: 3vw;
+  border-radius: 20px;
   height: auto;
   width: 60%;
   background-color: white;
   }
- h1,h2,h3,h4,label,p{
+ .body-principal h1,h3,h4,label,p{
    color: #4A1E9E;
  }
  .title-login{
@@ -83,26 +85,28 @@ body{
    color: #BB98FF;
 
  }
- .input-login::placeholder{
-   color: #BB98FF;
-   font-size: 1.2vw;
- }
  .title-data-login{
    text-align: left;
    margin-bottom: 2%;
    font-size: 1.2vw;
    color: #BB98FF;
+   margin: 0;
+   margin-bottom: 0.4%;
  }
  .input-login{
    background-color: #DDCBFF;
-   padding: 3%;
+   padding: 2%;
    border: 0;
    border-radius: 10px;
    color: #4A1E9E;
-   width: 100%;
+   width: 95%;
    font-size: 1.2vw;
    border-bottom: solid #BB98FF;
  }
+ .input-login::placeholder{
+  color: #BB98FF;
+  font-size: 1.2vw;
+}
  
  .login-email-password {
   padding: 1vw;
@@ -112,13 +116,18 @@ body{
  }
  .btn-submit-data-user{
   width: auto;
-  padding: 5%;
-  font-size: 1vw;
+  padding: 3%;
+  font-size: 1.4vw;
   border: 0;
   text-align: center;
   border-radius: 20px;
   margin-top: 2%;
   background-color: #4A1E9E;
+}
+.btn-submit-data-user:hover{
+  background-color: #BB98FF;
+  color: #8A2BE2;
+  cursor: pointer;
 }
  
  /* Page ---Principal----  */
@@ -128,7 +137,6 @@ body{
    height: 100%;
  }
  .body-principal h1,h2,h3,h4,h5{
-  font-size: 5.5vw;
   margin-left: 2%;
  }
  .header-principal{
@@ -137,7 +145,7 @@ body{
    background-color: #4A1E9E;
    display: grid;
    position: sticky;
-   padding-bottom: 1%;
+
    top: 0;
    grid-template-columns: repeat(3,1fr);
  }
@@ -176,15 +184,17 @@ body{
   border-radius: 20px;
   background-color: #ffffff1a;
 }
+.title-section-principal{
+  font-size: 2vw;
+}
 .section-user-principal{
  display: flex;
  align-items: center;
  justify-content: center;
  padding: 8%;
- border-bottom: solid #4b1e9e13;
 }
 .hello-user-principal{
-  font-size: 1.5vw;
+  font-size: 1.2vw;
   text-align: center;
   justify-self: center;
   margin: 0;
@@ -193,11 +203,13 @@ body{
   display: flex;
   flex-wrap: wrap;
   width: 100%;
+  height: auto;
 }
 .div-add-zone-principal{
-  width: 20%;
+  width: 17%;
   margin: 1%;
-  padding: 2%;
+  margin-right: 3%;
+  padding: 1%;
   border-radius: 30px;
   display: grid;
   align-items: center;
@@ -233,7 +245,7 @@ body{
 }
 .card-principal{
   padding: 4%;
-  width: 70%;
+  width: 40%;
   height: auto;
   border-radius: 35px;
   background-color: white;
@@ -242,6 +254,9 @@ body{
   margin-top: 1%;
   background-color: #DDCBFF;
   width: 100%;
+  padding: 2%;
+  font-size: 1.2vw;
+  color: #4A1E9E;
   border-radius: 5px;
  }
  .list-principal option:hover{
@@ -258,18 +273,30 @@ body{
  width: 30%;
 }
 .img-divs-generated{
-  width: 20%;
+  width: 40%;
+  justify-self: center;
+  align-self: center;
 }
 .name-divs-generated{
-  font-size: 1.6vw;
+  font-size: 1.2vw;
+  white-space: nowrap;
+  overflow:hidden;
+  color: #DDCBFF;
+  text-overflow:ellipsis;
 }
 /* SeeZone */
 .section-image-zone{
-  padding: 10%;
+  justify-content: center;
+  width: auto;
   padding-top: 3%;
   display: flex;
-  height: 30%;
-  border-bottom: solid #4b1e9e13;
+  height: 50%;
+  margin-bottom: 1%;
+}
+.image-zone{
+  object-fit: cover;
+  width: 70%;
+  border-radius: 20px;
 }
 
 
@@ -281,39 +308,46 @@ body{
   justify-content: center;
   width: auto;
   height: auto;
-  padding: 6%;
+  padding: 4%;
 }
 .name-user-userAccount{
-  font-size: 4.5vw;
+  font-size: 1.1vw;
   grid-column: 2;
   grid-row: 1;
-  align-self: self-end;
+  align-self: flex-end;
 }
 .user-image-userAccount{
   grid-column: 1;
   grid-row: 1/4;
-  padding: 5%;
+  padding: 1%;
+  width: 15%;
+
   margin-right: 1%;
   justify-self: right;
 }
 .name-role-userAccount{
   color: #7a7a7a88;
-  font-size: 4vw;
-  align-self: center;
+  font-size: 1.1vw;
+  align-self: flex-start;
   grid-column: 2;
   
 }
 
 .btn-edit-data-user{
-  width: 30%;
+  cursor: pointer;
+  width: 12%;
   text-align: center;
   border-radius: 20px;
   align-self: start;
   grid-column: 2;
   justify-self: left;
-  padding: 2%;
-  font-size: 3.3vw;
+  padding: 0.3%;
+  margin-left: 1%;
+  font-size: 1.1vw;
   background-color: #4A1E9E;
+}
+.btn-edit-data-user:hover{
+  background-color: #BB98FF;
 }
 .section-devices-userAccount{
   border-top: solid #4b1e9e13;
@@ -355,6 +389,30 @@ body{
   
   white-space: nowrap;
 }
+.div-more-userAccount{
+  border-radius: 20px;
+  padding: 2%;
+  color: #4A1E9E;
+  margin: 2%;
+  box-shadow: #4A1E9E 3px 5px 4px 3px;
+}
+.div-more-userAccount:hover{
+  cursor: pointer;
+  background-color: #4b1e9e32;
+  box-shadow: #7d3cff 3px 5px 4px 3px;
+}
+.to-back-button{
+  width: 4%;
+  margin: 1%;
+  border-bottom: 1px solid #ba98ff69;
+  border-right: 1px solid #ba98ff69;
+}
+.to-back-button:hover{
+  cursor: pointer;
+  background-color: #4A1E9E;
+  border-bottom: 1px solid #ba98ff69;
+  border-right: 1px solid #ba98ff69;
+}
 
 /* SeeSensors */
 .values-devices-SeeSensor {
@@ -368,9 +426,10 @@ body{
 .section-value-SeeSensor {
   display: grid;
   grid-template-rows: repeat(3, 1fr);
-  background-color: #DDCBFF; 
-  padding: 3%; 
-  border-radius: 30px;
+  padding: 1%; 
+  background-color: #ddcbff49;
+  border-radius: 200px;
+  justify-items: center;
   text-align: center; 
   font-size: 18px;
 }
@@ -427,7 +486,9 @@ body{
   position: absolute;
   color: #4A1E9E;
   border-radius: 10px;
-  margin-top: 3%;
+  width: 30%;
+  font-size: 1.2vw;
+  margin-top: 1%;
 }
 .list-email-users li:hover{
   background-color: #BB98FF;
@@ -485,13 +546,14 @@ body{
  .title-data-login{
    text-align: left;
    margin-bottom: 2%;
-   font-size: 2.5vw;
+   font-size: 3.5vw;
    color: #BB98FF;
  }
  .input-login{
    background-color: #DDCBFF;
    padding: 3%;
    border: 0;
+   font-size: 3.5vw;
    border-radius: 10px;
    color: #4A1E9E;
    width: 95%;
@@ -511,7 +573,6 @@ body{
    height: 100%;
  }
  .body-principal h1,h2,h3,h4,h5{
-  font-size: 5.5vw;
   margin-left: 2%;
  }
  .header-principal{
@@ -559,6 +620,9 @@ body{
   border-radius: 20px;
   background-color: #ffffff1a;
 }
+.title-section-principal{
+  font-size: 4vw;
+}
 .section-user-principal{
  display: flex;
  align-items: center;
@@ -579,6 +643,7 @@ body{
 }
 .div-add-zone-principal{
   width: 40%;
+  padding: 2%;
   margin: 1%;
   border-radius: 30px;
   display: grid;
@@ -597,7 +662,7 @@ body{
   justify-self: left;
 }
 .add-zone-text-principal{
-  grid-row: 4;
+  grid-row: 3;
   font-size: 3.2vw;
   align-items: end;
   padding:6%;
@@ -614,7 +679,7 @@ body{
   width: 100%;
 }
 .card-principal{
-  padding: 4%;
+  padding: 9%;
   width: 70%;
   height: auto;
   border-radius: 35px;
@@ -641,18 +706,25 @@ body{
 }
 
 .img-divs-generated{
-  width: 40%;
+  width: 25%;
 }
 .name-divs-generated{
   font-size: 2.8vw;
+  padding: 6%;
 }
 /* SeeZone */
 .section-image-zone{
-  padding: 10%;
+  justify-content: center;
+  width: auto;
   padding-top: 3%;
   display: flex;
   height: 30%;
-  border-bottom: solid #4b1e9e13;
+  margin-bottom: 1%;
+}
+.image-zone{
+  object-fit: cover;
+  width: 70%;
+  border-radius: 20px;
 }
 
 
@@ -678,6 +750,7 @@ body{
   padding: 5%;
   margin-right: 1%;
   justify-self: right;
+  width: 40%;
 }
 .name-role-userAccount{
   color: #7a7a7a88;
@@ -742,11 +815,38 @@ body{
 .btn-submit-data-user{
   width: auto;
   padding: 5%;
+  font-size: 3.2vw;
   border: 0;
   text-align: center;
   border-radius: 20px;
   margin-top: 2%;
   background-color: #4A1E9E;
+}
+.div-more-userAccount{
+  border-radius: 20px;
+  padding: 2%;
+  font-size: 3vw;
+  color: #4A1E9E;
+  margin: 2%;
+  margin-bottom: 4%;
+  box-shadow: #4A1E9E 3px 5px 4px 3px;
+}
+.div-more-userAccount:hover{
+  cursor: pointer;
+  background-color: #4b1e9e32;
+  box-shadow: #7d3cff 3px 5px 4px 3px;
+}
+.to-back-button{
+  width: 9%;
+  margin: 1%;
+  border-bottom: 1px solid #ba98ff69;
+  border-right: 1px solid #ba98ff69;
+}
+.to-back-button:hover{
+  cursor: pointer;
+  background-color: #4A1E9E;
+  border-bottom: 1px solid #ba98ff69;
+  border-right: 1px solid #ba98ff69;
 }
 
 /* SeeSensors */
