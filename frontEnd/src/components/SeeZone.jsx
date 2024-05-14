@@ -30,7 +30,7 @@ export default function SeeZone({selectedZone,userData}){
     if(localStorageUser){
         userData = localStorageUser;
     }
-    if(!localStorageWichComponent==="zone" || localStorageWichComponent===""){
+    if(localStorageWichComponent!=="zone"){
         console.log("holaa")
         localStorage.setItem("wichComponent", JSON.stringify("zone"))
     }
@@ -196,7 +196,7 @@ export default function SeeZone({selectedZone,userData}){
                 <CreateRoomForm onClose={closeAddRoomModal} id={{idZone}} />
             )}
             {showConfirmDelete && ( 
-                <DeleteComponent onClose={closeDelete} id={{idZone}} />
+                <DeleteComponent onClose={closeDelete} wich={{localStorageWichComponent}} id={{idZone}} />
             )}
             <div style={{justifyItems:"center", alignItems:"center", textAlign:"center"}}><img src={Basura} alt="" onClick={toDelete}/></div>
         </div>

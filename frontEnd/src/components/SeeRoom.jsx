@@ -31,7 +31,7 @@ export default function SeeRoom({selectedRoom,userData}){
     if(localStorageUser){
         userData = localStorageUser;
     }
-    if(!localStorageWichComponent==="room"){
+    if(localStorageWichComponent!=="room"){
         localStorage.setItem("wichComponent", JSON.stringify("room"))
     }
     function toUserAccount(){
@@ -202,7 +202,7 @@ export default function SeeRoom({selectedRoom,userData}){
             {showConfirmDelete && ( 
                 <DeleteComponent onClose={closeDelete} id={{idRoom}} wich={{localStorageWichComponent}}/>
             )}
-            {/* <div style={{justifyItems:"center", alignItems:"center", textAlign:"center"}}><img src={Basura} alt="" onClick={toDelete}/></div> */}
+            <div style={{justifyItems:"center", alignItems:"center", textAlign:"center"}}><img src={Basura} alt="" onClick={toDelete}/></div>
         </div>
     )
 }

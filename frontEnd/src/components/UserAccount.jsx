@@ -110,7 +110,7 @@ export default function Principal({userData}) {
       return response.json();
     })
     .then(data => {
-      console.log(data)
+      console.log("Shared",data)
       setSharedCommunitys(data) 
     })
     .catch(error => {

@@ -32,7 +32,7 @@ export default function SeeCommunity({selectedCommunity,userData}){
     if(localStorageUser){
         userData = localStorageUser;
     }
-    if(!localStorageWichComponent==="community"){
+    if(localStorageWichComponent!=="community"){
         localStorage.setItem("wichComponent", JSON.stringify("community"))
     }
     function toUserAccount(){

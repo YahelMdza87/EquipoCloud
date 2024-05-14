@@ -41,7 +41,7 @@ export default function DeleteComponent({onClose, id, wich}){
             });
 
         }
-        else if (wich==="zone"){
+        else if (wich.localStorageWichComponent==="zone"){
             fetch(`${RouteDeleteZone}`, {
                 method: 'DELETE',
                 headers: {
@@ -66,7 +66,7 @@ export default function DeleteComponent({onClose, id, wich}){
                 console.error('Error:', error);
             });
         }
-        else if (wich==="comunity"){
+        else if (wich.localStorageWichComponent==="comunity"){
             fetch(`${RouteDeleteComunity}`, {
                 method: 'DELETE',
                 headers: {
@@ -92,7 +92,7 @@ export default function DeleteComponent({onClose, id, wich}){
             });
 
         }
-        else if (wich==="sensor"){
+        else if (wich.localStorageWichComponent==="sensor"){
             fetch(`${RouteDeleteSensor}`, {
                 method: 'DELETE',
                 headers: {
@@ -117,7 +117,7 @@ export default function DeleteComponent({onClose, id, wich}){
                 console.error('Error:', error);
             });
         }
-        else if (wich==="collaborator"){
+        else if (wich.localStorageWichComponent==="collaborator"){
             fetch(`${RouteDeleteCollaborator}`, {
                 method: 'DELETE',
                 headers: {

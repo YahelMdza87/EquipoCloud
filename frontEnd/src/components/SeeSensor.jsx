@@ -29,7 +29,7 @@ export default function SeeSensor({selectedSensor,userData}){
     if(localStorageUser){
         userData = localStorageUser;
     }
-    if(!localStorageWichComponent==="sensor"){
+    if(localStorageWichComponent!=="sensor"){
         localStorage.setItem("wichComponent", JSON.stringify("sensor"))
     }
     function toUserAccount(){
