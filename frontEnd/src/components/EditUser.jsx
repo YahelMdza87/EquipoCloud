@@ -14,6 +14,9 @@ export default function EditUser({userData}){
     function toUserAccount(){
         navigate('/UserAccount')
     }
+    function goBack(){
+        window.history.back();
+    }
     function toIndex(){
         navigate('/Principal')
     }
@@ -43,15 +46,22 @@ export default function EditUser({userData}){
             return response.json();
         })
         .then(data => {
-            data.forEach(user => {
-                console.log(user)
-                setId(user.idusuario)
-                setName(user.nombre);
-                setEmail(user.correo);
-                setPass(user.pass);
-                setUser(user.usuario);
-                setWorkstation(user.cargo);
-            });
+            if(data && data.length>0){
+                data.forEach(user => {
+                    console.log(user)
+                    setId(user.idusuario)
+                    setName(user.nombre);
+                    setEmail(user.correo);
+                    setPass(user.pass);
+                    setUser(user.usuario);
+                    setWorkstation(user.cargo);
+                });
+              }
+              else{
+                alert("Debes de iniciar sesión");
+                navigate('/')
+              }
+           
         })
         .catch(error => {
             console.error('Error:', error);
@@ -129,32 +139,32 @@ export default function EditUser({userData}){
                 <img src={Logo} alt="" className="add-icon-principal" onClick={toIndex}/>
             </div>
             <div>
-                <img src={Back} alt="" style={{width:"9%",borderBottom:"1px solid #ba98ff69",borderRight:"1px solid #ba98ff69"}} onClick={toUserAccount} />
+                <img src={Back} alt="" className="to-back-button" onClick={goBack} />
             </div>
             <div className="section-data-useraccount">
                 <img src={User} alt="" className="user-image-userAccount" />
-                <h2 className="name-user-userAccount" >{name}</h2>
-                <h2 className="name-role-userAccount">{workstation}</h2>
+                <h3 className="name-user-userAccount" style={{gridRow:"1"}}>{name}</h3>
+                <h3 className="name-role-userAccount" style={{gridRow:"2/4"}}>{workstation}</h3>
             </div>
             <form onSubmit={handleSubmit} style={{padding:"8%", paddingTop:"0%"}}>
                 <div>
-                    <label className="title-data-login">name:</label>
+                    <label className="title-data-login" style={{color:"#4a1e9e"}}>Nombre:</label>
                     <input type="text" className="input-login" value={name} onChange={handleNameChange} />
                 </div>
                 <div>
-                    <label className="title-data-login">user:</label>
+                    <label className="title-data-login" style={{color:"#4a1e9e"}}>Usuario:</label>
                     <input type="text" className="input-login" value={user} onChange={handleUserChange} />
                 </div>
                 <div>
-                    <label className="title-data-login">email:</label>
+                    <label className="title-data-login" style={{color:"#4a1e9e"}}>Correo:</label>
                     <input type="email" className="input-login" value={email} onChange={handleEmailChange} />
                 </div>
                 <div>
-                    <label className="title-data-login">pass:</label>
+                    <label className="title-data-login" style={{color:"#4a1e9e"}}>Contraseña:</label>
                     <input type="password" className="input-login" value={pass} onChange={handlePassChange} />
                 </div>
                 <div>
-                    <label className="title-data-login">workstation:</label>
+                    <label className="title-data-login" style={{color:"#4a1e9e"}}>Cargo:</label>
                     <input type="text" className="input-login" value={workstation} onChange={handleWorkstationChange} />
                 </div>
                 <div>

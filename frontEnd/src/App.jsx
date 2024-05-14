@@ -19,14 +19,18 @@ import OmarUno from './components/OmarUno';
 import OmarDos from './components/OmarDos';
 import OmarTres from './components/OmarTres';
 import AdminMenu from './components/AdminMenu';
+import SeeZone from './components/SeeZone';
 import Statistics from './components/Statistics';
 import ManageCounts from './components/ManageCounts';
 import Licences from './components/Licenses';
 import VariableConfig from './components/VariableConfig';
+import SeeRoom from './components/SeeRoom';
 const URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000/users";
 
 
 import './Admin.css'
+import SeeSensor from './components/SeeSensor';
+import SeeCommunity from './components/SeeCommunity';
 
 const googlecredencial = import.meta.env.VITE_CREDENCIAL_GOOGLE
 
@@ -39,6 +43,10 @@ function App() {
             <Route path="/" element={<Login/>} />
             <Route path="/confirmPassword" element={<CreatePassword/>}/>
             <Route path="/principal" element={<Principal/>} />
+            <Route path="/seeCommunity" element={<SeeCommunity/>}/>
+            <Route path="/seeZone" element={<SeeZone/>}/>
+            <Route path="/seeRoom" element={<SeeRoom/>}/>
+            <Route path="/seeSensor" element={<SeeSensor/>}/>
             <Route path="/userAccount" element={<UserAccount/>} />
             <Route path="/editUser" element={<EditUser/>} />
             <Route path="/signIn" element={<SignIn/>} />
