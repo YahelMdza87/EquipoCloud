@@ -193,13 +193,14 @@ export default function SeeCommunity({selectedCommunity,userData}){
                     <img className="add-zone-icon-principal" src={Agregar} alt="" />
                     <h3 className="add-zone-text-principal">Agregar colaborador</h3>
                 </div>
-             </div>
-             { collaborators.map((collaborator,index) => (
+                { collaborators.map((collaborator,index) => (
                 <div id={collaborator.id_colaborador} key={index} className="div-add-zone-principal"  onClick={toCollaborator}>
                     <h3 className="name-divs-generated" style={{gridRow:"1"}}>{collaborator.correo}</h3>
                     <img src={UserIcono} alt="" className="img-divs-generated" style={{gridRow:"2"}} />
                 </div>
                 ))}
+             </div>
+             
             {showConfirmDelete && ( 
                 <DeleteComponent onClose={closeDelete} id={{idRoom}} wich={{localStorageWichComponent}}/>
             )}

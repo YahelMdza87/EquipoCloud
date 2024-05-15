@@ -31,6 +31,10 @@ const URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000/users";
 import './Admin.css'
 import SeeSensor from './components/SeeSensor';
 import SeeCommunity from './components/SeeCommunity';
+import SeeSharedCommunity from './components/SeeSharedCommunity';
+import SeeSharedZone from './components/SeeSharedZone';
+import SeeSharedRoom from './components/SeeSharedRoom';
+import SeeSharedSensor from './components/SeeSharedSensor';
 
 const googlecredencial = import.meta.env.VITE_CREDENCIAL_GOOGLE
 
@@ -44,9 +48,13 @@ function App() {
             <Route path="/confirmPassword" element={<CreatePassword/>}/>
             <Route path="/principal" element={<Principal/>} />
             <Route path="/seeCommunity" element={<SeeCommunity/>}/>
+            <Route path="/seeSharedCommunity" element={<SeeSharedCommunity/>}/>
             <Route path="/seeZone" element={<SeeZone/>}/>
+            <Route path="/seeSharedZone" element={<SeeSharedZone/>}/>
             <Route path="/seeRoom" element={<SeeRoom/>}/>
+            <Route path="/seeSharedRoom" element={<SeeSharedRoom/>}/>
             <Route path="/seeSensor" element={<SeeSensor/>}/>
+            <Route path="/seeSharedSensor" element={<SeeSharedSensor/>}/>
             <Route path="/userAccount" element={<UserAccount/>} />
             <Route path="/editUser" element={<EditUser/>} />
             <Route path="/signIn" element={<SignIn/>} />

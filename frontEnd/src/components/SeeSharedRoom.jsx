@@ -1,38 +1,38 @@
 import Logo from "../assets/logo-domoticloud.png"
 import Agregar from "../assets/add-device.png"
 import Basura from "../assets/icono-basura.png"
+import Back from "../assets/to-back.png"
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import User from "../assets/user.png"
-import Back from "../assets/to-back.png"
-import CuartoIcono from "../assets/cuarto-icono.png"
+import CuartoCoopIcono from "../assets/cuarto-coop-icono.png"
 import CreateRoomForm from "./CreateRoomForm";
 import DeleteComponent from "./DeleteComponent";
-const RouteGetZone = import.meta.env.VITE_SEARCHES_ZONA || "http://localhost:3000/searches/zona";
-const RouteGetRooms = import.meta.env.VITE_SEARCHES_CUARTOS || "http://localhost:3000/searches/cuartos"
+const RouteGetRoom = import.meta.env.VITE_SEARCHES_CUARTO || "http://localhost:3000/searches/cuarto";
+const RouteGetRooms = import.meta.env.VITE_SEARCHES_CUARTOS || "http://localhost:3000/searches/cuartos";
+const RouteGetAllSensors = import.meta.env.VITE_SEARCHES_SENSORS || "http://localhost:3000/searches/sensors";
 const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || "http://localhost:3000/searches/idusu";
-export default function SeeZone({selectedZone,userData}){
+export default function SeeSharedRoom({selectedSharedRoom,userData}){
     const navigate = useNavigate();
-    const localStorageSelectedZone = JSON.parse(localStorage.getItem("idZona"));
+    const localStorageSelectedSharedRoom = JSON.parse(localStorage.getItem("idSharedRoom"));
     const localStorageUser = JSON.parse(localStorage.getItem("userData"));
     const localStorageWichComponent = JSON.parse(localStorage.getItem("wichComponent"));
-    const [idZone, setIdZone] = useState("");
     const [idRoom, setIdRoom] = useState("");
+    const [idSharedDevice, setIdSharedDevice] = useState("");
+    const [nameRoom, setNameRoom] = useState("");
     const [user, setUser] = useState([]);
-    const [nameZone, setNameZone] = useState("");
-    const [typeZone, setTypeZone] = useState("");
+    const [numDevices, setNumDevices] = useState("");
+    const [allDevices, setAllDevices] = useState([]);
     const [showAddRoomForm, setShowAddRoomForm] = useState(false);
     const [showConfirmDelete, setShowConfirmDelete] = useState(false);
-    const [rooms, setRooms] = useState([]);
-    if(localStorageSelectedZone){
-        selectedZone = localStorageSelectedZone;
+    if(localStorageSelectedSharedRoom){
+        selectedSharedRoom = localStorageSelectedSharedRoom;
     }
     if(localStorageUser){
         userData = localStorageUser;
     }
-    if(localStorageWichComponent!=="zone"){
-        console.log("holaa")
-        localStorage.setItem("wichComponent", JSON.stringify("zone"))
+    if(localStorageWichComponent!=="room"){
+        localStorage.setItem("wichComponent", JSON.stringify("room"))
     }
     function toUserAccount(){
         navigate('/UserAccount')
@@ -43,18 +43,19 @@ export default function SeeZone({selectedZone,userData}){
     function toIndex(){
     navigate('/Principal')
     }
-    const toRoom = (event) => {
-        const selectedId = event.target.closest(".div-add-zone-principal").id;
+    const toSharedSensor = (event) => {
+        const selectedId = event.target.closest(".div-add-zone-principal-coop").id;
         console.log(selectedId)
-        setIdRoom(selectedId)
+        setIdSharedDevice(selectedId)
       }
       useEffect(() => {
-        if (idRoom !== "") {
-          const selectedRoom = idRoom;
-          localStorage.setItem("idRoom", JSON.stringify(selectedRoom));
-          navigate('/seeRoom');
+        if (idSharedDevice !== "") {
+          const selectedDevice = idSharedDevice;
+          localStorage.setItem("idSharedDevice", JSON.stringify(selectedDevice));
+          navigate('/seeSharedSensor');
         }
-      }, [idRoom]);
+      }, [idSharedDevice]);
+    //Obtener datos de usuario
     useEffect(() => {
         fetch(`${RoutesearchUser}`, {
         method: 'POST',
@@ -78,23 +79,25 @@ export default function SeeZone({selectedZone,userData}){
         });
       }
       else{
-        console.log(data)
-        alert("Debes de iniciar sesión");
-        navigate('/')
+        // console.log(data)
+        // alert("Debes de iniciar sesión");
+        // navigate('/')
       }
     })
     .catch(error => {
         console.error('Error:', error);
     });
     }, []);
+
+    //Obtener todos los cuartos
     useEffect(() => {
-        fetch(`${RouteGetZone}`, {
+        fetch(`${RouteGetRoom}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            idzona: selectedZone
+            idcuarto: selectedSharedRoom
         })
     })
     .then(response => {
@@ -107,28 +110,31 @@ export default function SeeZone({selectedZone,userData}){
       if(data && data.length>0){
         data.forEach(element => {
             console.log('hola')
-            setNameZone(element.nombrezona);
-            setTypeZone(element.tipoedificio);
-            setIdZone(element.id_zona)
+            setIdRoom(element.id_cuarto)
+            setNameRoom(element.cuarto);
+            setNumDevices(element.numerosensoresactivos);
         });
       }
       else{
-        alert("Debiste de haber seleccionado una zona");
-        navigate('/')
+        // alert("Debiste de haber seleccionado una zona");
+        // navigate('/')
       }
     })
     .catch(error => {
         console.error('Error:', error);
     });
     }, []);
+
+    //Obtener todos los sensores
     useEffect(() => {
-            fetch(`${RouteGetRooms}`, {
+        if(numDevices>0){
+            fetch(`${RouteGetAllSensors}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                idzona: selectedZone
+                idcuarto: selectedSharedRoom
             })
         })
         .then(response => {
@@ -138,30 +144,16 @@ export default function SeeZone({selectedZone,userData}){
             return response.json();
         })
         .then(data => {
-        if(data && data.length>0){
-            setRooms(data);
-        }
-        else{
-        }
+            if(data && data.length>0){
+                    setAllDevices(data)
+              }
         })
         .catch(error => {
             console.error('Error:', error);
         });
-    }, [showAddRoomForm], [showConfirmDelete]);
-    function addRoom() {
-        setShowAddRoomForm(true);
     }
-   
-    function toDelete(){
-        setShowConfirmDelete(true);
-    }
-    function closeDelete(){
-        setShowConfirmDelete(false);
-    }
+    }, [numDevices]);
 
-    function closeAddRoomModal() {
-        setShowAddRoomForm(false);
-    }
 
     return(
         <div className="body-principal">
@@ -173,32 +165,21 @@ export default function SeeZone({selectedZone,userData}){
             <div>
                 <img src={Back} alt="" className="to-back-button" onClick={goBack} />
             </div>
-            <div style={{alignItems:"center", justifyItems:"center", textAlign:"center"}}><h1>{nameZone}</h1></div>
+            <div style={{alignItems:"center", justifyItems:"center", textAlign:"center"}}><h1>{nameRoom}</h1></div>
             <div className="section-image-zone">
-                <img className="image-zone" src="https://planner5d.com/blog/content/images/2022/06/sidekix-media-iu4K1XPnNAY-unsplash.jpg" alt="" />
+                <img className="image-zone" src="https://media.admagazine.com/photos/62b4b828cce4cfe1db2ed95e/4:3/w_2664,h_1998,c_limit/Dormitorio.jpg" alt="" />
             </div>
             <div style={{borderTop: "solid #4b1e9e13"}}></div>
-            <h1 style={{marginLeft:"2%", marginTop:"1%"}}>Cuartos</h1>
+            <h1 style={{marginLeft:"2%", marginTop:"1%"}}>Dispositivos</h1>
             <div className="section-devices-principal">
-                <div className="div-add-zone-principal" style={{backgroundColor:"#DDCBFF"}} onClick={addRoom}>
-                    <img className="add-zone-icon-principal" src={Agregar} alt="" />
-                    <h3 className="add-zone-text-principal">Agregar cuarto</h3>
-                </div>
-                { rooms.map((room,index) => (
-                <div id={room.id_cuarto} key={index} className="div-add-zone-principal"  onClick={toRoom}>
-                    <h3 className="name-divs-generated" style={{gridRow:"1"}}>{room.cuarto}</h3>
-                    <img src={CuartoIcono} alt="" className="img-divs-generated" style={{gridRow:"2"}}/>
+                { allDevices.map((sensor,index) => (
+                <div id={sensor.id_sensor} key={index} className="div-add-zone-principal-coop"  onClick={toSharedSensor}>
+                    <h3 className="name-divs-generated" style={{gridRow:"1", color:"#00ff2a"}}>{sensor.nombresensor}</h3>
+                    <img src={CuartoCoopIcono} alt="" className="img-divs-generated" style={{gridRow:"2"}} />
+                    <h3 className="name-divs-generated" style={{gridRow:"3", color:"#00ff2a"}}>Compartido</h3>
                 </div>
                 ))}
-            </div>
-            
-            {showAddRoomForm && ( 
-                <CreateRoomForm onClose={closeAddRoomModal} id={{idZone}} />
-            )}
-            {showConfirmDelete && ( 
-                <DeleteComponent onClose={closeDelete} wich={{localStorageWichComponent}} id={{idZone}} />
-            )}
-            <div style={{justifyItems:"center", alignItems:"center", textAlign:"center"}}><img src={Basura} alt="" onClick={toDelete}/></div>
+             </div>
         </div>
     )
 }

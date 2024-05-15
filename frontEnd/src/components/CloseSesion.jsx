@@ -21,7 +21,7 @@ export default function DeleteComponent({onClose}){
         <div className="background-principal" onClick={onClose}>
             <div className="card-principal" onClick={(e) => e.stopPropagation()}>
                 <div className="login-email-password">
-                    <h2 style={{fontSize:"5.3vw", marginBottom:"6%"}} className="title-login">¿Estas seguro de cerrar sesión? {name}</h2>
+                    <h2 style={{marginBottom:"6%"}} className="title-login">¿Estas seguro de cerrar sesión? {name}</h2>
                     <div style={{display:"flex", alignItems:"center", textAlign:"center", justifyContent:"center"}}>
                     <button style={{marginRight:"4%", backgroundColor:"#DDCBFF"}} className="btn-submit-data-user" type="button" onClick={handleCancel}>No, cancelar</button>
                     <button className="btn-submit-data-user" type="button" onClick={handleSuccess}>Sí, cerrar sesión</button>

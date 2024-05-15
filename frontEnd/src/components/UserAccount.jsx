@@ -15,6 +15,7 @@ const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || "http://localhost
 const RoutegetZones = import.meta.env.VITE_SEARCHES_ZONAS || "http://localhost:3000/searches/zonas"
 export default function Principal({userData}) {
   const [idUser, setIdUser] = useState("");
+  const [idOwner, setIdOwner] = useState("");
   const [name, setName] = useState("");
   const [workstation, setWorkstation] = useState("");
   const [zones, setZones] = useState([]);
@@ -110,8 +111,11 @@ export default function Principal({userData}) {
       return response.json();
     })
     .then(data => {
-      console.log("Shared",data)
-      setSharedCommunitys(data) 
+      console.log("Shared",data);
+      setSharedCommunitys(data);
+      data.forEach(element => {
+        setIdOwner(element.idusuario);
+      });
     })
     .catch(error => {
       console.error('Error:', error);
@@ -182,19 +186,32 @@ export default function Principal({userData}) {
 
 const toCommunity = (event) => {
   const selectedId = event.target.closest(".div-add-zone-principal").id;
-  console.log(selectedId)
-  setIdCommunity(selectedId)
+  const wichCommunity = {
+    idSelected : selectedId,
+    type : "own"
+  }
+  setIdCommunity(wichCommunity)
 }
 const toSharedCommunity = (event) => {
-  const selectedId = event.target.closest(".div-add-zone-principal").id;
-  console.log(selectedId)
-  setIdCommunity(selectedId)
+  const selectedId = event.target.closest(".div-add-zone-principal-coop").id;
+  const wichCommunity = {
+    idSelected : selectedId,
+    idUserOwner : idOwner,
+    type : "shared"
+  }
+  setIdCommunity(wichCommunity)
 }
 useEffect(() => {
   if (idCommunity !== "") {
-    const selectedCommunity = idCommunity;
-    localStorage.setItem("idCommunity", JSON.stringify(selectedCommunity));
-    navigate('/seeCommunity');
+    const selectedCommunity = idCommunity.idSelected;
+    if(idCommunity.type==="own"){
+      localStorage.setItem("idCommunity", JSON.stringify(selectedCommunity));
+      navigate('/seeCommunity');
+    }
+    else{
+      localStorage.setItem("SharedCommunity", JSON.stringify(idCommunity));
+      navigate('/seeSharedCommunity');
+    }
   }
 }, [idCommunity]);
 

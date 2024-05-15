@@ -26,7 +26,7 @@ export default function CreatePassword(userData){
             const newDataUser = {
                 idusuario: userData.idusuario,
                 usuario: userData.usuario,
-                pass: userData.pass,
+                pass: password,
                 nombre: userData.nombre,
                 correo: userData.correo,
                 cargo: userData.cargo
@@ -51,7 +51,7 @@ export default function CreatePassword(userData){
                     body: JSON.stringify({
                         idusuario: data.idusuario,
                         usuario: data.usuario ,
-                        pass: password,
+                        pass: data.pass,
                         nombre: data.nombre,
                         correo: data.correo,
                         cargo: data.cargo
