@@ -4,15 +4,18 @@ import React, { useState, useEffect } from 'react';
 const RouteAddZone = import.meta.env.VITE_ADD_ZONA || "http://localhost:3000/add/zona"
 
 export default function CreateZoneForm({onClose, id}){
+    //Estados para manejar los inputs del usuario
     const [zoneName, setZoneName] = useState("");
     const [typeZone, setTypeZone] = useState("");
+     //Handle que va guardando lo que el usuario escribe al momento
     const handleEmail = (event) => {
         setZoneName(event.target.value)   
     }
+     //Handle que va guardando lo que el usuario escribe al momento
     const handleZone = (event) => {
         setTypeZone(event.target.value);
-        
-      };
+    };
+    //Una vez de haberle picado al botón de agregar, entrará aquí y comprobara si el nombre que ha ingresado es valido
     function handleSuccess(){
         if(zoneName!=="" && typeZone!==""){
             let idEdificio = 0;
@@ -32,15 +35,15 @@ export default function CreateZoneForm({onClose, id}){
                 idEdificio="5";
             }
             fetch(`${RouteAddZone}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                nombrezona: zoneName,
-                idusu: JSON.stringify(id.idUser),
-                idtipoedificio: idEdificio
-            })
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    nombrezona: zoneName,
+                    idusu: JSON.stringify(id.idUser),
+                    idtipoedificio: idEdificio
+                })
             })
             .then(response => {
                 if(!response.ok){
@@ -82,10 +85,9 @@ export default function CreateZoneForm({onClose, id}){
                         </select>
                     </div>
                     <div style={{marginTop:"5%", display:"flex", justifyContent:"center", textWrap:"nowrap"}}>
-                    <button className="btn-submit-data-user" type="button" onClick={handleSuccess}>Crear zona</button>
+                        <button className="btn-submit-data-user" type="button" onClick={handleSuccess}>Crear zona</button>
                     </div>
                 </div>
-
             </div>
         </div>
     )

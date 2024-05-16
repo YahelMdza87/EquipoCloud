@@ -3,23 +3,26 @@ import React, { useState, useEffect } from 'react';
 const RouteAddRoom = import.meta.env.VITE_ADD_CUARTO || "http://localhost:3000/add/cuarto"
 
 export default function CreateRoomForm({onClose, id}){
+    //Estados para manejar los inputs del usuario
     const [roomName, setRoomName] = useState("");
+
+    //Handle que va guardando lo que el usuario escribe al momento
     const handleRoomName = (event) => {
         setRoomName(event.target.value)   
     }
+
+    //Una vez de haberle picado al botón de agregar, entrará aquí y comprobara si el nombre que ha ingresado es valido
     function handleSuccess(){
         if(roomName!==""){
-            console.log(roomName)
-            console.log(id)
             fetch(`${RouteAddRoom}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                idzona: JSON.stringify(id.idZone),
-                nombrecuarto: roomName
-            })
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    idzona: JSON.stringify(id.idZone),
+                    nombrecuarto: roomName
+                })
             })
             .then(response => {
                 if(!response.ok){
@@ -28,7 +31,6 @@ export default function CreateRoomForm({onClose, id}){
                 return response.json();
             })
             .then(data=> {
-                
                 onClose()
             })
             .catch(error => {
@@ -50,7 +52,7 @@ export default function CreateRoomForm({onClose, id}){
                         <input className='input-login' type="text" value={roomName} onChange={handleRoomName} placeholder='Nombre de la zona...' />
                     </div>
                     <div style={{marginTop:"5%", display:"flex", justifyContent:"center", textWrap:"nowrap"}}>
-                    <button className="btn-submit-data-user" type="button" onClick={handleSuccess}>Crear cuarto</button>
+                        <button className="btn-submit-data-user" type="button" onClick={handleSuccess}>Crear cuarto</button>
                     </div>
                 </div>
 

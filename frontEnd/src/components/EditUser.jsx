@@ -8,10 +8,19 @@ const RoutechangesUser = import.meta.env.VITE_CHANGES_USUARIO || "http://localho
 
 export default function EditUser({userData}){
     const navigate = useNavigate();
+    //Estados para manejar los inputs del usuario
+    const [id, setId] = useState(0);
+    const [name, setName] = useState("");
+    const [user, setUser] = useState("");
+    const [email, setEmail] = useState("");
+    const [pass, setPass] = useState("");
+    const [workstation, setWorkstation] = useState("");
+    //Obtener el correo para hacer un fetch a ver si hay un correo con registrado
     const localStorageUser = JSON.parse(localStorage.getItem('userData'));
     if (localStorageUser){
         userData=localStorageUser;
     }
+    
     function toUserAccount(){
         navigate('/UserAccount')
     }
@@ -21,13 +30,6 @@ export default function EditUser({userData}){
     function toIndex(){
         navigate('/Principal')
     }
-    
-    const [id, setId] = useState(0);
-    const [name, setName] = useState("");
-    const [user, setUser] = useState("");
-    const [email, setEmail] = useState("");
-    const [pass, setPass] = useState("");
-    const [workstation, setWorkstation] = useState("");
 
     useEffect(() => {
             fetch(`${RoutesearchUser}`, {

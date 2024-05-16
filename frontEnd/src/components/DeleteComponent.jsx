@@ -8,13 +8,13 @@ const RouteDeleteComunity = import.meta.env.VITE_DELETE_COMUNIDAD || "http://loc
 const RouteDeleteCollaborator = import.meta.env.VITE_DELETE_COLABORADOR || "http://localhost:3000/delete/colaborador";
 export default function DeleteComponent({onClose, id, wich}){
     const navigate = useNavigate();
+
+    //Si hace click al botón de cancelar, se cierra la ventana de cerrar sesión
     function handleCancel(){
         onClose();
-        console.log(id)
     }
+    //Una vez de haberle picado al botón de eliminar, entrará aquí y comprobara cual componente eliminara
     function handleSuccess(){
-        console.log(wich.localStorageWichComponent)
-        console.log(id);
         if(wich.localStorageWichComponent==="room"){
             fetch(`${RouteDeleteRoom}`, {
                 method: 'DELETE',
@@ -151,8 +151,8 @@ export default function DeleteComponent({onClose, id, wich}){
                 <div className="login-email-password">
                     <h2 style={{fontSize:"5.3vw", marginBottom:"6%"}} className="title-login">¿Estas seguro?</h2>
                     <div style={{display:"flex", alignItems:"center", textAlign:"center", justifyContent:"center"}}>
-                    <button style={{marginRight:"4%", backgroundColor:"#DDCBFF"}} className="btn-submit-data-user" type="button" onClick={handleCancel}>No, cancelar</button>
-                    <button className="btn-submit-data-user" type="button" onClick={handleSuccess}>Sí, eliminar</button>
+                        <button style={{marginRight:"4%", backgroundColor:"#DDCBFF"}} className="btn-submit-data-user" type="button" onClick={handleCancel}>No, cancelar</button>
+                        <button className="btn-submit-data-user" type="button" onClick={handleSuccess}>Sí, eliminar</button>
                     </div>
                 </div>
 
