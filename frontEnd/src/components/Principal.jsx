@@ -5,18 +5,21 @@ import { useNavigate } from "react-router-dom";
 import User from "../assets/user.png"
 import CreateZoneForm from "./CreateZoneForm";
 import CuartoIcono from "../assets/cuarto-icono.png"
+
+//Rutas para hacer fetch
 const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || "http://localhost:3000/searches/idusu";
 const RoutegetSignals = import.meta.env.VITE_SEARCHES_ALLSIGNALS || "http://localhost:3000/searches/allsignals";
 const RoutegetZones = import.meta.env.VITE_SEARCHES_ZONAS || "http://localhost:3000/searches/zonas"
 export default function Principal({userData}) {
   const navigate = useNavigate();
+  //Estados para manejar los fetch
   const [idUser, setIdUser] = useState(0);
   const [name, setName] = useState("");
   const [idZona, setIdZona] = useState("");
   const [signals,setSignals] = useState([]);
   const [zones, setZones] = useState([]);
   const [showAddZoneForm, setShowAddZoneForm] = useState(false);
-  //Usamos localStorage para obtener el usuario guardado en cookies
+  //Usamos localStorage para obtener el correo guardado en cookies
   const localStorageUser = JSON.parse(localStorage.getItem('userData'));
   if (localStorageUser){
     localStorage.setItem("wichComponent", JSON.stringify(""))
@@ -43,64 +46,64 @@ export default function Principal({userData}) {
   //Obtener los datos del usuario
   useEffect(() => {
         fetch(`${RoutesearchUser}`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            correo: userData
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+              correo: userData
+          })
         })
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Hubo un problema al realizar la solicitud.');
-        }
-        return response.json();
-    })
-    .then(data => {
-      if(data && data.length>0){
-        data.forEach(element => {
-          console.log(element)
-          setName(element.nombre);
-          setIdUser(element.idusuario);
+        .then(response => {
+          if (!response.ok) {
+              throw new Error('Hubo un problema al realizar la solicitud.');
+          }
+          return response.json();
+        })
+        .then(data => {
+          if(data && data.length>0){
+            data.forEach(element => {
+              console.log(element)
+              setName(element.nombre);
+              setIdUser(element.idusuario);
+            });
+          }
+          else{
+            console.log(data)
+            alert("Debes de iniciar sesión");
+            navigate('/')
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
         });
-      }
-      else{
-        console.log(data)
-        alert("Debes de iniciar sesión");
-        navigate('/')
-      }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
   }, []);
   /* Get todas las zonas*/
   useEffect(() => {
-    console.log(idUser)
-    if(idUser){
-      fetch(`${RoutegetZones}`, {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-          idusu: idUser
-      })
-    })
-    .then(response => {
-      if (!response.ok) {
-          throw new Error('Hubo un problema al realizar la solicitud.');
+      console.log(idUser)
+      if(idUser){
+        fetch(`${RoutegetZones}`, {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+              idusu: idUser
+          })
+        })
+        .then(response => {
+          if (!response.ok) {
+              throw new Error('Hubo un problema al realizar la solicitud.');
+          }
+          return response.json();
+        })
+        .then(data => {
+          setZones(data) 
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
       }
-      return response.json();
-    })
-    .then(data => {
-      setZones(data) 
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
-  }
   }, [idUser], [showAddZoneForm]);
 
   function addZone() {

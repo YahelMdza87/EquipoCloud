@@ -30,7 +30,7 @@ export default function EditUser({userData}){
     function toIndex(){
         navigate('/Principal')
     }
-
+    //useEffect para comprobar que si tenemos la sesión iniciada
     useEffect(() => {
             fetch(`${RoutesearchUser}`, {
             method: 'POST',
@@ -87,10 +87,8 @@ export default function EditUser({userData}){
       const handlePassChange = (event) => {
         setPass(event.target.value);
       };
-  
-    
-      
-    
+
+      //Hace un fetch para actualizar los datos
       const handleSubmit = (event) => {
         if (pass === ""){
             alert("La contraseña no debe de estar vacía")
