@@ -11,13 +11,12 @@ export default function CreateCollaboratorForm({onClose, id, userData}){
     const [searchResults, setSearchResults] = useState([]);
     const [user, setUser] = useState([]);
     const localStorageUser = JSON.parse(localStorage.getItem("userData"));
+    //Obtener el correo para hacer un fetch a ver si hay un correo con registrado
     if(localStorageUser){
         userData = localStorageUser;
     }
 
-
-
-
+    //Handle que va guardando lo que el usuario escribe al momento, para buscar entre los correos disponibles
     const handleNameCollaborator = (event) => {
         const inputValue = event.target.value.toLowerCase();
         setNameCollaborator(inputValue);
@@ -27,13 +26,11 @@ export default function CreateCollaboratorForm({onClose, id, userData}){
         }
         else {
             setSearchResults([]);
-        }
-        
+        } 
     }
+    //Una vez de haberle picado al botón de agregar, entrará aquí y comprobara si el correo ingresado es valido
     function handleSuccess(){
         if(nameCollaborator!==""){
-            console.log(nameCollaborator)
-            console.log()
             addCollaborator().then(() => {
                 fetch(`${RouteAddCollaborator}`, {
                     method: 'POST',
@@ -62,7 +59,7 @@ export default function CreateCollaboratorForm({onClose, id, userData}){
             alert("Debes de llenar todos los campos");
         }
     }
-
+    //UseEffect para obtener todos los correos de los usuarios y poder crear la lista de buscador
     useEffect(() => {
         fetch(`${RoutesearchEmails}`)
         .then(response => {
@@ -72,19 +69,19 @@ export default function CreateCollaboratorForm({onClose, id, userData}){
             return response.json();
         })
         .then(data => {
-            console.log(data);
             setEmailsUsers(data);
         })
         .catch(error => {
             console.error('Error:', error);
         });
     }, []);
-
+    //Una vez de haberle hecho click al correo deseado, se vacía la lista y se autocompleta en el input
     const addEmail = (selectedEmail) => {
         setNameCollaborator("");
         setNameCollaborator(selectedEmail);  
         setSearchResults([])
     }
+    //useEffect para comprobar que si tenemos la sesión iniciada
     useEffect(() => {
         fetch(`${RoutesearchUser}`, {
         method: 'POST',
@@ -108,7 +105,7 @@ export default function CreateCollaboratorForm({onClose, id, userData}){
         });
       }
       else{
-        console.log(data)
+
         alert("Debes de iniciar sesión");
         navigate('/')
       }
@@ -117,6 +114,8 @@ export default function CreateCollaboratorForm({onClose, id, userData}){
         console.error('Error:', error);
     });
     }, []);
+
+    //Primero buscara el colaborador con el correo que ingreso el usuario, si no lo encuentra, mostrará un error
     function addCollaborator () {
         return fetch(`${RoutesearchCollaborator}`, {
             method: 'POST',
@@ -139,9 +138,6 @@ export default function CreateCollaboratorForm({onClose, id, userData}){
                     setIdUserCollaborator(element.idusuario);
                 });
             }
-            else{
-                console.log("No seeeeee")
-            }
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -158,14 +154,14 @@ export default function CreateCollaboratorForm({onClose, id, userData}){
                         <h3 className="title-data-login">Nombre:</h3>
                         <input className='input-login' type="text" value={nameCollaborator} onChange={handleNameCollaborator} placeholder='Nombre del colaborador...' />
                         <ul className="list-email-users">
-                        {searchResults.map((user, index) => (
-                            <li key={index} onClick={() => addEmail(user.correo)}>{user.correo}</li>
-                        ))}
-                    </ul>
+                            {searchResults.map((user, index) => (
+                                <li key={index} onClick={() => addEmail(user.correo)}>{user.correo}</li>
+                            ))}
+                        </ul>
                     </div>
                    
                     <div style={{marginTop:"5%", display:"flex", justifyContent:"center", textWrap:"nowrap"}}>
-                    <button className="btn-submit-data-user" type="button" onClick={handleSuccess}>Agregar</button>
+                        <button className="btn-submit-data-user" type="button" onClick={handleSuccess}>Agregar</button>
                     </div>
                 </div>
 

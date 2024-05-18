@@ -3,7 +3,6 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import './Omar.css'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import './components/Login'
 import { GoogleOAuthProvider } from '@react-oauth/google'
@@ -15,9 +14,6 @@ import SignIn from './components/SignIn';
 import NotFound from './components/NotFound';
 import Maintenance from './components/Maintenance';
 import CreatePassword from './components/CreatePassword';
-import OmarUno from './components/OmarUno';
-import OmarDos from './components/OmarDos';
-import OmarTres from './components/OmarTres';
 import AdminMenu from './components/AdminMenu';
 import SeeZone from './components/SeeZone';
 import Statistics from './components/Statistics';
@@ -26,11 +22,13 @@ import Licences from './components/Licenses';
 import VariableConfig from './components/VariableConfig';
 import SeeRoom from './components/SeeRoom';
 const URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000/users";
-
-
 import './Admin.css'
 import SeeSensor from './components/SeeSensor';
 import SeeCommunity from './components/SeeCommunity';
+import SeeSharedCommunity from './components/SeeSharedCommunity';
+import SeeSharedZone from './components/SeeSharedZone';
+import SeeSharedRoom from './components/SeeSharedRoom';
+import SeeSharedSensor from './components/SeeSharedSensor';
 
 const googlecredencial = import.meta.env.VITE_CREDENCIAL_GOOGLE
 
@@ -44,17 +42,18 @@ function App() {
             <Route path="/confirmPassword" element={<CreatePassword/>}/>
             <Route path="/principal" element={<Principal/>} />
             <Route path="/seeCommunity" element={<SeeCommunity/>}/>
+            <Route path="/seeSharedCommunity" element={<SeeSharedCommunity/>}/>
             <Route path="/seeZone" element={<SeeZone/>}/>
+            <Route path="/seeSharedZone" element={<SeeSharedZone/>}/>
             <Route path="/seeRoom" element={<SeeRoom/>}/>
+            <Route path="/seeSharedRoom" element={<SeeSharedRoom/>}/>
             <Route path="/seeSensor" element={<SeeSensor/>}/>
+            <Route path="/seeSharedSensor" element={<SeeSharedSensor/>}/>
             <Route path="/userAccount" element={<UserAccount/>} />
             <Route path="/editUser" element={<EditUser/>} />
             <Route path="/signIn" element={<SignIn/>} />
             <Route path="/toHelp" element={<Maintenance/>} />
             <Route path='/*' element={<NotFound/>}></Route>
-            <Route path='/omarUno' element={<OmarUno/>}></Route>
-            <Route path='/omarDos' element={<OmarDos/>}></Route>
-            <Route path='/omarTres' element={<OmarTres/>}></Route>
             <Route path='/AdminMenu' element={<AdminMenu/>}></Route>
             <Route path='/Statistics' element={<Statistics/>}></Route>
             <Route path='/ManageCounts' element={<ManageCounts/>}></Route>

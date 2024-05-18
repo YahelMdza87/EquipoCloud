@@ -5,10 +5,10 @@ import Back from "../assets/to-back.png"
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import User from "../assets/user.png"
-import CuartoIcono from "../assets/cuarto-icono.png"
 import UserIcono from "../assets/user-icono.png"
 import CreateCollaboratorForm from "./CreateCollaboratorForm";
 import DeleteComponent from "./DeleteComponent";
+//Rutas para hacer fetch
 const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || "http://localhost:3000/searches/idusu";
 const RoutesearchEmails = import.meta.env.VITE_SEARCHES_CORREOUSERS || "http://localhost:3000/searches/correousers";
 const RoutesearchCollaborators = import.meta.env.VITE_SEARCHES_COLABDECOMUNIDAD ||  "http://localhost:3000/searches/colabdecomunidad";
@@ -32,7 +32,7 @@ export default function SeeCommunity({selectedCommunity,userData}){
     if(localStorageUser){
         userData = localStorageUser;
     }
-    if(!localStorageWichComponent==="community"){
+    if(localStorageWichComponent!=="community"){
         localStorage.setItem("wichComponent", JSON.stringify("community"))
     }
     function toUserAccount(){
@@ -193,13 +193,14 @@ export default function SeeCommunity({selectedCommunity,userData}){
                     <img className="add-zone-icon-principal" src={Agregar} alt="" />
                     <h3 className="add-zone-text-principal">Agregar colaborador</h3>
                 </div>
-             </div>
-             { collaborators.map((collaborator,index) => (
+                { collaborators.map((collaborator,index) => (
                 <div id={collaborator.id_colaborador} key={index} className="div-add-zone-principal"  onClick={toCollaborator}>
                     <h3 className="name-divs-generated" style={{gridRow:"1"}}>{collaborator.correo}</h3>
                     <img src={UserIcono} alt="" className="img-divs-generated" style={{gridRow:"2"}} />
                 </div>
                 ))}
+             </div>
+             
             {showConfirmDelete && ( 
                 <DeleteComponent onClose={closeDelete} id={{idRoom}} wich={{localStorageWichComponent}}/>
             )}

@@ -1,25 +1,27 @@
 import "../App.css"
 import React, { useState, useEffect } from 'react';
 const RouteAddCommunity = import.meta.env.VITE_ADD_COMUNIDAD || "http://localhost:3000/add/comunidad"
-
 export default function CreateCommunity({onClose, id}){
+    //Estado para manejar el nombre ingresado por el usuario
     const [communityName, setCommunityName] = useState("");
+
+    //Llenado del estado dependiendo del input interactuado por el usuario
     const handleCommunityName = (event) => {
         setCommunityName(event.target.value)   
     }
+
+      //Una vez de haberle picado al botón de agregar, entrará aquí y comprobara si el nombre ingresado es valido
     function handleSuccess(){
         if(communityName!==""){
-            console.log(communityName)
-            console.log(id)
             fetch(`${RouteAddCommunity}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                idusuadmicom: JSON.stringify(id.idUser),
-                nombrecomunidad: communityName
-            })
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    idusuadmicom: JSON.stringify(id.idUser),
+                    nombrecomunidad: communityName
+                })
             })
             .then(response => {
                 if(!response.ok){
@@ -49,7 +51,7 @@ export default function CreateCommunity({onClose, id}){
                         <input className='input-login' type="text" value={communityName} onChange={handleCommunityName} placeholder='Nombre de la comunidad...' />
                     </div>
                     <div style={{marginTop:"5%", display:"flex", justifyContent:"center", textWrap:"nowrap"}}>
-                    <button className="btn-submit-data-user" type="button" onClick={handleSuccess}>Crear comunidad</button>
+                        <button className="btn-submit-data-user" type="button" onClick={handleSuccess}>Crear comunidad</button>
                     </div>
                 </div>
 

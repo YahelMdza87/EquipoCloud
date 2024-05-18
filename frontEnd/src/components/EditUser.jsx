@@ -4,13 +4,23 @@ import Logo from "../assets/logo-domoticloud.png"
 import Back from "../assets/to-back.png"
 import User from "../assets/user.png"
 const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || "http://localhost:3000/searches/idusu";
+const RoutechangesUser = import.meta.env.VITE_CHANGES_USUARIO || "http://localhost:3000/changes/usuario";
 
 export default function EditUser({userData}){
     const navigate = useNavigate();
+    //Estados para manejar los inputs del usuario
+    const [id, setId] = useState(0);
+    const [name, setName] = useState("");
+    const [user, setUser] = useState("");
+    const [email, setEmail] = useState("");
+    const [pass, setPass] = useState("");
+    const [workstation, setWorkstation] = useState("");
+    //Obtener el correo para hacer un fetch a ver si hay un correo con registrado
     const localStorageUser = JSON.parse(localStorage.getItem('userData'));
     if (localStorageUser){
         userData=localStorageUser;
     }
+    
     function toUserAccount(){
         navigate('/UserAccount')
     }
@@ -20,16 +30,8 @@ export default function EditUser({userData}){
     function toIndex(){
         navigate('/Principal')
     }
-    
-    const [id, setId] = useState(0);
-    const [name, setName] = useState("");
-    const [user, setUser] = useState("");
-    const [email, setEmail] = useState("");
-    const [pass, setPass] = useState("");
-    const [workstation, setWorkstation] = useState("");
-
+    //useEffect para comprobar que si tenemos la sesión iniciada
     useEffect(() => {
-        // fetch('https://domoticloud.onrender.com/searches/idusu', {
             fetch(`${RoutesearchUser}`, {
             method: 'POST',
             headers: {
@@ -85,10 +87,8 @@ export default function EditUser({userData}){
       const handlePassChange = (event) => {
         setPass(event.target.value);
       };
-  
-    
-      
-    
+
+      //Hace un fetch para actualizar los datos
       const handleSubmit = (event) => {
         if (pass === ""){
             alert("La contraseña no debe de estar vacía")
@@ -102,9 +102,7 @@ export default function EditUser({userData}){
             work: workstation
         }
         event.preventDefault();
-        // fetch('https://domoticloud.onrender.com/changes/usuario', {
-        fetch('http://localhost:3000/changes/usuario', {
-            method: 'PATCH',
+        fetch(`${RoutechangesUser}`, {
             headers: {
                 'Content-Type': 'application/json'
             },

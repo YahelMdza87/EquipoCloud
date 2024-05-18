@@ -6,6 +6,7 @@ import User from "../assets/user.png"
 import Back from "../assets/to-back.png"
 import CuartoIcono from "../assets/cuarto-icono.png"
 import CommunityIcon from "../assets/comunidad-icono.png"
+import CommunityCoopIcon from "../assets/comunidad-coop-icono.png"
 import CloseSesion from "./CloseSesion";
 import CreateCommunity from "./CreateCommunity";
 const RoutegetCommunitys = import.meta.env.VITE_SEARCHES_ADMINCOMUNIDAD || "http://localhost:3000/searches/admincomunidad";
@@ -14,6 +15,7 @@ const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || "http://localhost
 const RoutegetZones = import.meta.env.VITE_SEARCHES_ZONAS || "http://localhost:3000/searches/zonas"
 export default function Principal({userData}) {
   const [idUser, setIdUser] = useState("");
+  const [idOwner, setIdOwner] = useState("");
   const [name, setName] = useState("");
   const [workstation, setWorkstation] = useState("");
   const [zones, setZones] = useState([]);
@@ -99,7 +101,7 @@ export default function Principal({userData}) {
           'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-          idadminusu: idUser
+          idcolabcomunidad: idUser
       })
     })
     .then(response => {
@@ -109,8 +111,11 @@ export default function Principal({userData}) {
       return response.json();
     })
     .then(data => {
-      console.log(data)
-      setSharedCommunitys(data) 
+      console.log("Shared",data);
+      setSharedCommunitys(data);
+      data.forEach(element => {
+        setIdOwner(element.idusuario);
+      });
     })
     .catch(error => {
       console.error('Error:', error);
@@ -181,19 +186,32 @@ export default function Principal({userData}) {
 
 const toCommunity = (event) => {
   const selectedId = event.target.closest(".div-add-zone-principal").id;
-  console.log(selectedId)
-  setIdCommunity(selectedId)
+  const wichCommunity = {
+    idSelected : selectedId,
+    type : "own"
+  }
+  setIdCommunity(wichCommunity)
 }
 const toSharedCommunity = (event) => {
-  const selectedId = event.target.closest(".div-add-zone-principal").id;
-  console.log(selectedId)
-  setIdCommunity(selectedId)
+  const selectedId = event.target.closest(".div-add-zone-principal-coop").id;
+  const wichCommunity = {
+    idSelected : selectedId,
+    idUserOwner : idOwner,
+    type : "shared"
+  }
+  setIdCommunity(wichCommunity)
 }
 useEffect(() => {
   if (idCommunity !== "") {
-    const selectedCommunity = idCommunity;
-    localStorage.setItem("idCommunity", JSON.stringify(selectedCommunity));
-    navigate('/seeCommunity');
+    const selectedCommunity = idCommunity.idSelected;
+    if(idCommunity.type==="own"){
+      localStorage.setItem("idCommunity", JSON.stringify(selectedCommunity));
+      navigate('/seeCommunity');
+    }
+    else{
+      localStorage.setItem("SharedCommunity", JSON.stringify(idCommunity));
+      navigate('/seeSharedCommunity');
+    }
   }
 }, [idCommunity]);
 
@@ -205,7 +223,7 @@ function closeDelete(){
   setShowCloseSesion(false);
 }
   return (
-    <div className="body-principal" style={{paddingBottom:"1%"}}>
+    <div className="body-principal">
       <div className="header-principal">
         <h2 className="header-title-principal">Domoticloud</h2>
         <img src={User} alt="" className="user-image-principal" onClick={toUserAccount}/>
@@ -232,10 +250,10 @@ function closeDelete(){
                 </div>
                 ))}
         { sharedCommunitys.map((sharedCommunity,index) => (
-                <div id={sharedCommunity.id_comunidad} key={index} className="div-add-zone-principal"  onClick={toSharedCommunity}>
-                    <h3 className="name-divs-generated" style={{gridRow:"1"}}>{sharedCommunity.nombrecomunidad}</h3>
-                    <img src={CommunityIcon} alt="" className="img-divs-generated" style={{gridRow:"2"}} />
-                    <h3 className="name-divs-generated" style={{gridRow:"3"}}>Compartida</h3>
+                <div id={sharedCommunity.id_comunidad} key={index} className="div-add-zone-principal-coop" onClick={toSharedCommunity}>
+                    <h3 className="name-divs-generated" style={{gridRow:"1", color:"#00ff2a"}}>{sharedCommunity.nombrecomunidad}</h3>
+                    <img src={CommunityCoopIcon} alt="" className="img-divs-generated" style={{gridRow:"2"}} />
+                    <h3 className="name-divs-generated" style={{gridRow:"3", color:"#00ff2a"}}>Compartida</h3>
                 </div>
                 ))}
       </div>

@@ -9,9 +9,9 @@ import CuartoIcono from "../assets/cuarto-icono.png"
 import DeleteComponent from "./DeleteComponent";
 const RouteGetSensor = import.meta.env.VITE_SEARCHES_SENSOR || "http://localhost:3000/searches/sensor";
 const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || "http://localhost:3000/searches/idusu";
-export default function SeeSensor({selectedSensor,userData}){
+export default function SeeSharedSensor({selectedSharedSensor,userData}){
     const navigate = useNavigate();
-    const localStorageSelectedSensor = JSON.parse(localStorage.getItem("idDevice"));
+    const localStorageSelectedSharedSensor = JSON.parse(localStorage.getItem("idSharedDevice"));
     const localStorageUser = JSON.parse(localStorage.getItem("userData"));
     const localStorageWichComponent = JSON.parse(localStorage.getItem("wichComponent"));
     const [user, setUser] = useState([]);
@@ -23,8 +23,8 @@ export default function SeeSensor({selectedSensor,userData}){
     
 
     const gaugeRef = useRef(null);
-    if(localStorageSelectedSensor){
-        selectedSensor = localStorageSelectedSensor;
+    if(localStorageSelectedSharedSensor){
+        selectedSharedSensor = localStorageSelectedSharedSensor;
     }
     if(localStorageUser){
         userData = localStorageUser;
@@ -66,8 +66,8 @@ export default function SeeSensor({selectedSensor,userData}){
       }
       else{
         console.log(data)
-        alert("Debes de iniciar sesión");
-        navigate('/')
+        // alert("Debes de iniciar sesión");
+        // navigate('/')
       }
     })
     .catch(error => {
@@ -77,7 +77,7 @@ export default function SeeSensor({selectedSensor,userData}){
 
     useEffect(() => {
     const obtenerSeñales = async () => {
-        console.log(selectedSensor)
+        console.log(selectedSharedSensor)
         try{
         const response = await fetch(`${RouteGetSensor}`, {
         method: 'POST',
@@ -85,7 +85,7 @@ export default function SeeSensor({selectedSensor,userData}){
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            idsensor: selectedSensor
+            idsensor: selectedSharedSensor
         })
     });
 
@@ -158,15 +158,15 @@ export default function SeeSensor({selectedSensor,userData}){
             </div> */}
             <div style={{borderTop: "solid #4b1e9e13"}}></div>
             <div className="values-devices-SeeSensor">
-                <div className="section-value-SeeSensor">
+                <div className="section-value-SeeSensor" style={{backgroundColor:"#aeffbf"}}>
                     <h3 style={{gridRow:"1"}}>Señal:</h3>
                     <p style={{gridRow:"2"}}>{typeSignal}</p>
                 </div>
-                <div className="section-value-SeeSensor">
+                <div className="section-value-SeeSensor" style={{backgroundColor:"#aeffbf"}}>
                     <h3 style={{gridRow:"1"}}>Comunidad:</h3>
                     <p style={{gridRow:"2"}}>No hay ningúna comunidad asignada</p>
                 </div>
-                <div className="section-value-SeeSensor">
+                <div className="section-value-SeeSensor" style={{backgroundColor:"#aeffbf"}}>
                     <h3 style={{gridRow:"1"}}>Valor:</h3>
                     <div className="gauge" ref={gaugeRef}>
                     <div className="gauge__body">
@@ -175,7 +175,7 @@ export default function SeeSensor({selectedSensor,userData}){
                     </div>
                     </div>
                 </div>
-                <div className="section-value-SeeSensor">
+                <div className="section-value-SeeSensor" style={{backgroundColor:"#aeffbf"}}>
                     <h3 style={{gridRow:"1"}}>Señal:</h3>
                     <h3 style={{gridRow:"2"}}>{typeSignal}</h3>
                 </div>

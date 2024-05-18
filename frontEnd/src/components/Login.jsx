@@ -6,9 +6,9 @@ import '../App.css';
 const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || "http://localhost:3000/searches/idusu";
 export default function Login() {
     const navigate = useNavigate();
+    //Estados para manejar los inputs del usuario
     const [correo, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    //Cuando se rendereize el componente, comprobara si hay datos de usuario ya guardados en localStorage, si es así, direccionará automaticamente a /principal.jsx
 
     function toSignIn(){
         navigate('/signIn')
@@ -74,6 +74,7 @@ export default function Login() {
             'pass' : "",
             'workstation': ""
         };
+        //Un fetch para ver si hay un usuario regisrado con el usuario de la cuenta de google
         fetch(`${RoutesearchUser}`, {
             method: 'POST',
             headers: {
@@ -92,6 +93,7 @@ export default function Login() {
         .then(data => {
             if (data.length > 0) {
                 data.forEach(element => {
+                    //Si sí lo hay, verificamos si no tiene una contraseña ya definida
                     if(element.pass === "" || element.pass===null || element.pass === undefined){
                         const newData = {
                             idusuario: element.idusuario,
@@ -105,12 +107,15 @@ export default function Login() {
                         localStorage.setItem("userData",JSON.stringify(newData));
                         navigate("/confirmPassword")
                     }
+                    //Si si la tiene, lo mandamos directamente a la zona principal
                     else{
                         localStorage.setItem("userData",JSON.stringify(userData.email));
                         navigate('/principal')
                     }
                 });
-              } else {
+              } 
+              //Ahora, si no hay ninún correo registrado, lo manda a crear su contraseña
+              else {
                 const newData = {
                     idusuario: "",
                     usuario: "",
