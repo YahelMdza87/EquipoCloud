@@ -55,9 +55,6 @@ function App() {
             <Route path="/signIn" element={<SignIn/>} />
             <Route path="/toHelp" element={<Maintenance/>} />
             <Route path='/*' element={<NotFound/>}></Route>
-            <Route path='/omarUno' element={<OmarUno/>}></Route>
-            <Route path='/omarDos' element={<OmarDos/>}></Route>
-            <Route path='/omarTres' element={<OmarTres/>}></Route>
             <Route path='/loading' element={<Loading/>}></Route>
             <Route path='/AdminMenu' element={<AdminMenu/>}></Route>
             <Route path='/Statistics' element={<Statistics/>}></Route>
