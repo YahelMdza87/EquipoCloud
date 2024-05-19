@@ -16,7 +16,7 @@ export default function DeleteComponent({onClose}){
     }
 
     return(
-        <div className="background-principal" onClick={onClose}>
+        <div className="background-principal fade in" onClick={onClose}>
             <div className="card-principal" onClick={(e) => e.stopPropagation()}>
                 <div className="login-email-password">
                     <h2 style={{marginBottom:"6%"}} className="title-login">¿Estas seguro de cerrar sesión? {name}</h2>

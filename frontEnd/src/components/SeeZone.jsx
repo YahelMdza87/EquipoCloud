@@ -180,12 +180,12 @@ export default function SeeZone({selectedZone,userData}){
             <div style={{borderTop: "solid #4b1e9e13"}}></div>
             <h1 style={{marginLeft:"2%", marginTop:"1%"}}>Cuartos</h1>
             <div className="section-devices-principal">
-                <div className="div-add-zone-principal" style={{backgroundColor:"#DDCBFF"}} onClick={addRoom}>
+                <div className="div-add-zone-principal div-only-agregar" onClick={addRoom}>
                     <img className="add-zone-icon-principal" src={Agregar} alt="" />
                     <h3 className="add-zone-text-principal">Agregar cuarto</h3>
                 </div>
                 { rooms.map((room,index) => (
-                <div id={room.id_cuarto} key={index} className="div-add-zone-principal"  onClick={toRoom}>
+                <div id={room.id_cuarto} key={index} className="div-add-zone-principal fade-in"  onClick={toRoom}>
                     <h3 className="name-divs-generated" style={{gridRow:"1"}}>{room.cuarto}</h3>
                     <img src={CuartoIcono} alt="" className="img-divs-generated" style={{gridRow:"2"}}/>
                 </div>

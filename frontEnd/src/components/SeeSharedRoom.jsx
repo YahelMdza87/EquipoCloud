@@ -173,7 +173,7 @@ export default function SeeSharedRoom({selectedSharedRoom,userData}){
             <h1 style={{marginLeft:"2%", marginTop:"1%"}}>Dispositivos</h1>
             <div className="section-devices-principal">
                 { allDevices.map((sensor,index) => (
-                <div id={sensor.id_sensor} key={index} className="div-add-zone-principal-coop"  onClick={toSharedSensor}>
+                <div id={sensor.id_sensor} key={index} className="div-add-zone-principal-coop fade-in"  onClick={toSharedSensor}>
                     <h3 className="name-divs-generated" style={{gridRow:"1", color:"#00ff2a"}}>{sensor.nombresensor}</h3>
                     <img src={CuartoCoopIcono} alt="" className="img-divs-generated" style={{gridRow:"2"}} />
                     <h3 className="name-divs-generated" style={{gridRow:"3", color:"#00ff2a"}}>Compartido</h3>

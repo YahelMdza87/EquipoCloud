@@ -188,12 +188,12 @@ export default function SeeRoom({selectedRoom,userData}){
             <div style={{borderTop: "solid #4b1e9e13"}}></div>
             <h1 style={{marginLeft:"2%", marginTop:"1%"}}>Dispositivos</h1>
             <div className="section-devices-principal">
-                <div className="div-add-zone-principal" style={{backgroundColor:"#DDCBFF"}}>
+                <div className="div-add-zone-principal div-only-agregar">
                     <img className="add-zone-icon-principal" src={Agregar} alt="" />
                     <h3 className="add-zone-text-principal">Agregar device</h3>
                 </div>
                 { allDevices.map((sensor,index) => (
-                <div id={sensor.id_sensor} key={index} className="div-add-zone-principal"  onClick={toSensor}>
+                <div id={sensor.id_sensor} key={index} className="div-add-zone-principal fade-in"  onClick={toSensor}>
                     <h3 className="name-divs-generated" style={{gridRow:"1"}}>{sensor.nombresensor}</h3>
                     <img src={CuartoIcono} alt="" className="img-divs-generated" style={{gridRow:"2"}} />
                 </div>

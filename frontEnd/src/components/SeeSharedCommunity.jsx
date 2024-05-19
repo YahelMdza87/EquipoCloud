@@ -162,7 +162,7 @@ export default function SeeSharedCommunity({selectedSharedCommunity,idOwner,user
             <h1 style={{marginLeft:"2%", marginTop:"1%"}}>Zonas</h1>
             <div className="section-devices-principal">
                 { zones.map((zona,index) => (
-                    <div id={zona.id_zona} key={index} className="div-add-zone-principal-coop"  onClick={toSharedZone}>
+                    <div id={zona.id_zona} key={index} className="div-add-zone-principal-coop fade-in"  onClick={toSharedZone}>
                         <h3 className="name-divs-generated" style={{gridRow:"1", color:"#00ff2a"}}>{zona.nombrezona}</h3>
                         <img src={CuartoCoopIcono} alt="" className="img-divs-generated" style={{gridRow:"2"}} />
                         <h3 className="name-divs-generated" style={{gridRow:"3", color:"#00ff2a"}}>Compartida</h3>

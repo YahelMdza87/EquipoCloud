@@ -189,12 +189,12 @@ export default function SeeCommunity({selectedCommunity,userData}){
             </div>
             <h1 style={{marginLeft:"2%", marginTop:"1%"}}>Colaboradores</h1>
             <div className="section-devices-principal">
-                <div className="div-add-zone-principal" style={{backgroundColor:"#DDCBFF"}} onClick={addCollaborator}>
+                <div className="div-add-zone-principal div-only-agregar" onClick={addCollaborator}>
                     <img className="add-zone-icon-principal" src={Agregar} alt="" />
                     <h3 className="add-zone-text-principal">Agregar colaborador</h3>
                 </div>
                 { collaborators.map((collaborator,index) => (
-                <div id={collaborator.id_colaborador} key={index} className="div-add-zone-principal"  onClick={toCollaborator}>
+                <div id={collaborator.id_colaborador} key={index} className="div-add-zone-principal fade-in"  onClick={toCollaborator}>
                     <h3 className="name-divs-generated" style={{gridRow:"1"}}>{collaborator.correo}</h3>
                     <img src={UserIcono} alt="" className="img-divs-generated" style={{gridRow:"2"}} />
                 </div>

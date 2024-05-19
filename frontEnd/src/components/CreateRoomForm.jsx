@@ -43,7 +43,7 @@ export default function CreateRoomForm({onClose, id}){
     }
 
     return(
-        <div className="background-principal" onClick={onClose}>
+        <div className="background-principal fade-in" onClick={onClose}>
             <div className="card-principal" onClick={(e) => e.stopPropagation()}>
                 <div className="login-email-password">
                     <h2 className="title-login">Crear cuarto</h2>

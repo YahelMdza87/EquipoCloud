@@ -35,6 +35,7 @@ import SeeSharedCommunity from './components/SeeSharedCommunity';
 import SeeSharedZone from './components/SeeSharedZone';
 import SeeSharedRoom from './components/SeeSharedRoom';
 import SeeSharedSensor from './components/SeeSharedSensor';
+import Loading from './components/Loading';
 
 const googlecredencial = import.meta.env.VITE_CREDENCIAL_GOOGLE
 
@@ -63,6 +64,7 @@ function App() {
             <Route path='/omarUno' element={<OmarUno/>}></Route>
             <Route path='/omarDos' element={<OmarDos/>}></Route>
             <Route path='/omarTres' element={<OmarTres/>}></Route>
+            <Route path='/loading' element={<Loading/>}></Route>
             <Route path='/AdminMenu' element={<AdminMenu/>}></Route>
             <Route path='/Statistics' element={<Statistics/>}></Route>
             <Route path='/ManageCounts' element={<ManageCounts/>}></Route>

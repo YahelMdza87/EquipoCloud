@@ -238,19 +238,19 @@ function closeDelete(){
       <div style={{borderTop: "solid #4b1e9e13"}}></div>
       <h1>Comunidades</h1>
       <div className="section-devices-principal">
-        <div className="div-add-zone-principal" style={{backgroundColor:"#DDCBFF"}} onClick={toCreateComunity}>
+        <div className="div-add-zone-principal div-only-agregar" onClick={toCreateComunity}>
           <img className="add-zone-icon-principal" src={Agregar} alt="" />
           <h3 className="add-zone-text-principal">Agregar comunidad</h3>
         </div>
         { communitys.map((community,index) => (
-                <div id={community.id_comunidad} key={index} className="div-add-zone-principal"  onClick={toCommunity}>
+                <div id={community.id_comunidad} key={index} className="div-add-zone-principal fade-in"  onClick={toCommunity}>
                     <h3 className="name-divs-generated" style={{gridRow:"1"}}>{community.nombrecomunidad}</h3>
                     <img src={CommunityIcon} alt="" className="img-divs-generated" style={{gridRow:"2"}} />
                     <h3 className="name-divs-generated" style={{gridRow:"3"}}>Propietario</h3>
                 </div>
                 ))}
         { sharedCommunitys.map((sharedCommunity,index) => (
-                <div id={sharedCommunity.id_comunidad} key={index} className="div-add-zone-principal-coop" onClick={toSharedCommunity}>
+                <div id={sharedCommunity.id_comunidad} key={index} className="div-add-zone-principal-coop fade-in" onClick={toSharedCommunity}>
                     <h3 className="name-divs-generated" style={{gridRow:"1", color:"#00ff2a"}}>{sharedCommunity.nombrecomunidad}</h3>
                     <img src={CommunityCoopIcon} alt="" className="img-divs-generated" style={{gridRow:"2"}} />
                     <h3 className="name-divs-generated" style={{gridRow:"3", color:"#00ff2a"}}>Compartida</h3>
@@ -261,7 +261,7 @@ function closeDelete(){
       <h1>Zonas</h1>
       <div className="section-devices-principal">
         { zones.map((zona,index) => (
-          <div id={zona.id_zona} key={index} className="div-add-zone-principal"  onClick={toZone}>
+          <div id={zona.id_zona} key={index} className="div-add-zone-principal fade-in"  onClick={toZone}>
             <h3 className="name-divs-generated" style={{gridRow:"1"}}>{zona.nombrezona}</h3>
             <img src={CuartoIcono} alt="" className="img-divs-generated" style={{gridRow:"2"}}/>
           </div>

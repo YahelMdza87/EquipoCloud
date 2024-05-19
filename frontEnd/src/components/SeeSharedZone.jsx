@@ -159,7 +159,7 @@ export default function SeeSharedZone({selectedSharedZone,userData}){
             <h1 style={{marginLeft:"2%", marginTop:"1%"}}>Cuartos</h1>
             <div className="section-devices-principal">
                 { rooms.map((room,index) => (
-                <div id={room.id_cuarto} key={index} className="div-add-zone-principal-coop"  onClick={toSharedRoom}>
+                <div id={room.id_cuarto} key={index} className="div-add-zone-principal-coop fade-in"  onClick={toSharedRoom}>
                     <h3 className="name-divs-generated" style={{gridRow:"1", color:"#00ff2a"}}>{room.cuarto}</h3>
                     <img src={CuartoCoopIcono} alt="" className="img-divs-generated" style={{gridRow:"2"}}/>
                     <h3 className="name-divs-generated" style={{gridRow:"3", color:"#00ff2a"}}>Compartido</h3>
