@@ -5,10 +5,10 @@ import Back from "../assets/to-back.png"
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import User from "../assets/user.png"
-import CuartoIcono from "../assets/cuarto-icono.png"
 import UserIcono from "../assets/user-icono.png"
 import CreateCollaboratorForm from "./CreateCollaboratorForm";
 import DeleteComponent from "./DeleteComponent";
+//Rutas para hacer fetch
 const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || "http://localhost:3000/searches/idusu";
 const RoutesearchEmails = import.meta.env.VITE_SEARCHES_CORREOUSERS || "http://localhost:3000/searches/correousers";
 const RoutesearchCollaborators = import.meta.env.VITE_SEARCHES_COLABDECOMUNIDAD ||  "http://localhost:3000/searches/colabdecomunidad";

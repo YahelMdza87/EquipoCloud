@@ -12,6 +12,7 @@ const RoutegetZones = import.meta.env.VITE_SEARCHES_ZONAS || "http://localhost:3
 
 export default function Principal({ userData }) {
   const navigate = useNavigate();
+  //Estados para manejar los fetch
   const [idUser, setIdUser] = useState(0);
   const [name, setName] = useState("");
   const [idZona, setIdZona] = useState("");
@@ -82,31 +83,31 @@ export default function Principal({ userData }) {
 
   /* Get todas las zonas*/
   useEffect(() => {
-    if (idUser) {
+    console.log(idUser)
+    if(idUser){
       fetch(`${RoutegetZones}`, {
-        method: 'POST',
-        headers: {
+      method: 'POST',
+      headers: {
           'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
+      },
+      body: JSON.stringify({
           idusu: idUser
-        })
       })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Hubo un problema al realizar la solicitud.');
-          }
-          return response.json();
-        })
-        .then(data => {
-          setZones(data);
-          setLoading(false); // Oculta el componente de carga cuando se obtienen las zonas
-        })
-        .catch(error => {
-          console.error('Error:', error);
-        });
-    }
-  }, [idUser, showAddZoneForm]);
+    })
+    .then(response => {
+      if (!response.ok) {
+          throw new Error('Hubo un problema al realizar la solicitud.');
+      }
+      return response.json();
+    })
+    .then(data => {
+      setZones(data) 
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+  }
+  }, [idUser], [showAddZoneForm]);
 
   function addZone() {
     setShowAddZoneForm(true);
