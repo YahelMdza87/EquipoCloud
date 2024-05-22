@@ -1,5 +1,5 @@
 import "../App.css"
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from "react-router-dom";
 const RouteDeleteZone = import.meta.env.VITE_DELETE_ZONA || "http://localhost:3000/delete/zona";
 const RouteDeleteRoom = import.meta.env.VITE_DELETE_CUARTO || "http://localhost:3000/delete/cuarto";
@@ -146,7 +146,7 @@ export default function DeleteComponent({onClose, id, wich}){
     }
 
     return(
-        <div className="background-principal" onClick={onClose}>
+        <div className="background-principal fade in" onClick={onClose}>
             <div className="card-principal" onClick={(e) => e.stopPropagation()}>
                 <div className="login-email-password">
                     <h2 style={{fontSize:"5.3vw", marginBottom:"6%"}} className="title-login">¿Estas seguro?</h2>

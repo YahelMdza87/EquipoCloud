@@ -10,7 +10,6 @@ export default function SignIn() {
     //Cuando se rendereize el componente, comprobara si hay datos de usuario ya guardados en localStorage, si es así, direccionará automaticamente a /principal.jsx
 
     function enviarDatosUsuario(data) {
-        console.log(data)
             fetch(`${RouteAddUser}`, {
             method: 'POST',
             headers: {
@@ -31,7 +30,6 @@ export default function SignIn() {
             return response.json();
         })
         .then(data => {
-            console.log(data); 
             navigate('/')
         })
         .catch(error => {

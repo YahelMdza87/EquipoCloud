@@ -8,12 +8,14 @@ import CuartoIcono from "../assets/cuarto-icono.png"
 import CommunityIcon from "../assets/comunidad-icono.png"
 import CommunityCoopIcon from "../assets/comunidad-coop-icono.png"
 import CloseSesion from "./CloseSesion";
+import Loading from "./Loading";
 import CreateCommunity from "./CreateCommunity";
 const RoutegetCommunitys = import.meta.env.VITE_SEARCHES_ADMINCOMUNIDAD || "http://localhost:3000/searches/admincomunidad";
 const RoutegetSharedCommunitys = import.meta.env.VITE_SEARCHES_COLABENCOMUNIDAD || "http://localhost:3000/searches/colabencomunidad";
 const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || "http://localhost:3000/searches/idusu";
 const RoutegetZones = import.meta.env.VITE_SEARCHES_ZONAS || "http://localhost:3000/searches/zonas"
 export default function Principal({userData}) {
+  const [loading, setLoading] = useState(true);
   const [idUser, setIdUser] = useState("");
   const [idOwner, setIdOwner] = useState("");
   const [name, setName] = useState("");
@@ -84,7 +86,6 @@ export default function Principal({userData}) {
       return response.json();
     })
     .then(data => {
-      console.log(data)
       setCommunitys(data) 
     })
     .catch(error => {
@@ -111,8 +112,8 @@ export default function Principal({userData}) {
       return response.json();
     })
     .then(data => {
-      console.log("Shared",data);
       setSharedCommunitys(data);
+      setLoading(false);
       data.forEach(element => {
         setIdOwner(element.idusuario);
       });
@@ -168,7 +169,6 @@ export default function Principal({userData}) {
     .then(data => {
       if(data && data.length>0){
         data.forEach(element => {
-          console.log(element)
           setIdUser(element.idusuario)
           setName(element.nombre);
           setWorkstation(element.cargo);
@@ -229,61 +229,66 @@ function closeDelete(){
         <img src={User} alt="" className="user-image-principal" onClick={toUserAccount}/>
         <img src={Logo} alt="" className="add-icon-principal" onClick={toIndex}/>
       </div>
-      <div className="section-data-useraccount">
-        <img src={User} alt="" className="user-image-userAccount"/>
-        <h3 className="name-user-userAccount" >{name}</h3>
-        <h2 className="name-role-userAccount">{workstation}</h2>
-        <div className="btn-edit-data-user" onClick={toEditAccount}>Editar</div>
-      </div>
-      <div style={{borderTop: "solid #4b1e9e13"}}></div>
-      <h1>Comunidades</h1>
-      <div className="section-devices-principal">
-        <div className="div-add-zone-principal" style={{backgroundColor:"#DDCBFF"}} onClick={toCreateComunity}>
-          <img className="add-zone-icon-principal" src={Agregar} alt="" />
-          <h3 className="add-zone-text-principal">Agregar comunidad</h3>
-        </div>
-        { communitys.map((community,index) => (
-                <div id={community.id_comunidad} key={index} className="div-add-zone-principal"  onClick={toCommunity}>
-                    <h3 className="name-divs-generated" style={{gridRow:"1"}}>{community.nombrecomunidad}</h3>
-                    <img src={CommunityIcon} alt="" className="img-divs-generated" style={{gridRow:"2"}} />
-                    <h3 className="name-divs-generated" style={{gridRow:"3"}}>Propietario</h3>
-                </div>
-                ))}
-        { sharedCommunitys.map((sharedCommunity,index) => (
-                <div id={sharedCommunity.id_comunidad} key={index} className="div-add-zone-principal-coop" onClick={toSharedCommunity}>
-                    <h3 className="name-divs-generated" style={{gridRow:"1", color:"#00ff2a"}}>{sharedCommunity.nombrecomunidad}</h3>
-                    <img src={CommunityCoopIcon} alt="" className="img-divs-generated" style={{gridRow:"2"}} />
-                    <h3 className="name-divs-generated" style={{gridRow:"3", color:"#00ff2a"}}>Compartida</h3>
-                </div>
-                ))}
-      </div>
-      <div style={{borderTop: "solid #4b1e9e13"}}></div>
-      <h1>Zonas</h1>
-      <div className="section-devices-principal">
-        { zones.map((zona,index) => (
-          <div id={zona.id_zona} key={index} className="div-add-zone-principal"  onClick={toZone}>
-            <h3 className="name-divs-generated" style={{gridRow:"1"}}>{zona.nombrezona}</h3>
-            <img src={CuartoIcono} alt="" className="img-divs-generated" style={{gridRow:"2"}}/>
+      {loading ? <Loading /> : (
+        <>
+          <div className="section-data-useraccount">
+            <img src={User} alt="" className="user-image-userAccount"/>
+            <h3 className="name-user-userAccount" >{name}</h3>
+            <h2 className="name-role-userAccount">{workstation}</h2>
+            <div className="btn-edit-data-user" onClick={toEditAccount}>Editar</div>
           </div>
-        ))}
-      </div>
-      <div style={{marginTop:"4%"}}>
-        <div className="div-more-userAccount" onClick={toHelp}>
-          <h2>Ayuda</h2>
-        </div>
-        <div className="div-more-userAccount" onClick={toHelp}>
-          <h2>Acerca de</h2>
-        </div>
-        <div className="div-more-userAccount" onClick={toDelete}>
-          <h2>Cerrar sesión</h2>
-        </div>
-      </div>
-      {showAddCommunityForm && ( 
-                <CreateCommunity onClose={closeAddCommunityModal} id={{idUser}} />
-            )}
-      {showCloseSesion && ( 
-               <CloseSesion onClose={closeDelete}/>
-            )}
+          <div style={{borderTop: "solid #4b1e9e13"}}></div>
+          <h1>Comunidades</h1>
+          <div className="section-devices-principal">
+            <div className="div-add-zone-principal div-only-agregar" onClick={toCreateComunity}>
+              <img className="add-zone-icon-principal" src={Agregar} alt="" />
+              <h3 className="add-zone-text-principal">Agregar comunidad</h3>
+            </div>
+            { communitys.map((community,index) => (
+                    <div id={community.id_comunidad} key={index} className="div-add-zone-principal fade-in"  onClick={toCommunity}>
+                        <h3 className="name-divs-generated" style={{gridRow:"1"}}>{community.nombrecomunidad}</h3>
+                        <img src={CommunityIcon} alt="" className="img-divs-generated" style={{gridRow:"2"}} />
+                        <h3 className="name-divs-generated" style={{gridRow:"3"}}>Propietario</h3>
+                    </div>
+                    ))}
+            { sharedCommunitys.map((sharedCommunity,index) => (
+                    <div id={sharedCommunity.id_comunidad} key={index} className="div-add-zone-principal-coop fade-in" onClick={toSharedCommunity}>
+                        <h3 className="name-divs-generated" style={{gridRow:"1", color:"#00ff2a"}}>{sharedCommunity.nombrecomunidad}</h3>
+                        <img src={CommunityCoopIcon} alt="" className="img-divs-generated" style={{gridRow:"2"}} />
+                        <h3 className="name-divs-generated" style={{gridRow:"3", color:"#00ff2a"}}>Compartida</h3>
+                    </div>
+                    ))}
+          </div>
+          <div style={{borderTop: "solid #4b1e9e13"}}></div>
+          <h1>Zonas</h1>
+          <div className="section-devices-principal">
+            { zones.map((zona,index) => (
+              <div id={zona.id_zona} key={index} className="div-add-zone-principal fade-in"  onClick={toZone}>
+                <h3 className="name-divs-generated" style={{gridRow:"1"}}>{zona.nombrezona}</h3>
+                <img src={CuartoIcono} alt="" className="img-divs-generated" style={{gridRow:"2"}}/>
+              </div>
+            ))}
+          </div>
+          <div style={{marginTop:"4%"}}>
+            <div className="div-more-userAccount" onClick={toHelp}>
+              <h2>Ayuda</h2>
+            </div>
+            <div className="div-more-userAccount" onClick={toHelp}>
+              <h2>Acerca de</h2>
+            </div>
+            <div className="div-more-userAccount" onClick={toDelete}>
+              <h2>Cerrar sesión</h2>
+            </div>
+          </div>
+          {showAddCommunityForm && ( 
+                    <CreateCommunity onClose={closeAddCommunityModal} id={{idUser}} />
+          )}
+          {showCloseSesion && ( 
+                  <CloseSesion onClose={closeDelete}/>
+          )}
+      
+        </>
+      )}
     </div>
   );
 }

@@ -103,7 +103,6 @@ export default function Login() {
                             correo: element.correo,
                             cargo: element.cargo
                         }
-                        console.log(newData,"------")
                         localStorage.setItem("userData",JSON.stringify(newData));
                         navigate("/confirmPassword")
                     }
@@ -159,7 +158,6 @@ export default function Login() {
                     <GoogleLogin
                             onSuccess={handleSuccessGoogle}
                             onError={() => {
-                                console.log('Login Failed');
                             }}
                         />;
                 </div>

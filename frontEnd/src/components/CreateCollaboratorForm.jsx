@@ -4,11 +4,13 @@ const RouteAddCollaborator = import.meta.env.VITE_ADD_COLLABORATOR || "http://lo
 const RoutesearchEmails = import.meta.env.VITE_SEARCHES_CORREOUSERS || "http://localhost:3000/searches/correousers";
 const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || "http://localhost:3000/searches/idusu";
 const RoutesearchCollaborator = import.meta.env.VITE_SEARCHES_IDUSU || "http://localhost:3000/searches/idusu";
+const RoutesearchCollaborators = import.meta.env.VITE_SEARCHES_COLABDECOMUNIDAD ||  "http://localhost:3000/searches/colabdecomunidad";
 export default function CreateCollaboratorForm({onClose, id, userData}){
     const [nameCollaborator, setNameCollaborator] = useState("");
     const [idUserCollaborator, setIdUserCollaborator] = useState("")
     const [emailsUser, setEmailsUsers] = useState([]);
     const [searchResults, setSearchResults] = useState([]);
+    const [collaborators, setCollaborators] = useState([]);
     const [user, setUser] = useState([]);
     const localStorageUser = JSON.parse(localStorage.getItem("userData"));
     //Obtener el correo para hacer un fetch a ver si hay un correo con registrado
@@ -21,7 +23,8 @@ export default function CreateCollaboratorForm({onClose, id, userData}){
         const inputValue = event.target.value.toLowerCase();
         setNameCollaborator(inputValue);
         if(inputValue.length>=6){
-            const filterUsers = emailsUser.filter(email=> email.correo.toLowerCase().includes(inputValue) && email !== localStorage.getItem("userData"));
+            const filterUsers = emailsUser.filter(email=> email.correo.toLowerCase().includes(inputValue) && email.correo !== localStorageUser &&
+            !collaborators.some((collaborator) => collaborator.correo === email.correo))
             setSearchResults(filterUsers.length>0 ? filterUsers : [{ correo: "No hay ningún usuario registrado con ese correo."}]);
         }
         else {
@@ -114,6 +117,29 @@ export default function CreateCollaboratorForm({onClose, id, userData}){
         console.error('Error:', error);
     });
     }, []);
+    useEffect(() => {
+        fetch(`${RoutesearchCollaborators}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                idcomunidad: JSON.stringify(id.idCommunity)
+            })
+        })
+        .then(response => {
+            if (!response.ok) {
+            throw new Error('Hubo un problema al realizar la solicitud.');
+            }
+            return response.json();
+        })
+        .then(data => {
+            setCollaborators(data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }, []);
 
     //Primero buscara el colaborador con el correo que ingreso el usuario, si no lo encuentra, mostrará un error
     function addCollaborator () {
@@ -133,11 +159,11 @@ export default function CreateCollaboratorForm({onClose, id, userData}){
                 return response.json();
             })
             .then(data => {
-            if(data && data.length>0){
-                data.forEach(element => {
-                    setIdUserCollaborator(element.idusuario);
-                });
-            }
+                if(data && data.length>0){
+                    data.forEach(element => {
+                        setIdUserCollaborator(element.idusuario);
+                    });
+                }
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -146,7 +172,7 @@ export default function CreateCollaboratorForm({onClose, id, userData}){
     }
 
     return(
-        <div className="background-principal" onClick={onClose}>
+        <div className="background-principal fade-in" onClick={onClose}>
             <div className="card-principal" onClick={(e) => e.stopPropagation()}>
                 <div className="login-email-password">
                     <h2 className="title-login">Agregar colaborador</h2>

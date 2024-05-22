@@ -1,5 +1,5 @@
 import "../App.css"
-import React, { useState, useEffect } from 'react';
+import React, {useState} from 'react';
 
 const RouteAddZone = import.meta.env.VITE_ADD_ZONA || "http://localhost:3000/add/zona"
 
@@ -64,7 +64,7 @@ export default function CreateZoneForm({onClose, id}){
     }
 
     return(
-        <div className="background-principal" onClick={onClose}>
+        <div className="background-principal fade-in" onClick={onClose}>
             <div className="card-principal" onClick={(e) => e.stopPropagation()}>
                 <div className="login-email-password">
                     <h2 className="title-login">Crear zona</h2>

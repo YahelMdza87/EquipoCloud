@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import User from "../assets/user.png"
 import CuartoIcono from "../assets/cuarto-icono.png"
 import CreateRoomForm from "./CreateRoomForm";
+import Loading from './Loading';
 import DeleteComponent from "./DeleteComponent";
 const RouteGetRoom = import.meta.env.VITE_SEARCHES_CUARTO || "http://localhost:3000/searches/cuarto";
 const RouteGetRooms = import.meta.env.VITE_SEARCHES_CUARTOS || "http://localhost:3000/searches/cuartos";
@@ -25,6 +26,7 @@ export default function SeeRoom({selectedRoom,userData}){
     const [allDevices, setAllDevices] = useState([]);
     const [showAddRoomForm, setShowAddRoomForm] = useState(false);
     const [showConfirmDelete, setShowConfirmDelete] = useState(false);
+    const [loading, setLoading] = useState(true);
     if(localStorageSelectedRoom){
         selectedRoom = localStorageSelectedRoom;
     }
@@ -45,7 +47,6 @@ export default function SeeRoom({selectedRoom,userData}){
     }
     const toSensor = (event) => {
         const selectedId = event.target.closest(".div-add-zone-principal").id;
-        console.log(selectedId)
         setIdDevice(selectedId)
       }
       useEffect(() => {
@@ -79,7 +80,6 @@ export default function SeeRoom({selectedRoom,userData}){
         });
       }
       else{
-        console.log(data)
         alert("Debes de iniciar sesión");
         navigate('/')
       }
@@ -107,18 +107,18 @@ export default function SeeRoom({selectedRoom,userData}){
         return response.json();
     })
     .then(data => {
-      if(data && data.length>0){
-        data.forEach(element => {
-            console.log('hola')
-            setIdRoom(element.id_cuarto)
-            setNameRoom(element.cuarto);
-            setNumDevices(element.numerosensoresactivos);
-        });
-      }
-      else{
-        alert("Debiste de haber seleccionado una zona");
-        navigate('/')
-      }
+        setLoading(false);
+        if(data && data.length>0){
+            data.forEach(element => {
+                setIdRoom(element.id_cuarto);
+                setNameRoom(element.cuarto);
+                setNumDevices(element.numerosensoresactivos);
+            });
+        }
+        else{
+            alert("Debiste de haber seleccionado una zona");
+            navigate('/')
+        }
     })
     .catch(error => {
         console.error('Error:', error);
@@ -160,7 +160,6 @@ export default function SeeRoom({selectedRoom,userData}){
 
 
     function toDelete(){
-        console.log(idRoom)
         setShowConfirmDelete(true);
     }
     function closeDelete(){
@@ -178,31 +177,35 @@ export default function SeeRoom({selectedRoom,userData}){
                 <img src={User} alt="" className="user-image-principal" onClick={toUserAccount}/>
                 <img src={Logo} alt="" className="add-icon-principal" onClick={toIndex}/>
             </div>
-            <div>
-                <img src={Back} alt="" className="to-back-button" onClick={goBack} />
-            </div>
-            <div style={{alignItems:"center", justifyItems:"center", textAlign:"center"}}><h1>{nameRoom}</h1></div>
-            <div className="section-image-zone">
-                <img className="image-zone" src="https://media.admagazine.com/photos/62b4b828cce4cfe1db2ed95e/4:3/w_2664,h_1998,c_limit/Dormitorio.jpg" alt="" />
-            </div>
-            <div style={{borderTop: "solid #4b1e9e13"}}></div>
-            <h1 style={{marginLeft:"2%", marginTop:"1%"}}>Dispositivos</h1>
-            <div className="section-devices-principal">
-                <div className="div-add-zone-principal" style={{backgroundColor:"#DDCBFF"}}>
-                    <img className="add-zone-icon-principal" src={Agregar} alt="" />
-                    <h3 className="add-zone-text-principal">Agregar device</h3>
-                </div>
-                { allDevices.map((sensor,index) => (
-                <div id={sensor.id_sensor} key={index} className="div-add-zone-principal"  onClick={toSensor}>
-                    <h3 className="name-divs-generated" style={{gridRow:"1"}}>{sensor.nombresensor}</h3>
-                    <img src={CuartoIcono} alt="" className="img-divs-generated" style={{gridRow:"2"}} />
-                </div>
-                ))}
-             </div>
-            {showConfirmDelete && ( 
-                <DeleteComponent onClose={closeDelete} id={{idRoom}} wich={{localStorageWichComponent}}/>
+            {loading ? <Loading /> : (
+                <>
+                    <div>
+                        <img src={Back} alt="" className="to-back-button" onClick={goBack} />
+                    </div>
+                    <div style={{alignItems:"center", justifyItems:"center", textAlign:"center"}}><h1>{nameRoom}</h1></div>
+                    <div className="section-image-zone">
+                        <img className="image-zone" src="https://media.admagazine.com/photos/62b4b828cce4cfe1db2ed95e/4:3/w_2664,h_1998,c_limit/Dormitorio.jpg" alt="" />
+                    </div>
+                    <div style={{borderTop: "solid #4b1e9e13"}}></div>
+                    <h1 style={{marginLeft:"2%", marginTop:"1%"}}>Dispositivos</h1>
+                    <div className="section-devices-principal">
+                        <div className="div-add-zone-principal div-only-agregar">
+                            <img className="add-zone-icon-principal" src={Agregar} alt="" />
+                            <h3 className="add-zone-text-principal">Agregar device</h3>
+                        </div>
+                        { allDevices.map((sensor,index) => (
+                        <div id={sensor.id_sensor} key={index} className="div-add-zone-principal fade-in"  onClick={toSensor}>
+                            <h3 className="name-divs-generated" style={{gridRow:"1"}}>{sensor.nombresensor}</h3>
+                            <img src={CuartoIcono} alt="" className="img-divs-generated" style={{gridRow:"2"}} />
+                        </div>
+                        ))}
+                    </div>
+                    {showConfirmDelete && ( 
+                        <DeleteComponent onClose={closeDelete} id={{idRoom}} wich={{localStorageWichComponent}}/>
+                    )}
+                    <div style={{justifyItems:"center", alignItems:"center", textAlign:"center"}}><img src={Basura} alt="" onClick={toDelete}/></div>
+                </>
             )}
-            <div style={{justifyItems:"center", alignItems:"center", textAlign:"center"}}><img src={Basura} alt="" onClick={toDelete}/></div>
         </div>
     )
 }
