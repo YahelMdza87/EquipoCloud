@@ -8,6 +8,7 @@ import User from "../assets/user.png"
 import UserIcono from "../assets/user-icono.png"
 import CreateCollaboratorForm from "./CreateCollaboratorForm";
 import DeleteComponent from "./DeleteComponent";
+import Loading from './Loading';
 //Rutas para hacer fetch
 const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || "http://localhost:3000/searches/idusu";
 const RoutesearchEmails = import.meta.env.VITE_SEARCHES_CORREOUSERS || "http://localhost:3000/searches/correousers";
@@ -26,6 +27,7 @@ export default function SeeCommunity({selectedCommunity,userData}){
     const [user, setUser] = useState([]);
     const [showAddCollaboratorForm, setShowAddCollaboratorForm] = useState(false);
     const [showConfirmDelete, setShowConfirmDelete] = useState(false);
+    const [loading, setLoading] = useState(true);
     if(localStorageSelectedCommunity){
         selectedCommunity = localStorageSelectedCommunity;
     }
@@ -68,7 +70,6 @@ export default function SeeCommunity({selectedCommunity,userData}){
         });
       }
       else{
-        console.log(data)
         alert("Debes de iniciar sesión");
         navigate('/')
       }
@@ -95,7 +96,6 @@ export default function SeeCommunity({selectedCommunity,userData}){
         return response.json();
     })
     .then(data => {
-        console.log(data)
       if(data && data.length>0){
         data.forEach(element => {
             setCommunity(element)
@@ -103,9 +103,6 @@ export default function SeeCommunity({selectedCommunity,userData}){
         });
       }
       else{
-        // console.log(data)
-        // alert("Debes de iniciar sesión");
-        // navigate('/')
       }
     })
     .catch(error => {
@@ -121,7 +118,6 @@ export default function SeeCommunity({selectedCommunity,userData}){
             return response.json();
         })
         .then(data => {
-            console.log(data);
             setEmailsUsers(data);
         })
         .catch(error => {
@@ -148,7 +144,7 @@ export default function SeeCommunity({selectedCommunity,userData}){
             return response.json();
         })
         .then(data => {
-            console.log(data);
+            setLoading(false);
             setCollaborators(data);
         })
         .catch(error => {
@@ -158,7 +154,6 @@ export default function SeeCommunity({selectedCommunity,userData}){
 
 
     function toDelete(){
-        console.log(idRoom)
         setShowConfirmDelete(true);
     }
     function closeDelete(){
@@ -180,34 +175,38 @@ export default function SeeCommunity({selectedCommunity,userData}){
                 <img src={User} alt="" className="user-image-principal" onClick={toUserAccount}/>
                 <img src={Logo} alt="" className="add-icon-principal" onClick={toIndex}/>
             </div>
-            <div>
-                <img src={Back} alt="" className="to-back-button" onClick={goBack} />
-            </div>
-            <div style={{alignItems:"center", justifyItems:"center", textAlign:"center"}}> <h1>{community.nombrecomunidad}</h1></div>
-            <div className="section-image-zone">
-                <img className="image-zone" src="https://media.admagazine.com/photos/62b4b828cce4cfe1db2ed95e/4:3/w_2664,h_1998,c_limit/Dormitorio.jpg" alt="" />
-            </div>
-            <h1 style={{marginLeft:"2%", marginTop:"1%"}}>Colaboradores</h1>
-            <div className="section-devices-principal">
-                <div className="div-add-zone-principal div-only-agregar" onClick={addCollaborator}>
-                    <img className="add-zone-icon-principal" src={Agregar} alt="" />
-                    <h3 className="add-zone-text-principal">Agregar colaborador</h3>
-                </div>
-                { collaborators.map((collaborator,index) => (
-                <div id={collaborator.id_colaborador} key={index} className="div-add-zone-principal fade-in"  onClick={toCollaborator}>
-                    <h3 className="name-divs-generated" style={{gridRow:"1"}}>{collaborator.correo}</h3>
-                    <img src={UserIcono} alt="" className="img-divs-generated" style={{gridRow:"2"}} />
-                </div>
-                ))}
-             </div>
-             
-            {showConfirmDelete && ( 
-                <DeleteComponent onClose={closeDelete} id={{idRoom}} wich={{localStorageWichComponent}}/>
+            {loading ? <Loading /> : (
+                <>
+                    <div>
+                        <img src={Back} alt="" className="to-back-button" onClick={goBack} />
+                    </div>
+                    <div style={{alignItems:"center", justifyItems:"center", textAlign:"center"}}> <h1>{community.nombrecomunidad}</h1></div>
+                    <div className="section-image-zone">
+                        <img className="image-zone" src="https://media.admagazine.com/photos/62b4b828cce4cfe1db2ed95e/4:3/w_2664,h_1998,c_limit/Dormitorio.jpg" alt="" />
+                    </div>
+                    <h1 style={{marginLeft:"2%", marginTop:"1%"}}>Colaboradores</h1>
+                    <div className="section-devices-principal">
+                        <div className="div-add-zone-principal div-only-agregar" onClick={addCollaborator}>
+                            <img className="add-zone-icon-principal" src={Agregar} alt="" />
+                            <h3 className="add-zone-text-principal">Agregar colaborador</h3>
+                        </div>
+                        { collaborators.map((collaborator,index) => (
+                        <div id={collaborator.id_colaborador} key={index} className="div-add-zone-principal fade-in"  onClick={toCollaborator}>
+                            <h3 className="name-divs-generated" style={{gridRow:"1"}}>{collaborator.correo}</h3>
+                            <img src={UserIcono} alt="" className="img-divs-generated" style={{gridRow:"2"}} />
+                        </div>
+                        ))}
+                    </div>
+                    
+                    {showConfirmDelete && ( 
+                        <DeleteComponent onClose={closeDelete} id={{idRoom}} wich={{localStorageWichComponent}}/>
+                    )}
+                    {showAddCollaboratorForm && ( 
+                        <CreateCollaboratorForm onClose={closeAddCollaboratorModal} id={{idCommunity}} />
+                    )}
+                    {/* <div style={{justifyItems:"center", alignItems:"center", textAlign:"center"}}><img src={Basura} alt="" onClick={toDelete}/></div> */}
+                </>
             )}
-            {showAddCollaboratorForm && ( 
-                <CreateCollaboratorForm onClose={closeAddCollaboratorModal} id={{idCommunity}} />
-            )}
-            {/* <div style={{justifyItems:"center", alignItems:"center", textAlign:"center"}}><img src={Basura} alt="" onClick={toDelete}/></div> */}
         </div>
     )
 }

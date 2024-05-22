@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import User from "../assets/user.png"
 import CuartoCoopIcono from "../assets/cuarto-coop-icono.png"
+import Loading from './Loading';
 const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || "http://localhost:3000/searches/idusu";
 const RoutegetZones = import.meta.env.VITE_SEARCHES_ZONAS || "http://localhost:3000/searches/zonas"
 const RoutesearchCommunity = import.meta.env.VITE_SEARCHES_COMUNIDAD || "http://localhost:3000/searches/comunidad";
@@ -18,7 +19,7 @@ export default function SeeSharedCommunity({selectedSharedCommunity,idOwner,user
     const [user, setUser] = useState([]);
     const [idZone, setIdZone] = useState("");
     const [zones, setZones] = useState([]);
-
+    const [loading, setLoading] = useState(true);
     if(localStorageSelectedSharedCommunity){
         selectedSharedCommunity = localStorageSelectedSharedCommunity.idSelected;
         idOwner = localStorageSelectedSharedCommunity.idUserOwner;
@@ -56,7 +57,7 @@ export default function SeeSharedCommunity({selectedSharedCommunity,idOwner,user
           return response.json();
         })
         .then(data => {
-            console.log(data)
+            setLoading(false);
             setZones(data) 
         })
         .catch(error => {
@@ -89,7 +90,6 @@ export default function SeeSharedCommunity({selectedSharedCommunity,idOwner,user
         });
       }
       else{
-        console.log(data)
         alert("Debes de iniciar sesión");
         navigate('/')
       }
@@ -116,7 +116,6 @@ export default function SeeSharedCommunity({selectedSharedCommunity,idOwner,user
         return response.json();
     })
     .then(data => {
-        console.log(data)
       if(data && data.length>0){
         data.forEach(element => {
             setCommunity(element)
@@ -124,9 +123,6 @@ export default function SeeSharedCommunity({selectedSharedCommunity,idOwner,user
         });
       }
       else{
-        // console.log(data)
-        // alert("Debes de iniciar sesión");
-        // navigate('/')
       }
     })
     .catch(error => {
@@ -152,23 +148,27 @@ export default function SeeSharedCommunity({selectedSharedCommunity,idOwner,user
                 <img src={User} alt="" className="user-image-principal" onClick={toUserAccount}/>
                 <img src={Logo} alt="" className="add-icon-principal" onClick={toIndex}/>
             </div>
-            <div>
-                <img src={Back} alt="" className="to-back-button" onClick={goBack} />
-            </div>
-            <div style={{alignItems:"center", justifyItems:"center", textAlign:"center"}}> <h1>{community.nombrecomunidad}</h1></div>
-            <div className="section-image-zone">
-                <img className="image-zone" src="https://media.admagazine.com/photos/62b4b828cce4cfe1db2ed95e/4:3/w_2664,h_1998,c_limit/Dormitorio.jpg" alt="" />
-            </div>
-            <h1 style={{marginLeft:"2%", marginTop:"1%"}}>Zonas</h1>
-            <div className="section-devices-principal">
-                { zones.map((zona,index) => (
-                    <div id={zona.id_zona} key={index} className="div-add-zone-principal-coop fade-in"  onClick={toSharedZone}>
-                        <h3 className="name-divs-generated" style={{gridRow:"1", color:"#00ff2a"}}>{zona.nombrezona}</h3>
-                        <img src={CuartoCoopIcono} alt="" className="img-divs-generated" style={{gridRow:"2"}} />
-                        <h3 className="name-divs-generated" style={{gridRow:"3", color:"#00ff2a"}}>Compartida</h3>
+            {loading ? <Loading /> : (
+                <>
+                    <div>
+                        <img src={Back} alt="" className="to-back-button" onClick={goBack} />
                     </div>
-                ))}
-            </div>
+                    <div style={{alignItems:"center", justifyItems:"center", textAlign:"center"}}> <h1>{community.nombrecomunidad}</h1></div>
+                    <div className="section-image-zone">
+                        <img className="image-zone" src="https://media.admagazine.com/photos/62b4b828cce4cfe1db2ed95e/4:3/w_2664,h_1998,c_limit/Dormitorio.jpg" alt="" />
+                    </div>
+                    <h1 style={{marginLeft:"2%", marginTop:"1%"}}>Zonas</h1>
+                    <div className="section-devices-principal">
+                        { zones.map((zona,index) => (
+                            <div id={zona.id_zona} key={index} className="div-add-zone-principal-coop fade-in"  onClick={toSharedZone}>
+                                <h3 className="name-divs-generated" style={{gridRow:"1", color:"#00ff2a"}}>{zona.nombrezona}</h3>
+                                <img src={CuartoCoopIcono} alt="" className="img-divs-generated" style={{gridRow:"2"}} />
+                                <h3 className="name-divs-generated" style={{gridRow:"3", color:"#00ff2a"}}>Compartida</h3>
+                            </div>
+                        ))}
+                    </div>
+                </>
+            )}
         </div>
     )
 }

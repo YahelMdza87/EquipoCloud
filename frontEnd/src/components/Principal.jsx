@@ -5,14 +5,13 @@ import CreateZoneForm from "./CreateZoneForm";
 import Agregar from "../assets/add-device.png";
 import Logo from "../assets/logo-domoticloud.png";
 import CuartoIcono from "../assets/cuarto-icono.png";
-import Loading from './Loading'; // Importa el componente Loading
+import Loading from './Loading';
 
 const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || "http://localhost:3000/searches/idusu";
 const RoutegetZones = import.meta.env.VITE_SEARCHES_ZONAS || "http://localhost:3000/searches/zonas";
 
 export default function Principal({ userData }) {
   const navigate = useNavigate();
-  //Estados para manejar los fetch
   const [idUser, setIdUser] = useState(0);
   const [name, setName] = useState("");
   const [idZona, setIdZona] = useState("");
@@ -20,7 +19,6 @@ export default function Principal({ userData }) {
   const [showAddZoneForm, setShowAddZoneForm] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  //Usamos localStorage para obtener el usuario guardado en cookies
   const localStorageUser = JSON.parse(localStorage.getItem('userData'));
   if (localStorageUser) {
     localStorage.setItem("wichComponent", JSON.stringify(""))
@@ -48,7 +46,6 @@ export default function Principal({ userData }) {
     }
   }, [idZona]);
 
-  //Obtener los datos del usuario
   useEffect(() => {
     fetch(`${RoutesearchUser}`, {
       method: 'POST',
@@ -81,33 +78,32 @@ export default function Principal({ userData }) {
       });
   }, []);
 
-  /* Get todas las zonas*/
   useEffect(() => {
-    console.log(idUser)
-    if(idUser){
+    if (idUser) {
       fetch(`${RoutegetZones}`, {
-      method: 'POST',
-      headers: {
+        method: 'POST',
+        headers: {
           'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
+        },
+        body: JSON.stringify({
           idusu: idUser
+        })
       })
-    })
-    .then(response => {
-      if (!response.ok) {
-          throw new Error('Hubo un problema al realizar la solicitud.');
-      }
-      return response.json();
-    })
-    .then(data => {
-      setZones(data) 
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
-  }
-  }, [idUser], [showAddZoneForm]);
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Hubo un problema al realizar la solicitud.');
+          }
+          return response.json();
+        })
+        .then(data => {
+          setZones(data);
+          setLoading(false);
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    }
+  }, [idUser, showAddZoneForm]);
 
   function addZone() {
     setShowAddZoneForm(true);
@@ -119,19 +115,19 @@ export default function Principal({ userData }) {
 
   return (
     <div className="body-principal">
+      <div className="header-principal">
+        <h2 className="header-title-principal">Domoticloud</h2>
+        <img src={User} alt="" className="user-image-principal" onClick={toUserAccount} />
+        <img src={Logo} alt="" className="add-icon-principal" onClick={toIndex} />
+      </div>
       {loading ? <Loading /> : (
         <>
-          <div className="header-principal">
-            <h2 className="header-title-principal">Domoticloud</h2>
-            <img src={User} alt="" className="user-image-principal" onClick={toUserAccount} />
-            <img src={Logo} alt="" className="add-icon-principal" onClick={toIndex} />
-          </div>
-          <div className="section-user-principal">
+          <div className="section-user-principal fade-in">
             <h3 className="hello-user-principal">Hola {name}</h3>
           </div>
           <div style={{ borderTop: "solid #4b1e9e13" }}></div>
           <h1 className="title-section-principal">Zonas</h1>
-          <div className="section-devices-principal">
+          <div className="section-devices-principal"> 
             <div className="div-add-zone-principal div-only-agregar" onClick={addZone}>
               <img className="add-zone-icon-principal" src={Agregar} alt="" />
               <h3 className="add-zone-text-principal">Agregar zona</h3>

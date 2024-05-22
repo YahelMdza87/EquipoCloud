@@ -1,5 +1,5 @@
 import "../App.css"
-import React, { useState, useEffect } from 'react';
+import React, {useState} from 'react';
 
 const RouteAddZone = import.meta.env.VITE_ADD_ZONA || "http://localhost:3000/add/zona"
 

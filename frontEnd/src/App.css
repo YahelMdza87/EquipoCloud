@@ -119,10 +119,14 @@ body{
   padding: 3%;
   font-size: 1.4vw;
   border: 0;
+  transition: 0.2s;
   text-align: center;
   border-radius: 20px;
   margin-top: 2%;
   background-color: #4A1E9E;
+}
+.only-button{
+  background-color: #BB98FF;
 }
 .btn-submit-data-user:hover{
   background-color: #BB98FF;
@@ -646,6 +650,9 @@ body{
    color: #BB98FF;
 
  }
+ .only-button{
+  background-color: #BB98FF;
+  }
  .input-login::placeholder{
    color: #BB98FF;
    font-size: 2.5vw;
@@ -1049,6 +1056,8 @@ body{
   background-color: white;
   position: absolute;
   color: #4A1E9E;
+  font-size: 2.9vw;
+  text-wrap: nowrap;
   border-radius: 10px;
   margin-top: 3%;
 }
