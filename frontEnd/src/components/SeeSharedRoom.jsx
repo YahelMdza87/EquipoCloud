@@ -5,9 +5,9 @@ import { useNavigate } from "react-router-dom";
 import User from "../assets/user.png"
 import CuartoCoopIcono from "../assets/cuarto-coop-icono.png"
 import Loading from './Loading';
-const RouteGetRoom = import.meta.env.VITE_SEARCHES_CUARTO || "http://localhost:3000/searches/cuarto";
-const RouteGetAllSensors = import.meta.env.VITE_SEARCHES_SENSORS || "http://localhost:3000/searches/sensors";
-const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || "http://localhost:3000/searches/idusu";
+const RouteGetRoom = import.meta.env.VITE_SEARCHES_CUARTO || import.meta.env.VITE_SEARCHES_CUARTO_LH;
+const RouteGetAllSensors = import.meta.env.VITE_SEARCHES_SENSORS || import.meta.env.VITE_SEARCHES_SENSORS_LH;
+const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || import.meta.env.VITE_SEARCHES_IDUSU_LH;
 export default function SeeSharedRoom({selectedSharedRoom,userData}){
     const navigate = useNavigate();
     const localStorageSelectedSharedRoom = JSON.parse(localStorage.getItem("idSharedRoom"));

@@ -3,7 +3,7 @@ import { jwtDecode } from "jwt-decode";
 import React, { useState, useEffect } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 import '../App.css';
-const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || "http://localhost:3000/searches/idusu";
+const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || import.meta.env.VITE_SEARCHES_IDUSU_LH;
 export default function Login() {
     const navigate = useNavigate();
     //Estados para manejar los inputs del usuario
@@ -144,7 +144,7 @@ export default function Login() {
                     </div>
                     <div>
                         <h3 className="title-data-login">Password:</h3>
-                        <input className='input-login' style={{marginBottom: "5%"}} type="text" value={password} onChange={handlePassword} placeholder='Password...' />
+                        <input className='input-login' style={{marginBottom: "5%"}} type="password" value={password} onChange={handlePassword} placeholder='Password...' />
                     </div>
                     <div>
                         <a href="" onClick={toSignIn}>¿No tienes cuenta? Crafteate una.</a>

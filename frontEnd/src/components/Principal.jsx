@@ -7,8 +7,8 @@ import Logo from "../assets/logo-domoticloud.png";
 import CuartoIcono from "../assets/cuarto-icono.png";
 import Loading from './Loading';
 
-const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || "http://localhost:3000/searches/idusu";
-const RoutegetZones = import.meta.env.VITE_SEARCHES_ZONAS || "http://localhost:3000/searches/zonas";
+const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || import.meta.env.VITE_SEARCHES_IDUSU_LH;
+const RoutegetZones = import.meta.env.VITE_SEARCHES_ZONAS || import.meta.env.VITE_SEARCHES_ZONAS_LH;
 
 export default function Principal({ userData }) {
   const navigate = useNavigate();

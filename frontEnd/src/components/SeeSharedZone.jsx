@@ -5,9 +5,9 @@ import User from "../assets/user.png"
 import Back from "../assets/to-back.png"
 import CuartoCoopIcono from "../assets/cuarto-coop-icono.png"
 import Loading from './Loading';
-const RouteGetZone = import.meta.env.VITE_SEARCHES_ZONA || "http://localhost:3000/searches/zona";
-const RouteGetRooms = import.meta.env.VITE_SEARCHES_CUARTOS || "http://localhost:3000/searches/cuartos"
-const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || "http://localhost:3000/searches/idusu";
+const RouteGetZone = import.meta.env.VITE_SEARCHES_ZONA || import.meta.env.VITE_SEARCHES_ZONA_LH;
+const RouteGetRooms = import.meta.env.VITE_SEARCHES_CUARTOS || import.meta.env.VITE_SEARCHES_CUARTOS_LH;
+const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || import.meta.env.VITE_SEARCHES_IDUSU_LH;
 export default function SeeSharedZone({selectedSharedZone,userData}){
     const navigate = useNavigate();
     const localStorageSelectedSharedZone = JSON.parse(localStorage.getItem("idSharedZone"));

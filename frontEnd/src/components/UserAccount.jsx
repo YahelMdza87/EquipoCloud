@@ -10,10 +10,10 @@ import CommunityCoopIcon from "../assets/comunidad-coop-icono.png"
 import CloseSesion from "./CloseSesion";
 import Loading from "./Loading";
 import CreateCommunity from "./CreateCommunity";
-const RoutegetCommunitys = import.meta.env.VITE_SEARCHES_ADMINCOMUNIDAD || "http://localhost:3000/searches/admincomunidad";
-const RoutegetSharedCommunitys = import.meta.env.VITE_SEARCHES_COLABENCOMUNIDAD || "http://localhost:3000/searches/colabencomunidad";
-const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || "http://localhost:3000/searches/idusu";
-const RoutegetZones = import.meta.env.VITE_SEARCHES_ZONAS || "http://localhost:3000/searches/zonas"
+const RoutegetCommunitys = import.meta.env.VITE_SEARCHES_ADMINCOMUNIDAD || import.meta.env.VITE_SEARCHES_ADMINCOMUNIDAD_LH;
+const RoutegetSharedCommunitys = import.meta.env.VITE_SEARCHES_COLABENCOMUNIDAD || import.meta.env.VITE_SEARCHES_COLABENCOMUNIDAD_LH;
+const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || import.meta.env.VITE_SEARCHES_IDUSU_LH;
+const RoutegetZones = import.meta.env.VITE_SEARCHES_ZONAS || import.meta.env.VITE_SEARCHES_ZONAS_LH;
 export default function Principal({userData}) {
   const [loading, setLoading] = useState(true);
   const [idUser, setIdUser] = useState("");

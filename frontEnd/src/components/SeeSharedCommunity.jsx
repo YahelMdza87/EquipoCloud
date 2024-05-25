@@ -5,9 +5,9 @@ import { useNavigate } from "react-router-dom";
 import User from "../assets/user.png"
 import CuartoCoopIcono from "../assets/cuarto-coop-icono.png"
 import Loading from './Loading';
-const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || "http://localhost:3000/searches/idusu";
-const RoutegetZones = import.meta.env.VITE_SEARCHES_ZONAS || "http://localhost:3000/searches/zonas"
-const RoutesearchCommunity = import.meta.env.VITE_SEARCHES_COMUNIDAD || "http://localhost:3000/searches/comunidad";
+const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || import.meta.env.VITE_SEARCHES_IDUSU_LH;
+const RoutegetZones = import.meta.env.VITE_SEARCHES_ZONAS || import.meta.env.VITE_SEARCHES_ZONAS_LH;
+const RoutesearchCommunity = import.meta.env.VITE_SEARCHES_COMUNIDAD || import.meta.env.VITE_SEARCHES_COMUNIDAD_LH;
 export default function SeeSharedCommunity({selectedSharedCommunity,idOwner,userData}){
     const navigate = useNavigate();
     const localStorageSelectedSharedCommunity = JSON.parse(localStorage.getItem("SharedCommunity"));

@@ -1,7 +1,7 @@
 import "../App.css"
-import React, {useState} from 'react';
-
-const RouteAddZone = import.meta.env.VITE_ADD_ZONA || "http://localhost:3000/add/zona"
+import React, {useState} from "react";
+import toOut from "../assets/to-out.png"
+const RouteAddZone = import.meta.env.VITE_ADD_ZONA || import.meta.env.VITE_ADD_ZONA_LH;
 
 export default function CreateZoneForm({onClose, id}){
     //Estados para manejar los inputs del usuario
@@ -66,6 +66,7 @@ export default function CreateZoneForm({onClose, id}){
     return(
         <div className="background-principal fade-in" onClick={onClose}>
             <div className="card-principal" onClick={(e) => e.stopPropagation()}>
+                <div style={{display:"grid"}}><img style={{width:"10%", justifySelf:"left", cursor:"pointer"}} src={toOut} alt="" onClick={onClose} /></div>
                 <div className="login-email-password">
                     <h2 className="title-login">Crear zona</h2>
                     <div>
@@ -85,6 +86,7 @@ export default function CreateZoneForm({onClose, id}){
                         </select>
                     </div>
                     <div style={{marginTop:"5%", display:"flex", justifyContent:"center", textWrap:"nowrap"}}>
+                        <button style={{marginRight:"4%"}} className="btn-submit-data-user only-button" type="button" onClick={onClose}>Salir</button>
                         <button className="btn-submit-data-user" type="button" onClick={handleSuccess}>Crear zona</button>
                     </div>
                 </div>

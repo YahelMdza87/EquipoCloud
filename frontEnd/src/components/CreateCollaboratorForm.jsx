@@ -1,10 +1,10 @@
 import "../App.css"
 import React, { useState, useEffect } from 'react';
-const RouteAddCollaborator = import.meta.env.VITE_ADD_COLLABORATOR || "http://localhost:3000/add/colaborador"
-const RoutesearchEmails = import.meta.env.VITE_SEARCHES_CORREOUSERS || "http://localhost:3000/searches/correousers";
-const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || "http://localhost:3000/searches/idusu";
-const RoutesearchCollaborator = import.meta.env.VITE_SEARCHES_IDUSU || "http://localhost:3000/searches/idusu";
-const RoutesearchCollaborators = import.meta.env.VITE_SEARCHES_COLABDECOMUNIDAD ||  "http://localhost:3000/searches/colabdecomunidad";
+import toOut from "../assets/to-out.png";
+const RouteAddCollaborator = import.meta.env.VITE_ADD_COLABORADOR || import.meta.env.VITE_ADD_COLABORADOR_LH;
+const RoutesearchEmails = import.meta.env.VITE_SEARCHES_CORREOUSERS || import.meta.env.VITE_SEARCHES_CORREOUSERS_LH;
+const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || import.meta.env.VITE_SEARCHES_IDUSU_LH;
+const RoutesearchCollaborators = import.meta.env.VITE_SEARCHES_COLABDECOMUNIDAD ||  import.meta.env.VITE_SEARCHES_COLABDECOMUNIDAD_LH;
 export default function CreateCollaboratorForm({onClose, id, userData}){
     const [nameCollaborator, setNameCollaborator] = useState("");
     const [idUserCollaborator, setIdUserCollaborator] = useState("")
@@ -55,6 +55,7 @@ export default function CreateCollaboratorForm({onClose, id, userData}){
                     onClose();
                 })
                 .catch(error => {
+                    alert("No existe ningún usuario con ese correo. Verifique")
                     console.error('Error en handleSuccess:', error);
                 });
             });
@@ -143,7 +144,7 @@ export default function CreateCollaboratorForm({onClose, id, userData}){
 
     //Primero buscara el colaborador con el correo que ingreso el usuario, si no lo encuentra, mostrará un error
     function addCollaborator () {
-        return fetch(`${RoutesearchCollaborator}`, {
+        return fetch(`${RoutesearchUser}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -174,6 +175,7 @@ export default function CreateCollaboratorForm({onClose, id, userData}){
     return(
         <div className="background-principal fade-in" onClick={onClose}>
             <div className="card-principal" onClick={(e) => e.stopPropagation()}>
+                <div style={{display:"grid"}}><img style={{width:"10%", justifySelf:"left", cursor:"pointer"}} src={toOut} alt="" onClick={onClose} /></div>
                 <div className="login-email-password">
                     <h2 className="title-login">Agregar colaborador</h2>
                     <div>
@@ -187,6 +189,7 @@ export default function CreateCollaboratorForm({onClose, id, userData}){
                     </div>
                    
                     <div style={{marginTop:"5%", display:"flex", justifyContent:"center", textWrap:"nowrap"}}>
+                        <button style={{marginRight:"4%"}} className="btn-submit-data-user only-button" type="button" onClick={onClose}>Salir</button>
                         <button className="btn-submit-data-user" type="button" onClick={handleSuccess}>Agregar</button>
                     </div>
                 </div>

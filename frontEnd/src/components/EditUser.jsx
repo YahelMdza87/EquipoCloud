@@ -4,8 +4,8 @@ import Logo from "../assets/logo-domoticloud.png"
 import Back from "../assets/to-back.png"
 import User from "../assets/user.png"
 import Loading from './Loading';
-const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || "http://localhost:3000/searches/idusu";
-const RoutechangesUser = import.meta.env.VITE_CHANGES_USUARIO || "http://localhost:3000/changes/usuario";
+const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || import.meta.env.VITE_SEARCHES_IDUSU_LH;
+const RoutechangesUser = import.meta.env.VITE_CHANGES_USUARIO || import.meta.env.VITE_CHANGES_USUARIO_LH;
 export default function EditUser({userData}){
     const navigate = useNavigate();
     //Estados para manejar los inputs del usuario
@@ -104,6 +104,7 @@ export default function EditUser({userData}){
         }
         event.preventDefault();
         fetch(`${RoutechangesUser}`, {
+            method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -123,7 +124,7 @@ export default function EditUser({userData}){
             return response.json();
         })
         .then(user => {
-        
+            alert("Datos actualizados correctamente!")
         })
         .catch(error => {
             console.error('Error:', error);
