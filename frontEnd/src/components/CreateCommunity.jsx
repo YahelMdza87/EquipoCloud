@@ -1,6 +1,7 @@
-import "../App.css"
+import "../App.css";
 import React, { useState, useEffect } from 'react';
-const RouteAddCommunity = import.meta.env.VITE_ADD_COMUNIDAD || "http://localhost:3000/add/comunidad"
+import toOut from "../assets/to-out.png";
+const RouteAddCommunity = import.meta.env.VITE_ADD_COMUNIDAD || import.meta.env.VITE_ADD_COMUNIDAD_LH;
 export default function CreateCommunity({onClose, id}){
     //Estado para manejar el nombre ingresado por el usuario
     const [communityName, setCommunityName] = useState("");
@@ -44,6 +45,7 @@ export default function CreateCommunity({onClose, id}){
     return(
         <div className="background-principal fade-in" onClick={onClose}>
             <div className="card-principal" onClick={(e) => e.stopPropagation()}>
+                <div style={{display:"grid"}}><img style={{width:"10%", justifySelf:"left", cursor:"pointer"}} src={toOut} alt="" onClick={onClose} /></div>
                 <div className="login-email-password">
                     <h2 className="title-login">Crear comunidad</h2>
                     <div>
@@ -51,6 +53,7 @@ export default function CreateCommunity({onClose, id}){
                         <input className='input-login' type="text" value={communityName} onChange={handleCommunityName} placeholder='Nombre de la comunidad...' />
                     </div>
                     <div style={{marginTop:"5%", display:"flex", justifyContent:"center", textWrap:"nowrap"}}>
+                        <button style={{marginRight:"4%"}} className="btn-submit-data-user only-button" type="button" onClick={onClose}>Salir</button>
                         <button className="btn-submit-data-user" type="button" onClick={handleSuccess}>Crear comunidad</button>
                     </div>
                 </div>

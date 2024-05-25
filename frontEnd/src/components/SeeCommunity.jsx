@@ -10,10 +10,10 @@ import CreateCollaboratorForm from "./CreateCollaboratorForm";
 import DeleteComponent from "./DeleteComponent";
 import Loading from './Loading';
 //Rutas para hacer fetch
-const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || "http://localhost:3000/searches/idusu";
-const RoutesearchEmails = import.meta.env.VITE_SEARCHES_CORREOUSERS || "http://localhost:3000/searches/correousers";
-const RoutesearchCollaborators = import.meta.env.VITE_SEARCHES_COLABDECOMUNIDAD ||  "http://localhost:3000/searches/colabdecomunidad";
-const RoutesearchCommunity = import.meta.env.VITE_SEARCHES_COMUNIDAD || "http://localhost:3000/searches/comunidad";
+const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || import.meta.env.VITE_SEARCHES_IDUSU_LH;
+const RoutesearchEmails = import.meta.env.VITE_SEARCHES_CORREOUSERS || import.meta.env.VITE_SEARCHES_CORREOUSERS_LH;
+const RoutesearchCollaborators = import.meta.env.VITE_SEARCHES_COLABDECOMUNIDAD ||  import.meta.env.VITE_SEARCHES_COLABDECOMUNIDAD_LH;
+const RoutesearchCommunity = import.meta.env.VITE_SEARCHES_COMUNIDAD || import.meta.env.VITE_SEARCHES_COMUNIDAD_LH;
 export default function SeeCommunity({selectedCommunity,userData}){
     const navigate = useNavigate();
     const localStorageSelectedCommunity = JSON.parse(localStorage.getItem("idCommunity"));

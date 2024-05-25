@@ -8,8 +8,8 @@ import User from "../assets/user.png"
 import CuartoIcono from "../assets/cuarto-icono.png"
 import Loading from './Loading';
 import DeleteComponent from "./DeleteComponent";
-const RouteGetSensor = import.meta.env.VITE_SEARCHES_SENSOR || "http://localhost:3000/searches/sensor";
-const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || "http://localhost:3000/searches/idusu";
+const RouteGetSensor = import.meta.env.VITE_SEARCHES_SENSOR || import.meta.env.VITE_SEARCHES_SENSOR_LH;
+const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || import.meta.env.VITE_SEARCHES_IDUSU_LH;
 export default function SeeSensor({selectedSensor,userData}){
     const navigate = useNavigate();
     const localStorageSelectedSensor = JSON.parse(localStorage.getItem("idDevice"));

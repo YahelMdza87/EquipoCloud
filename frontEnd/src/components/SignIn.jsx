@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 // import { useHistory } from 'react-router-dom'; 
 import Salir from '../assets/to-out.png'
 import '../App.css';
-const RouteAddUser = import.meta.env.VITE_ADD_USU || "http://localhost:3000/add/usu";
+const RouteAddUser = import.meta.env.VITE_ADD_USU || import.meta.env.VITE_ADD_USU_LH;
 export default function SignIn() {
     const navigate = useNavigate();
     //Cuando se rendereize el componente, comprobara si hay datos de usuario ya guardados en localStorage, si es así, direccionará automaticamente a /principal.jsx

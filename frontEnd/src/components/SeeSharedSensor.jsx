@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 import User from "../assets/user.png"
 import DeleteComponent from "./DeleteComponent";
 import Loading from './Loading';
-const RouteGetSensor = import.meta.env.VITE_SEARCHES_SENSOR || "http://localhost:3000/searches/sensor";
-const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || "http://localhost:3000/searches/idusu";
+const RouteGetSensor = import.meta.env.VITE_SEARCHES_SENSOR || import.meta.env.VITE_SEARCHES_SENSOR_LH;
+const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || import.meta.env.VITE_SEARCHES_IDUSU_LH;
 export default function SeeSharedSensor({selectedSharedSensor,userData}){
     const navigate = useNavigate();
     const localStorageSelectedSharedSensor = JSON.parse(localStorage.getItem("idSharedDevice"));

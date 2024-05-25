@@ -9,10 +9,9 @@ import CuartoIcono from "../assets/cuarto-icono.png"
 import CreateRoomForm from "./CreateRoomForm";
 import Loading from './Loading';
 import DeleteComponent from "./DeleteComponent";
-const RouteGetRoom = import.meta.env.VITE_SEARCHES_CUARTO || "http://localhost:3000/searches/cuarto";
-const RouteGetRooms = import.meta.env.VITE_SEARCHES_CUARTOS || "http://localhost:3000/searches/cuartos";
-const RouteGetAllSensors = import.meta.env.VITE_SEARCHES_SENSORS || "http://localhost:3000/searches/sensors";
-const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || "http://localhost:3000/searches/idusu";
+const RouteGetRoom = import.meta.env.VITE_SEARCHES_CUARTO || import.meta.env.VITE_SEARCHES_CUARTO_LH;
+const RouteGetAllSensors = import.meta.env.VITE_SEARCHES_SENSORS || import.meta.env.VITE_SEARCHES_SENSORS_LH;
+const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || import.meta.env.VITE_SEARCHES_IDUSU_LH;
 export default function SeeRoom({selectedRoom,userData}){
     const navigate = useNavigate();
     const localStorageSelectedRoom = JSON.parse(localStorage.getItem("idRoom"));
@@ -116,8 +115,13 @@ export default function SeeRoom({selectedRoom,userData}){
             });
         }
         else{
-            alert("Debiste de haber seleccionado una zona");
-            navigate('/')
+            if(selectedRoom!==""){
+                navigate('/principal');
+            }
+            else {
+                alert("Debiste de haber seleccionado un cuarto");
+                navigate('/');
+            }
         }
     })
     .catch(error => {

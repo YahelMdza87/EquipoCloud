@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
-const RouteChangeUser = import.meta.env.VITE_CHANGES_USUARIO || "http://localhost:3000/changes/usuario";
-const RouteAddUser = import.meta.env.VITE_ADD_USU || "http://localhost:3000/add/usu";
+const RouteChangeUser = import.meta.env.VITE_CHANGES_USUARIO || import.meta.env.VITE_CHANGES_USUARIO_LH;
+const RouteAddUser = import.meta.env.VITE_ADD_USU || import.meta.env.VITE_ADD_USU_LH;
 
 export default function CreatePassword(userData){
     //Estados para manejar los inputs del usuario
@@ -110,11 +110,11 @@ export default function CreatePassword(userData){
                 <div className="login-email-password">
                     <div>
                         <h3 className="title-data-login">Contraseña:</h3>
-                        <input className='input-login' type="text" placeholder="Contraseña..." value={password} onChange={handlePassword}/>
+                        <input className='input-login' type="password" placeholder="Contraseña..." value={password} onChange={handlePassword}/>
                     </div>
                     <div>
                         <h3 className="title-data-login">Repetir contraseña:</h3>
-                        <input className='input-login' style={{marginBottom: "5%"}} type="text" placeholder='Confirmar contraseña...' value={Cpassword} onChange={handleCPassword}/>
+                        <input className='input-login' style={{marginBottom: "5%"}} type="password" placeholder='Confirmar contraseña...' value={Cpassword} onChange={handleCPassword}/>
                     </div>
                     <div style={{marginTop:"5%", display:"flex", justifyContent:"center", textWrap:"nowrap"}}>
                         <button className="btn-submit-data-user" type="button" onClick={handleSuccess}>Crear cuenta</button>

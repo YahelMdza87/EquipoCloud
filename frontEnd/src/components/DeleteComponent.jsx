@@ -1,11 +1,12 @@
 import "../App.css"
 import React from 'react';
 import { useNavigate } from "react-router-dom";
-const RouteDeleteZone = import.meta.env.VITE_DELETE_ZONA || "http://localhost:3000/delete/zona";
-const RouteDeleteRoom = import.meta.env.VITE_DELETE_CUARTO || "http://localhost:3000/delete/cuarto";
-const RouteDeleteSensor = import.meta.env.VITE_DELETE_SENSOR || "http://localhost:3000/delete/sensor";
-const RouteDeleteComunity = import.meta.env.VITE_DELETE_COMUNIDAD || "http://localhost:3000/delete/comunidad";
-const RouteDeleteCollaborator = import.meta.env.VITE_DELETE_COLABORADOR || "http://localhost:3000/delete/colaborador";
+import toOut from "../assets/to-out.png"
+const RouteDeleteZone = import.meta.env.VITE_DELETE_ZONA || import.meta.env.VITE_DELETE_ZONA_LH;
+const RouteDeleteRoom = import.meta.env.VITE_DELETE_CUARTO || import.meta.env.VITE_DELETE_CUARTO_LH;
+const RouteDeleteSensor = import.meta.env.VITE_DELETE_SENSOR || import.meta.env.VITE_DELETE_SENSOR_LH;
+const RouteDeleteComunity = import.meta.env.VITE_DELETE_COMUNIDAD || import.meta.env.VITE_DELETE_COMUNIDAD_LH;
+const RouteDeleteCollaborator = import.meta.env.VITE_DELETE_COLABORADOR || import.meta.env.VITE_DELETE_COLABORADOR_LH;
 export default function DeleteComponent({onClose, id, wich}){
     const navigate = useNavigate();
 
@@ -32,9 +33,9 @@ export default function DeleteComponent({onClose, id, wich}){
                 return response.json();
             })
             .then(data => {
-                alert("Cuarto eliminada exitosamente")
+                alert("Cuarto eliminado exitosamente")
                 onClose();
-                navigate("/principal")
+                navigate("/seeZone")
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -83,9 +84,9 @@ export default function DeleteComponent({onClose, id, wich}){
                 return response.json();
             })
             .then(data => {
-                alert("Zona eliminada exitosamente")
+                alert("Comunidad eliminada exitosamente")
                 onClose();
-                navigate("/principal")
+                navigate("/userAccount")
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -109,9 +110,9 @@ export default function DeleteComponent({onClose, id, wich}){
                 return response.json();
             })
             .then(data => {
-                alert("Zona eliminada exitosamente")
+                alert("Sensor eliminado exitosamente")
                 onClose();
-                navigate("/principal")
+                navigate("/seeRoom")
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -134,9 +135,9 @@ export default function DeleteComponent({onClose, id, wich}){
                 return response.json();
             })
             .then(data => {
-                alert("Zona eliminada exitosamente")
+                alert("Colaborador eliminado exitosamente")
                 onClose();
-                navigate("/principal")
+                navigate("/seeCommunity")
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -146,10 +147,11 @@ export default function DeleteComponent({onClose, id, wich}){
     }
 
     return(
-        <div className="background-principal fade in" onClick={onClose}>
+        <div className="background-principal fade-in" onClick={onClose}>
             <div className="card-principal" onClick={(e) => e.stopPropagation()}>
+                <div style={{display:"grid"}}><img style={{width:"10%", justifySelf:"left", cursor:"pointer"}} src={toOut} alt="" onClick={onClose} /></div>
                 <div className="login-email-password">
-                    <h2 style={{fontSize:"5.3vw", marginBottom:"6%"}} className="title-login">¿Estas seguro?</h2>
+                    <h2 style={{ marginBottom:"6%"}} className="title-login">¿Estas seguro?</h2>
                     <div style={{display:"flex", alignItems:"center", textAlign:"center", justifyContent:"center"}}>
                         <button style={{marginRight:"4%", backgroundColor:"#DDCBFF"}} className="btn-submit-data-user" type="button" onClick={handleCancel}>No, cancelar</button>
                         <button className="btn-submit-data-user" type="button" onClick={handleSuccess}>Sí, eliminar</button>

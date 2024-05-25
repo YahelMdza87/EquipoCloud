@@ -30,38 +30,43 @@ import SeeSharedZone from './components/SeeSharedZone';
 import SeeSharedRoom from './components/SeeSharedRoom';
 import SeeSharedSensor from './components/SeeSharedSensor';
 import Loading from './components/Loading';
-
+import ScrollToTop from './components/ScrollToTop';
+import Footer from './components/Footer';
 const googlecredencial = import.meta.env.VITE_CREDENCIAL_GOOGLE
 
 function App() {
   return (
     <BrowserRouter>
       <GoogleOAuthProvider clientId={`${googlecredencial}`}>
-        <Routes>
-          {/* Les pasamos las funciones para que las puedan llamar correctamente */}
-            <Route path="/" element={<Login/>} />
-            <Route path="/confirmPassword" element={<CreatePassword/>}/>
-            <Route path="/principal" element={<Principal/>} />
-            <Route path="/seeCommunity" element={<SeeCommunity/>}/>
-            <Route path="/seeSharedCommunity" element={<SeeSharedCommunity/>}/>
-            <Route path="/seeZone" element={<SeeZone/>}/>
-            <Route path="/seeSharedZone" element={<SeeSharedZone/>}/>
-            <Route path="/seeRoom" element={<SeeRoom/>}/>
-            <Route path="/seeSharedRoom" element={<SeeSharedRoom/>}/>
-            <Route path="/seeSensor" element={<SeeSensor/>}/>
-            <Route path="/seeSharedSensor" element={<SeeSharedSensor/>}/>
-            <Route path="/userAccount" element={<UserAccount/>} />
-            <Route path="/editUser" element={<EditUser/>} />
-            <Route path="/signIn" element={<SignIn/>} />
-            <Route path="/toHelp" element={<Maintenance/>} />
-            <Route path='/*' element={<NotFound/>}></Route>
-            <Route path='/loading' element={<Loading/>}></Route>
-            <Route path='/AdminMenu' element={<AdminMenu/>}></Route>
-            <Route path='/Statistics' element={<Statistics/>}></Route>
-            <Route path='/ManageCounts' element={<ManageCounts/>}></Route>
-            <Route path='/Licenses' element={<Licences/>}></Route>
-            <Route path='/VariableConfig' element={<VariableConfig/>}></Route>
+        <ScrollToTop />
+        <div>
+          <Routes>
+            {/* Les pasamos las funciones para que las puedan llamar correctamente */}
+              <Route path="/" element={<Login/>} />
+              <Route path="/confirmPassword" element={<CreatePassword/>}/>
+              <Route path="/principal" element={<Principal/>} />
+              <Route path="/seeCommunity" element={<SeeCommunity/>}/>
+              <Route path="/seeSharedCommunity" element={<SeeSharedCommunity/>}/>
+              <Route path="/seeZone" element={<SeeZone/>}/>
+              <Route path="/seeSharedZone" element={<SeeSharedZone/>}/>
+              <Route path="/seeRoom" element={<SeeRoom/>}/>
+              <Route path="/seeSharedRoom" element={<SeeSharedRoom/>}/>
+              <Route path="/seeSensor" element={<SeeSensor/>}/>
+              <Route path="/seeSharedSensor" element={<SeeSharedSensor/>}/>
+              <Route path="/userAccount" element={<UserAccount/>} />
+              <Route path="/editUser" element={<EditUser/>} />
+              <Route path="/signIn" element={<SignIn/>} />
+              <Route path="/toHelp" element={<Maintenance/>} />
+              <Route path='/*' element={<NotFound/>}></Route>
+              <Route path='/loading' element={<Loading/>}></Route>
+              <Route path='/AdminMenu' element={<AdminMenu/>}></Route>
+              <Route path='/Statistics' element={<Statistics/>}></Route>
+              <Route path='/ManageCounts' element={<ManageCounts/>}></Route>
+              <Route path='/Licenses' element={<Licences/>}></Route>
+              <Route path='/VariableConfig' element={<VariableConfig/>}></Route>
           </Routes>
+          <Footer/>
+        </div>
       </GoogleOAuthProvider>
     </BrowserRouter>
   )
