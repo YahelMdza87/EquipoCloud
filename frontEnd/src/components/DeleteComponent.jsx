@@ -149,12 +149,12 @@ export default function DeleteComponent({onClose, id, wich}){
     return(
         <div className="background-principal fade-in" onClick={onClose}>
             <div className="card-principal" onClick={(e) => e.stopPropagation()}>
-                <div style={{display:"grid"}}><img style={{width:"10%", justifySelf:"left", cursor:"pointer"}} src={toOut} alt="" onClick={onClose} /></div>
-                <div className="login-email-password">
-                    <h2 style={{ marginBottom:"6%"}} className="title-login">¿Estas seguro?</h2>
-                    <div style={{display:"flex", alignItems:"center", textAlign:"center", justifyContent:"center"}}>
-                        <button style={{marginRight:"4%", backgroundColor:"#DDCBFF"}} className="btn-submit-data-user" type="button" onClick={handleCancel}>No, cancelar</button>
-                        <button className="btn-submit-data-user" type="button" onClick={handleSuccess}>Sí, eliminar</button>
+                <div style={{display:"grid"}}><img className="close-create" src={toOut} alt="" onClick={onClose} /></div>
+                <div className="div-create-component">
+                    <h2 className="title-create-component">¿Estas seguro?</h2>
+                    <div style={{marginTop:"5%", display:"flex", justifyContent:"center", textWrap:"nowrap"}}>
+                        <button style={{marginRight:"4%"}} className="btn-submit-create-component only-button" type="button" onClick={onClose}>Cancelar</button>
+                        <button className="btn-submit-create-component" type="button" onClick={handleSuccess}>Eliminar</button>
                     </div>
                 </div>
 

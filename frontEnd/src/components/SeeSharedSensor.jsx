@@ -139,17 +139,12 @@ export default function SeeSharedSensor({selectedSharedSensor,userData}){
 
     return(
         <div className="body-principal">
-            <div className="header-principal">
-                <h2 className="header-title-principal">Domoticloud</h2>
-                <img src={User} alt="" className="user-image-principal" onClick={toUserAccount}/>
-                <img src={Logo} alt="" className="add-icon-principal" onClick={toIndex}/>
-            </div>
             {loading ? <Loading /> : (
                 <>
                     <div>
                         <img src={Back} alt="" className="to-back-button" onClick={goBack} />
                     </div>
-                    <div style={{alignItems:"center", justifyItems:"center", textAlign:"center"}}><h1>{nameSensor}</h1></div>
+                    <div style={{textAlign:"center"}}><h1 className="title-name-component">{nameSensor}</h1></div>
                     {/* <div className="section-image-zone" style={{borderBottom:"0"}}>
                         <img className="image-zone" src="https://www.elpais.cr/wp-content/uploads/2023/04/Dispositivos-digitales.jpg" alt="" />
                     </div> */}

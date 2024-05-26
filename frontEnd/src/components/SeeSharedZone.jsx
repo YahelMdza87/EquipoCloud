@@ -143,22 +143,17 @@ export default function SeeSharedZone({selectedSharedZone,userData}){
 
     return(
         <div className="body-principal">
-            <div className="header-principal">
-                <h2 className="header-title-principal">Domoticloud</h2>
-                <img src={User} alt="" className="user-image-principal" onClick={toUserAccount}/>
-                <img src={Logo} alt="" className="add-icon-principal" onClick={toIndex}/>
-            </div>
             {loading ? <Loading /> : (
                 <>
                     <div>
                         <img src={Back} alt="" className="to-back-button" onClick={goBack} />
                     </div>
-                    <div style={{alignItems:"center", justifyItems:"center", textAlign:"center"}}><h1>{nameZone}</h1></div>
+                    <div style={{textAlign:"center"}}><h1 className="title-name-component">{nameZone}</h1></div>
                     <div className="section-image-zone">
                         <img className="image-zone" src="https://planner5d.com/blog/content/images/2022/06/sidekix-media-iu4K1XPnNAY-unsplash.jpg" alt="" />
                     </div>
                     <div style={{borderTop: "solid #4b1e9e13"}}></div>
-                    <h1 style={{marginLeft:"2%", marginTop:"1%"}}>Cuartos</h1>
+                    <h1 className="title-section-principal">Cuartos</h1>
                     <div className="section-devices-principal">
                         { rooms.map((room,index) => (
                         <div id={room.id_cuarto} key={index} className="div-add-zone-principal-coop fade-in"  onClick={toSharedRoom}>

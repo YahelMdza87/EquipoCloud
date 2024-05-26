@@ -151,22 +151,17 @@ export default function SeeSharedRoom({selectedSharedRoom,userData}){
 
     return(
         <div className="body-principal">
-            <div className="header-principal">
-                <h2 className="header-title-principal">Domoticloud</h2>
-                <img src={User} alt="" className="user-image-principal" onClick={toUserAccount}/>
-                <img src={Logo} alt="" className="add-icon-principal" onClick={toIndex}/>
-            </div>
             {loading ? <Loading /> : (
                 <>
                     <div>
                         <img src={Back} alt="" className="to-back-button" onClick={goBack} />
                     </div>
-                    <div style={{alignItems:"center", justifyItems:"center", textAlign:"center"}}><h1>{nameRoom}</h1></div>
+                    <div style={{textAlign:"center"}}><h1 className="title-name-component">{nameRoom}</h1></div>
                     <div className="section-image-zone">
                         <img className="image-zone" src="https://media.admagazine.com/photos/62b4b828cce4cfe1db2ed95e/4:3/w_2664,h_1998,c_limit/Dormitorio.jpg" alt="" />
                     </div>
                     <div style={{borderTop: "solid #4b1e9e13"}}></div>
-                    <h1 style={{marginLeft:"2%", marginTop:"1%"}}>Dispositivos</h1>
+                    <h1 className="title-section-principal">Dispositivos</h1>
                     <div className="section-devices-principal">
                         { allDevices.map((sensor,index) => (
                         <div id={sensor.id_sensor} key={index} className="div-add-zone-principal-coop fade-in"  onClick={toSharedSensor}>

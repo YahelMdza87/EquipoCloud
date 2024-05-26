@@ -3,7 +3,7 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Outlet, Route, Routes } from 'react-router-dom';
 import './components/Login'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import Login from './components/Login';
@@ -32,41 +32,48 @@ import SeeSharedSensor from './components/SeeSharedSensor';
 import Loading from './components/Loading';
 import ScrollToTop from './components/ScrollToTop';
 import Footer from './components/Footer';
+import Header from './components/Header';
 const googlecredencial = import.meta.env.VITE_CREDENCIAL_GOOGLE
-
+const Layout = () => (
+  <div>
+    <Header />
+    <main>
+      <Outlet />
+    </main>
+    <Footer />
+  </div>
+);
 function App() {
   return (
     <BrowserRouter>
-      <GoogleOAuthProvider clientId={`${googlecredencial}`}>
+      <GoogleOAuthProvider clientId={googlecredencial}>
         <ScrollToTop />
-        <div>
-          <Routes>
-            {/* Les pasamos las funciones para que las puedan llamar correctamente */}
-              <Route path="/" element={<Login/>} />
-              <Route path="/confirmPassword" element={<CreatePassword/>}/>
-              <Route path="/principal" element={<Principal/>} />
-              <Route path="/seeCommunity" element={<SeeCommunity/>}/>
-              <Route path="/seeSharedCommunity" element={<SeeSharedCommunity/>}/>
-              <Route path="/seeZone" element={<SeeZone/>}/>
-              <Route path="/seeSharedZone" element={<SeeSharedZone/>}/>
-              <Route path="/seeRoom" element={<SeeRoom/>}/>
-              <Route path="/seeSharedRoom" element={<SeeSharedRoom/>}/>
-              <Route path="/seeSensor" element={<SeeSensor/>}/>
-              <Route path="/seeSharedSensor" element={<SeeSharedSensor/>}/>
-              <Route path="/userAccount" element={<UserAccount/>} />
-              <Route path="/editUser" element={<EditUser/>} />
-              <Route path="/signIn" element={<SignIn/>} />
-              <Route path="/toHelp" element={<Maintenance/>} />
-              <Route path='/*' element={<NotFound/>}></Route>
-              <Route path='/loading' element={<Loading/>}></Route>
-              <Route path='/AdminMenu' element={<AdminMenu/>}></Route>
-              <Route path='/Statistics' element={<Statistics/>}></Route>
-              <Route path='/ManageCounts' element={<ManageCounts/>}></Route>
-              <Route path='/Licenses' element={<Licences/>}></Route>
-              <Route path='/VariableConfig' element={<VariableConfig/>}></Route>
-          </Routes>
-          <Footer/>
-        </div>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/confirmPassword" element={<CreatePassword />} />
+          <Route path="/signIn" element={<SignIn />} />
+          <Route path="/AdminMenu" element={<AdminMenu />} />
+          <Route path="/Statistics" element={<Statistics />} />
+          <Route path="/ManageCounts" element={<ManageCounts />} />
+          <Route path="/Licenses" element={<Licences />} />
+          <Route path="/VariableConfig" element={<VariableConfig />} />
+          <Route element={<Layout />}>
+            <Route path="/principal" element={<Principal />} />
+            <Route path="/seeCommunity" element={<SeeCommunity />} />
+            <Route path="/seeSharedCommunity" element={<SeeSharedCommunity />} />
+            <Route path="/seeZone" element={<SeeZone />} />
+            <Route path="/seeSharedZone" element={<SeeSharedZone />} />
+            <Route path="/seeRoom" element={<SeeRoom />} />
+            <Route path="/seeSharedRoom" element={<SeeSharedRoom />} />
+            <Route path="/seeSensor" element={<SeeSensor />} />
+            <Route path="/seeSharedSensor" element={<SeeSharedSensor />} />
+            <Route path="/userAccount" element={<UserAccount />} />
+            <Route path="/editUser" element={<EditUser />} />
+            <Route path="/toHelp" element={<Maintenance />} />
+            <Route path="/*" element={<NotFound />} />
+            <Route path="/loading" element={<Loading />} />
+          </Route>
+        </Routes>
       </GoogleOAuthProvider>
     </BrowserRouter>
   )

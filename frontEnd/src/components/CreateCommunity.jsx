@@ -45,16 +45,16 @@ export default function CreateCommunity({onClose, id}){
     return(
         <div className="background-principal fade-in" onClick={onClose}>
             <div className="card-principal" onClick={(e) => e.stopPropagation()}>
-                <div style={{display:"grid"}}><img style={{width:"10%", justifySelf:"left", cursor:"pointer"}} src={toOut} alt="" onClick={onClose} /></div>
-                <div className="login-email-password">
-                    <h2 className="title-login">Crear comunidad</h2>
+                <div style={{display:"grid"}}><img className="close-create" src={toOut} alt="" onClick={onClose} /></div>
+                <div className="div-create-component">
+                    <h2 className="title-create-component">Crear comunidad</h2>
                     <div>
-                        <h3 className="title-data-login">Nombre:</h3>
-                        <input className='input-login' type="text" value={communityName} onChange={handleCommunityName} placeholder='Nombre de la comunidad...' />
+                    <h3 className="title-data-component">Nombre:</h3>
+                        <input className="input-create-component" type="text" value={communityName} onChange={handleCommunityName} placeholder='Nombre de la comunidad...' />
                     </div>
                     <div style={{marginTop:"5%", display:"flex", justifyContent:"center", textWrap:"nowrap"}}>
-                        <button style={{marginRight:"4%"}} className="btn-submit-data-user only-button" type="button" onClick={onClose}>Salir</button>
-                        <button className="btn-submit-data-user" type="button" onClick={handleSuccess}>Crear comunidad</button>
+                        <button style={{marginRight:"4%"}} className="btn-submit-create-component only-button" type="button" onClick={onClose}>Salir</button>
+                        <button className="btn-submit-create-component" type="button" onClick={handleSuccess}>Crear comunidad</button>
                     </div>
                 </div>
 

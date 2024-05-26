@@ -224,11 +224,6 @@ function closeDelete(){
 }
   return (
     <div className="body-principal">
-      <div className="header-principal">
-        <h2 className="header-title-principal">Domoticloud</h2>
-        <img src={User} alt="" className="user-image-principal" onClick={toUserAccount}/>
-        <img src={Logo} alt="" className="add-icon-principal" onClick={toIndex}/>
-      </div>
       {loading ? <Loading /> : (
         <>
           <div className="section-data-useraccount">
@@ -238,7 +233,7 @@ function closeDelete(){
             <div className="btn-edit-data-user" onClick={toEditAccount}>Editar</div>
           </div>
           <div style={{borderTop: "solid #4b1e9e13"}}></div>
-          <h1>Comunidades</h1>
+          <h1 className="title-section-principal">Comunidades</h1>
           <div className="section-devices-principal">
             <div className="div-add-zone-principal div-only-agregar" onClick={toCreateComunity}>
               <img className="add-zone-icon-principal" src={Agregar} alt="" />
@@ -260,7 +255,7 @@ function closeDelete(){
                     ))}
           </div>
           <div style={{borderTop: "solid #4b1e9e13"}}></div>
-          <h1>Zonas</h1>
+          <h1 className="title-section-principal">Zonas</h1>
           <div className="section-devices-principal">
             { zones.map((zona,index) => (
               <div id={zona.id_zona} key={index} className="div-add-zone-principal fade-in"  onClick={toZone}>
