@@ -3,12 +3,12 @@ import { jwtDecode } from "jwt-decode";
 import React, { useState, useEffect } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 import '../App.css';
-const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || "http://localhost:3000/searches/idusu";
+const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || import.meta.env.VITE_SEARCHES_IDUSU_LH;
 export default function Login() {
     const navigate = useNavigate();
+    //Estados para manejar los inputs del usuario
     const [correo, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    //Cuando se rendereize el componente, comprobara si hay datos de usuario ya guardados en localStorage, si es así, direccionará automaticamente a /principal.jsx
 
     function toSignIn(){
         navigate('/signIn')
@@ -74,6 +74,7 @@ export default function Login() {
             'pass' : "",
             'workstation': ""
         };
+        //Un fetch para ver si hay un usuario regisrado con el usuario de la cuenta de google
         fetch(`${RoutesearchUser}`, {
             method: 'POST',
             headers: {
@@ -92,6 +93,7 @@ export default function Login() {
         .then(data => {
             if (data.length > 0) {
                 data.forEach(element => {
+                    //Si sí lo hay, verificamos si no tiene una contraseña ya definida
                     if(element.pass === "" || element.pass===null || element.pass === undefined){
                         const newData = {
                             idusuario: element.idusuario,
@@ -101,16 +103,18 @@ export default function Login() {
                             correo: element.correo,
                             cargo: element.cargo
                         }
-                        console.log(newData,"------")
                         localStorage.setItem("userData",JSON.stringify(newData));
                         navigate("/confirmPassword")
                     }
+                    //Si si la tiene, lo mandamos directamente a la zona principal
                     else{
                         localStorage.setItem("userData",JSON.stringify(userData.email));
                         navigate('/principal')
                     }
                 });
-              } else {
+              } 
+              //Ahora, si no hay ninún correo registrado, lo manda a crear su contraseña
+              else {
                 const newData = {
                     idusuario: "",
                     usuario: "",
@@ -140,7 +144,7 @@ export default function Login() {
                     </div>
                     <div>
                         <h3 className="title-data-login">Password:</h3>
-                        <input className='input-login' style={{marginBottom: "5%"}} type="text" value={password} onChange={handlePassword} placeholder='Password...' />
+                        <input className='input-login' style={{marginBottom: "5%"}} type="password" value={password} onChange={handlePassword} placeholder='Password...' />
                     </div>
                     <div>
                         <a href="" onClick={toSignIn}>¿No tienes cuenta? Crafteate una.</a>
@@ -154,7 +158,6 @@ export default function Login() {
                     <GoogleLogin
                             onSuccess={handleSuccessGoogle}
                             onError={() => {
-                                console.log('Login Failed');
                             }}
                         />;
                 </div>

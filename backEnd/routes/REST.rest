@@ -1,0 +1,9 @@
+POST https://domoticloud.onrender.com/add/temphum
+Content-Type: application/json
+
+{
+    "idsensortemp": "1",
+    "temp": "10",
+    "idsensorhum": "2",
+    "hum": "30"
+}

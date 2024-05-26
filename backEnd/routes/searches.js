@@ -197,7 +197,7 @@ router.post('/colabencomunidad', async(req, res) => {
     try{
     const idcolabcomunidad = req.body.idcolabcomunidad; 
         try {                                   
-            const result = await itemsPool.query('select id_colaborador,comunidades.nombrecomunidad, usuarios.usuario as administrador from colaboradores INNER JOIN comunidades ON colaboradores.fk_id_comunidad = comunidades.id_comunidad INNER JOIN usuarios ON comunidades.fk_id_usuario = usuarios.idusuario where colaboradores.fk_id_usuario =$1',[idcolabcomunidad]);
+            const result = await itemsPool.query('select id_colaborador, comunidades.id_comunidad, comunidades.nombrecomunidad, usuarios.idusuario, usuarios.usuario as administrador from colaboradores INNER JOIN comunidades ON colaboradores.fk_id_comunidad = comunidades.id_comunidad INNER JOIN usuarios ON comunidades.fk_id_usuario = usuarios.idusuario where colaboradores.fk_id_usuario =$1',[idcolabcomunidad]);
             res.status(200).json(result.rows);
         } catch (error) {
             console.error('Error al obtener tus comunidades de las que eres colaborador:', error);

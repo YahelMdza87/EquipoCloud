@@ -3,30 +3,36 @@ import { useNavigate } from "react-router-dom";
 import Logo from "../assets/logo-domoticloud.png"
 import Back from "../assets/to-back.png"
 import User from "../assets/user.png"
-const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || "http://localhost:3000/searches/idusu";
-
+import Loading from './Loading';
+const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || import.meta.env.VITE_SEARCHES_IDUSU_LH;
+const RoutechangesUser = import.meta.env.VITE_CHANGES_USUARIO || import.meta.env.VITE_CHANGES_USUARIO_LH;
 export default function EditUser({userData}){
     const navigate = useNavigate();
-    const localStorageUser = JSON.parse(localStorage.getItem('userData'));
-    if (localStorageUser){
-        userData=localStorageUser;
-    }
-    function toUserAccount(){
-        navigate('/UserAccount')
-    }
-    function toIndex(){
-        navigate('/Principal')
-    }
-    
+    //Estados para manejar los inputs del usuario
     const [id, setId] = useState(0);
     const [name, setName] = useState("");
     const [user, setUser] = useState("");
     const [email, setEmail] = useState("");
     const [pass, setPass] = useState("");
     const [workstation, setWorkstation] = useState("");
-
+    const [loading, setLoading] = useState(true);
+    //Obtener el correo para hacer un fetch a ver si hay un correo con registrado
+    const localStorageUser = JSON.parse(localStorage.getItem('userData'));
+    if (localStorageUser){
+        userData=localStorageUser;
+    }
+    
+    function toUserAccount(){
+        navigate('/UserAccount')
+    }
+    function goBack(){
+        window.history.back();
+    }
+    function toIndex(){
+        navigate('/Principal')
+    }
+    //useEffect para comprobar que si tenemos la sesión iniciada
     useEffect(() => {
-        // fetch('https://domoticloud.onrender.com/searches/idusu', {
             fetch(`${RoutesearchUser}`, {
             method: 'POST',
             headers: {
@@ -43,15 +49,22 @@ export default function EditUser({userData}){
             return response.json();
         })
         .then(data => {
-            data.forEach(user => {
-                console.log(user)
-                setId(user.idusuario)
-                setName(user.nombre);
-                setEmail(user.correo);
-                setPass(user.pass);
-                setUser(user.usuario);
-                setWorkstation(user.cargo);
-            });
+            setLoading(false);
+            if(data && data.length>0){
+                data.forEach(user => {
+                    setId(user.idusuario)
+                    setName(user.nombre);
+                    setEmail(user.correo);
+                    setPass(user.pass);
+                    setUser(user.usuario);
+                    setWorkstation(user.cargo);
+                });
+              }
+              else{
+                alert("Debes de iniciar sesión");
+                navigate('/')
+              }
+           
         })
         .catch(error => {
             console.error('Error:', error);
@@ -75,10 +88,8 @@ export default function EditUser({userData}){
       const handlePassChange = (event) => {
         setPass(event.target.value);
       };
-  
-    
-      
-    
+
+      //Hace un fetch para actualizar los datos
       const handleSubmit = (event) => {
         if (pass === ""){
             alert("La contraseña no debe de estar vacía")
@@ -92,8 +103,7 @@ export default function EditUser({userData}){
             work: workstation
         }
         event.preventDefault();
-        // fetch('https://domoticloud.onrender.com/changes/usuario', {
-        fetch('http://localhost:3000/changes/usuario', {
+        fetch(`${RoutechangesUser}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
@@ -114,7 +124,7 @@ export default function EditUser({userData}){
             return response.json();
         })
         .then(user => {
-            console.log(user)
+            alert("Datos actualizados correctamente!")
         })
         .catch(error => {
             console.error('Error:', error);
@@ -123,44 +133,48 @@ export default function EditUser({userData}){
       }};
     return(
         <div className="body-principal">
-            <div className="header-principal">
-                <h2 className="header-title-principal">Domoticloud</h2>
-                <img src={User} alt="" className="user-image-principal" onClick={toUserAccount}/>
-                <img src={Logo} alt="" className="add-icon-principal" onClick={toIndex}/>
-            </div>
-            <div>
-                <img src={Back} alt="" style={{width:"9%",borderBottom:"1px solid #ba98ff69",borderRight:"1px solid #ba98ff69"}} onClick={toUserAccount} />
-            </div>
-            <div className="section-data-useraccount">
-                <img src={User} alt="" className="user-image-userAccount" />
-                <h2 className="name-user-userAccount" >{name}</h2>
-                <h2 className="name-role-userAccount">{workstation}</h2>
-            </div>
-            <form onSubmit={handleSubmit} style={{padding:"8%", paddingTop:"0%"}}>
-                <div>
-                    <label className="title-data-login">name:</label>
-                    <input type="text" className="input-login" value={name} onChange={handleNameChange} />
-                </div>
-                <div>
-                    <label className="title-data-login">user:</label>
-                    <input type="text" className="input-login" value={user} onChange={handleUserChange} />
-                </div>
-                <div>
-                    <label className="title-data-login">email:</label>
-                    <input type="email" className="input-login" value={email} onChange={handleEmailChange} />
-                </div>
-                <div>
-                    <label className="title-data-login">pass:</label>
-                    <input type="password" className="input-login" value={pass} onChange={handlePassChange} />
-                </div>
-                <div>
-                    <label className="title-data-login">workstation:</label>
-                    <input type="text" className="input-login" value={workstation} onChange={handleWorkstationChange} />
-                </div>
-                <div>
-                    <button className="btn-submit-data-user" type="submit">Guardar</button>
-                </div>
-            </form>
+            {loading ? <Loading /> : (
+                <>
+                    <div>
+                        <img src={Back} alt="" className="to-back-button" onClick={goBack} />
+                    </div>
+                    <div className="section-data-useraccount">
+                        <img src={User} alt="" className="user-image-userAccount" />
+                        <h3 className="name-user-userAccount" style={{gridRow:"1"}}>{name}</h3>
+                        <h3 className="name-role-userAccount" style={{gridRow:"2/4"}}>{workstation}</h3>
+                    </div>
+                    <form onSubmit={handleSubmit} style={{padding:"8%", paddingTop:"0%"}}>
+                        <div>
+                            <label className="title-data-edit" style={{color:"#4a1e9e"}}>Nombre:</label>
+                            <br />
+                            <input type="text" className="input-data-edit" value={name} onChange={handleNameChange} />
+                        </div>
+                        <div>
+                            <label className="title-data-edit" style={{color:"#4a1e9e"}}>Usuario:</label>
+                            <br />
+                            <input type="text" className="input-data-edit" value={user} onChange={handleUserChange} />
+                        </div>
+                        <div>
+                            <label className="title-data-edit" style={{color:"#4a1e9e"}}>Correo:</label>
+                            <br />
+                            <input type="email" className="input-data-edit" value={email} onChange={handleEmailChange} />
+                        </div>
+                        <div>
+                            <label className="title-data-edit" style={{color:"#4a1e9e"}}>Contraseña:</label>
+                            <br />
+                            <input type="password" className="input-data-edit" value={pass} onChange={handlePassChange} />
+                        </div>
+                        <div>
+                            <label className="title-data-edit" style={{color:"#4a1e9e"}}>Cargo:</label>
+                            <br />
+                            <input type="text" className="input-data-edit" value={workstation} onChange={handleWorkstationChange} />
+                        </div>
+                        <div>
+                            <button className="btn-submit-data-edit" type="submit">Guardar</button>
+                        </div>
+                    </form>
+                </>
+            )}
         </div>
     );
 }

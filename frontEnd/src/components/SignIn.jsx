@@ -4,13 +4,12 @@ import React, { useState, useEffect } from 'react';
 // import { useHistory } from 'react-router-dom'; 
 import Salir from '../assets/to-out.png'
 import '../App.css';
-const RouteAddUser = import.meta.env.VITE_ADD_USU || "http://localhost:3000/add/usu";
+const RouteAddUser = import.meta.env.VITE_ADD_USU || import.meta.env.VITE_ADD_USU_LH;
 export default function SignIn() {
     const navigate = useNavigate();
     //Cuando se rendereize el componente, comprobara si hay datos de usuario ya guardados en localStorage, si es así, direccionará automaticamente a /principal.jsx
 
     function enviarDatosUsuario(data) {
-        console.log(data)
             fetch(`${RouteAddUser}`, {
             method: 'POST',
             headers: {
@@ -31,7 +30,6 @@ export default function SignIn() {
             return response.json();
         })
         .then(data => {
-            console.log(data); 
             navigate('/')
         })
         .catch(error => {
@@ -93,7 +91,7 @@ export default function SignIn() {
         
         <div className="body-login">
             <div className="card-signIn">
-                <div style={{display:"grid"}}><img style={{width:"10%", justifySelf:"left"}} src={Salir} alt="" onClick={toLogin} /></div>
+                <div style={{display:"grid"}}><img style={{width:"6%", justifySelf:"left", cursor:"pointer"}} src={Salir} alt="" onClick={toLogin} /></div>
                 <h1 className="title-login">Registrarse</h1>
                 <div className="login-email-password">
                     <div>
@@ -118,11 +116,11 @@ export default function SignIn() {
                     </div>
                     <div>
                         <h3 className="title-data-login">Contraseña:</h3>
-                        <input className='input-login' style={{marginBottom: "5%"}} value={password} type="password" onChange={handlePass} placeholder='Contraseña...' />
+                        <input className='input-login' value={password} type="password" onChange={handlePass} placeholder='Contraseña...' />
                     </div>
                     <div>
                         <h3 className="title-data-login">Confirmar contraseña:</h3>
-                        <input className='input-login' style={{marginBottom: "5%"}} value={confirmPassword} type="password" onChange={handleCPass} placeholder='Confirmar contraseña...' />
+                        <input className='input-login' value={confirmPassword} type="password" onChange={handleCPass} placeholder='Confirmar contraseña...' />
                     </div>
                 </div>
                 <div style={{marginTop:"1%", display:"flex", justifyContent:"center", padding:"3%"}}>
