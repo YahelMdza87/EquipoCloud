@@ -67,7 +67,7 @@ export default function AdminMenu (){
                                     <h2 className="fount">Administración de cuentas</h2>
                                     </div>
                                         <div className="admin-img-nav">
-                                            <img src={usericon}/>
+                                            <img className="admin-img" src={usericon}/>
                                         </div>
                                     <div style={{height:"20%"}}>
                                     <h3 className="fount">Clientes activos</h3>
@@ -80,7 +80,7 @@ export default function AdminMenu (){
                                     <h2 className="fount">Administración de estadísticas</h2>
                                     </div>
                                         <div className="admin-img-nav">
-                                            <img src={iconstats}/>
+                                            <img className="admin-img" src={iconstats}/>
                                         </div>
                                     <div style={{height:"20%"}}>
                                     <h3 className="fount">Estadísticas de la plataforma</h3>
@@ -93,7 +93,7 @@ export default function AdminMenu (){
                                     <h2 className="fount">Administración de licencias</h2>
                                     </div>
                                         <div className="admin-img-nav">
-                                            <img src={iconlicences}/>
+                                            <img className="admin-img" src={iconlicences}/>
                                         </div>
                                     <div style={{height:"20%"}}>
                                     <h3 className="fount">Configuración de licencias</h3>
