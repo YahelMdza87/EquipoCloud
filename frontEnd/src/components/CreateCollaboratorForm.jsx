@@ -175,22 +175,21 @@ export default function CreateCollaboratorForm({onClose, id, userData}){
     return(
         <div className="background-principal fade-in" onClick={onClose}>
             <div className="card-principal" onClick={(e) => e.stopPropagation()}>
-                <div style={{display:"grid"}}><img style={{width:"10%", justifySelf:"left", cursor:"pointer"}} src={toOut} alt="" onClick={onClose} /></div>
-                <div className="login-email-password">
-                    <h2 className="title-login">Agregar colaborador</h2>
+                <div style={{display:"grid"}}><img className="close-create" src={toOut} alt="" onClick={onClose} /></div>
+                <div className="div-create-component">
+                    <h2 className="title-create-component">Agregar colaborador</h2>
                     <div>
-                        <h3 className="title-data-login">Nombre:</h3>
-                        <input className='input-login' type="text" value={nameCollaborator} onChange={handleNameCollaborator} placeholder='Nombre del colaborador...' />
+                        <h3 className="title-data-component">Nombre:</h3>
+                        <input className="input-create-component" type="text" value={nameCollaborator} onChange={handleNameCollaborator} placeholder='Nombre del colaborador...' />
                         <ul className="list-email-users">
                             {searchResults.map((user, index) => (
                                 <li key={index} onClick={() => addEmail(user.correo)}>{user.correo}</li>
                             ))}
                         </ul>
                     </div>
-                   
                     <div style={{marginTop:"5%", display:"flex", justifyContent:"center", textWrap:"nowrap"}}>
-                        <button style={{marginRight:"4%"}} className="btn-submit-data-user only-button" type="button" onClick={onClose}>Salir</button>
-                        <button className="btn-submit-data-user" type="button" onClick={handleSuccess}>Agregar</button>
+                        <button style={{marginRight:"4%"}} className="btn-submit-create-component only-button" type="button" onClick={onClose}>Salir</button>
+                        <button className="btn-submit-create-component" type="button" onClick={handleSuccess}>Agregar colaborador</button>
                     </div>
                 </div>
 

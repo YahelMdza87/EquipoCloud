@@ -143,21 +143,16 @@ export default function SeeSharedCommunity({selectedSharedCommunity,idOwner,user
    
     return(
         <div className="body-principal">
-            <div className="header-principal">
-                <h2 className="header-title-principal">Domoticloud</h2>
-                <img src={User} alt="" className="user-image-principal" onClick={toUserAccount}/>
-                <img src={Logo} alt="" className="add-icon-principal" onClick={toIndex}/>
-            </div>
             {loading ? <Loading /> : (
                 <>
                     <div>
                         <img src={Back} alt="" className="to-back-button" onClick={goBack} />
                     </div>
-                    <div style={{alignItems:"center", justifyItems:"center", textAlign:"center"}}> <h1>{community.nombrecomunidad}</h1></div>
+                    <div style={{textAlign:"center"}}><h1 className="title-name-component">{community.nombrecomunidad}</h1></div>
                     <div className="section-image-zone">
                         <img className="image-zone" src="https://media.admagazine.com/photos/62b4b828cce4cfe1db2ed95e/4:3/w_2664,h_1998,c_limit/Dormitorio.jpg" alt="" />
                     </div>
-                    <h1 style={{marginLeft:"2%", marginTop:"1%"}}>Zonas</h1>
+                    <h1 className="title-section-principal">Zonas</h1>
                     <div className="section-devices-principal">
                         { zones.map((zona,index) => (
                             <div id={zona.id_zona} key={index} className="div-add-zone-principal-coop fade-in"  onClick={toSharedZone}>

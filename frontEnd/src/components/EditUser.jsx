@@ -133,11 +133,6 @@ export default function EditUser({userData}){
       }};
     return(
         <div className="body-principal">
-            <div className="header-principal">
-                <h2 className="header-title-principal">Domoticloud</h2>
-                <img src={User} alt="" className="user-image-principal" onClick={toUserAccount}/>
-                <img src={Logo} alt="" className="add-icon-principal" onClick={toIndex}/>
-            </div>
             {loading ? <Loading /> : (
                 <>
                     <div>
@@ -150,27 +145,32 @@ export default function EditUser({userData}){
                     </div>
                     <form onSubmit={handleSubmit} style={{padding:"8%", paddingTop:"0%"}}>
                         <div>
-                            <label className="title-data-login" style={{color:"#4a1e9e"}}>Nombre:</label>
-                            <input type="text" className="input-login" value={name} onChange={handleNameChange} />
+                            <label className="title-data-edit" style={{color:"#4a1e9e"}}>Nombre:</label>
+                            <br />
+                            <input type="text" className="input-data-edit" value={name} onChange={handleNameChange} />
                         </div>
                         <div>
-                            <label className="title-data-login" style={{color:"#4a1e9e"}}>Usuario:</label>
-                            <input type="text" className="input-login" value={user} onChange={handleUserChange} />
+                            <label className="title-data-edit" style={{color:"#4a1e9e"}}>Usuario:</label>
+                            <br />
+                            <input type="text" className="input-data-edit" value={user} onChange={handleUserChange} />
                         </div>
                         <div>
-                            <label className="title-data-login" style={{color:"#4a1e9e"}}>Correo:</label>
-                            <input type="email" className="input-login" value={email} onChange={handleEmailChange} />
+                            <label className="title-data-edit" style={{color:"#4a1e9e"}}>Correo:</label>
+                            <br />
+                            <input type="email" className="input-data-edit" value={email} onChange={handleEmailChange} />
                         </div>
                         <div>
-                            <label className="title-data-login" style={{color:"#4a1e9e"}}>Contraseña:</label>
-                            <input type="password" className="input-login" value={pass} onChange={handlePassChange} />
+                            <label className="title-data-edit" style={{color:"#4a1e9e"}}>Contraseña:</label>
+                            <br />
+                            <input type="password" className="input-data-edit" value={pass} onChange={handlePassChange} />
                         </div>
                         <div>
-                            <label className="title-data-login" style={{color:"#4a1e9e"}}>Cargo:</label>
-                            <input type="text" className="input-login" value={workstation} onChange={handleWorkstationChange} />
+                            <label className="title-data-edit" style={{color:"#4a1e9e"}}>Cargo:</label>
+                            <br />
+                            <input type="text" className="input-data-edit" value={workstation} onChange={handleWorkstationChange} />
                         </div>
                         <div>
-                            <button className="btn-submit-data-user" type="submit">Guardar</button>
+                            <button className="btn-submit-data-edit" type="submit">Guardar</button>
                         </div>
                     </form>
                 </>

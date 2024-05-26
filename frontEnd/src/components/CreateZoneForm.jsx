@@ -66,15 +66,15 @@ export default function CreateZoneForm({onClose, id}){
     return(
         <div className="background-principal fade-in" onClick={onClose}>
             <div className="card-principal" onClick={(e) => e.stopPropagation()}>
-                <div style={{display:"grid"}}><img style={{width:"10%", justifySelf:"left", cursor:"pointer"}} src={toOut} alt="" onClick={onClose} /></div>
-                <div className="login-email-password">
-                    <h2 className="title-login">Crear zona</h2>
+                <div style={{display:"grid"}}><img className="close-create" src={toOut} alt="" onClick={onClose} /></div>
+                <div className="div-create-component">
+                    <h2 className="title-create-component">Crear zona</h2>
                     <div>
-                        <h3 className="title-data-login">Zona:</h3>
-                        <input className='input-login' type="text" value={zoneName} onChange={handleEmail} placeholder='Nombre de la zona...' />
+                        <h3 className="title-data-component">Zona:</h3>
+                        <input className="input-create-component" type="text" value={zoneName} onChange={handleEmail} placeholder='Nombre de la zona...' />
                     </div>
                     <div style={{marginTop:"3%"}}>
-                        <h3 className="title-data-login">Tipo de zona:</h3>
+                        <h3 className="title-data-component">Tipo de zona:</h3>
                         <select className="list-principal" value={typeZone} onChange={handleZone}>
                             <option value="">Seleccionar...</option>
                             <option value="casa">Casa</option>
@@ -86,8 +86,8 @@ export default function CreateZoneForm({onClose, id}){
                         </select>
                     </div>
                     <div style={{marginTop:"5%", display:"flex", justifyContent:"center", textWrap:"nowrap"}}>
-                        <button style={{marginRight:"4%"}} className="btn-submit-data-user only-button" type="button" onClick={onClose}>Salir</button>
-                        <button className="btn-submit-data-user" type="button" onClick={handleSuccess}>Crear zona</button>
+                        <button style={{marginRight:"4%"}} className="btn-submit-create-component only-button" type="button" onClick={onClose}>Salir</button>
+                        <button className="btn-submit-create-component" type="button" onClick={handleSuccess}>Crear zona</button>
                     </div>
                 </div>
             </div>
