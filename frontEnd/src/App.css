@@ -572,11 +572,27 @@ body{
   }
   .section-value-SeeSensor {
     display: grid;
-    grid-template-rows: repeat(3, 1fr);
-    padding: 1%; 
-    background-color: var(--color-lv2)49;
+    width: 70%;
+    justify-self: center;
+    grid-template-rows: repeat(2, 1fr);
+    padding: 3%; 
+    background-color: var(--color-lv2);
     border-radius: 200px;
     justify-items: center;
+    text-align: center; 
+    font-size: 18px;
+  }
+  .section-value-SeeSensor-rele {
+    display: grid;
+    margin-top: 5%;
+    grid-template-rows: repeat(3, 1fr);
+    background-color: var(--color-lv2); 
+    padding: 3%; 
+    width: 20%;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+    border-radius: 30px;
     text-align: center; 
     font-size: 18px;
   }
@@ -605,7 +621,7 @@ body{
     background: #009578;
     transform-origin: center top;
     transform: rotate(0.25turn);
-    transition: transform 0.2s ease-out;
+    transition: transform 1.2s ease-out;
   }
   .gauge__cover {
     width: 75%;
@@ -671,6 +687,54 @@ body{
   .text-maintenance{
     font-size: 3vw;
     grid-row: 2;
+  }
+  .title-state-rele, .section-value-SeeSensor-rele p{
+    font-size: 1.3vw;
+  }
+
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+
+  .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+  }
+
+  .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #afafaf;
+      transition: 0.4s;
+      border-radius: 34px;
+  }
+
+  .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: 0.4s;
+      border-radius: 50%;
+  }
+
+  input:checked + .slider {
+      background-color: var(--color-lv4);
+  }
+
+  input:checked + .slider:before {
+      transform: translateX(26px);
   }
 
 @media only screen and (max-width: 768px) {
@@ -1180,6 +1244,20 @@ body{
       text-align: center; 
       font-size: 18px;
     }
+    .section-value-SeeSensor-rele {
+      display: grid;
+      margin-top: 5%;
+      grid-template-rows: repeat(3, 1fr);
+      background-color: var(--color-lv2); 
+      padding: 3%; 
+      width: 40%;
+      justify-content: center;
+      align-items: center;
+      justify-items: center;
+      border-radius: 30px;
+      text-align: center; 
+      font-size: 18px;
+    }
     .gauge {
       width: 100%;
       max-width: 250px;
@@ -1222,5 +1300,45 @@ body{
       justify-content: center;
       padding-bottom: 25%;
       box-sizing: border-box;
+    }
+    .title-state-rele, .section-value-SeeSensor-rele p{
+      font-size: 4vw;
+    }
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 28px;
+    }
+    .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #afafaf;
+        transition: 0.4s;
+        border-radius: 34px;
+    }
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 20px;
+        width: 20px;
+        background-color: white;
+        transition: 0.4s;
+        border-radius: 50%;
+    }
+    input:checked + .slider {
+        background-color: var(--color-lv4);
+    }
+    input:checked + .slider:before {
+        transform: translateX(32px);
     }
 }
