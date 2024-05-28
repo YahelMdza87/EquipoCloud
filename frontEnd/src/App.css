@@ -209,7 +209,7 @@ body{
     background-color: #ffffff;
     width: 100%;
     height: 100%;
-    min-height: 650px;
+    min-height: 750px;
     padding-bottom: 0.5%;
   }
   .body-principal h1,h3,h4,label,p{
@@ -217,6 +217,17 @@ body{
   }
   .body-principal h1,h2,h3,h4,h5{
     margin-left: 2%;
+  }
+  .delete-component{
+    width: 10%;
+    grid-row: 3;
+    padding: 0.8%;
+    border-radius: 10px;
+    transition: 0.2s;
+  }
+  .delete-component:hover{
+    cursor: pointer;
+    background-color: var(--color-lv2);
   }
   .title-section-principal{
     font-size: 1.2vw;

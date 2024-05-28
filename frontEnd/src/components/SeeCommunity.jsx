@@ -4,7 +4,6 @@ import Basura from "../assets/icono-basura.png"
 import Back from "../assets/to-back.png"
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
-import User from "../assets/user.png"
 import UserIcono from "../assets/user-icono.png"
 import CreateCollaboratorForm from "./CreateCollaboratorForm";
 import DeleteComponent from "./DeleteComponent";
@@ -19,14 +18,16 @@ export default function SeeCommunity({selectedCommunity,userData}){
     const localStorageSelectedCommunity = JSON.parse(localStorage.getItem("idCommunity"));
     const localStorageUser = JSON.parse(localStorage.getItem("userData"));
     const localStorageWichComponent = JSON.parse(localStorage.getItem("wichComponent"));
-    const [idRoom, setIdRoom] = useState("");
+    const [strCollaborator, setStrCollaborator] = useState("")
+    const [idCollaborator, setIdCollaborator] = useState("");
     const [idCommunity, setIdCommunity] = useState("");
     const [community, setCommunity] = useState([]);
     const [collaborators, setCollaborators] = useState([]);
     const [emailsUsers, setEmailsUsers] = useState([]);
     const [user, setUser] = useState([]);
     const [showAddCollaboratorForm, setShowAddCollaboratorForm] = useState(false);
-    const [showConfirmDelete, setShowConfirmDelete] = useState(false);
+    const [showConfirmDeleteCommunity, setShowConfirmDeleteCommunity] = useState(false);
+    const [showConfirmDeleteCollaborator, setShowConfirmDeleteCollaborator] = useState(false);
     const [loading, setLoading] = useState(true);
     if(localStorageSelectedCommunity){
         selectedCommunity = localStorageSelectedCommunity;
@@ -150,21 +151,29 @@ export default function SeeCommunity({selectedCommunity,userData}){
         .catch(error => {
             console.error('Error:', error);
         });
-    }, []);
+    }, [showConfirmDeleteCollaborator][showAddCollaboratorForm]);
 
-
+    const toDeleteCollaborator = (event) => {
+        const selectedId = event.target.closest(".div-add-zone-principal").id;
+        setStrCollaborator("collaborator")
+        setIdCollaborator(selectedId);
+    }
+    useEffect(() => {
+        if(strCollaborator!==""){
+            setShowConfirmDeleteCollaborator(true);
+        }
+    }, [strCollaborator]);
     function toDelete(){
-        setShowConfirmDelete(true);
+        setShowConfirmDeleteCommunity(true);
     }
     function closeDelete(){
-        setShowConfirmDelete(false);
+        setStrCollaborator("");
+        setShowConfirmDeleteCollaborator(false);
+        setShowConfirmDeleteCommunity(false);
     }
 
     function closeAddCollaboratorModal() {
         setShowAddCollaboratorForm(false);
-    }
-    function toCollaborator(){
-
     }
 
 
@@ -186,18 +195,21 @@ export default function SeeCommunity({selectedCommunity,userData}){
                             <h3 className="add-zone-text-principal">Agregar colaborador</h3>
                         </div>
                         { collaborators.map((collaborator,index) => (
-                        <div id={collaborator.id_colaborador} key={index} className="div-add-zone-principal fade-in"  onClick={toCollaborator}>
+                        <div id={collaborator.id_colaborador} key={index} className="div-add-zone-principal fade-in" style={{cursor:"default"}}>
+                            <img className="delete-component" src={Basura} alt="" onClick={toDeleteCollaborator} />
                             <h3 className="name-divs-generated" style={{gridRow:"1"}}>{collaborator.correo}</h3>
                             <img src={UserIcono} alt="" className="img-divs-generated" style={{gridRow:"2"}} />
                         </div>
                         ))}
                     </div>
-                    
-                    {showConfirmDelete && ( 
-                        <DeleteComponent onClose={closeDelete} id={{idRoom}} wich={{localStorageWichComponent}}/>
+                    {showConfirmDeleteCollaborator && ( 
+                        <DeleteComponent onClose={closeDelete} id={{idCollaborator}} wich={{strCollaborator}}/>
+                    )}
+                    {showConfirmDeleteCommunity && ( 
+                        <DeleteComponent onClose={closeDelete} id={{idRoom}} />
                     )}
                     {showAddCollaboratorForm && ( 
-                        <CreateCollaboratorForm onClose={closeAddCollaboratorModal} id={{idCommunity}} />
+                        <CreateCollaboratorForm onClose={closeAddCollaboratorModal} id={{idCommunity}}  />
                     )}
                     {/* <div style={{justifyItems:"center", alignItems:"center", textAlign:"center"}}><img src={Basura} alt="" onClick={toDelete}/></div> */}
                 </>
