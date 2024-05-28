@@ -10,6 +10,7 @@ import Loading from './Loading';
 import DeleteComponent from "./DeleteComponent";
 const RouteGetSensor = import.meta.env.VITE_SEARCHES_SENSOR || import.meta.env.VITE_SEARCHES_SENSOR_LH;
 const RoutesearchUser = import.meta.env.VITE_SEARCHES_IDUSU || import.meta.env.VITE_SEARCHES_IDUSU_LH;
+const RouteChangeSensorRele = import.meta.env.VITE_CHANGES_RELE || import.meta.env.VITE_CHANGES_RELE_LH;
 export default function SeeSensor({selectedSensor,userData}){
     const navigate = useNavigate();
     const localStorageSelectedSensor = JSON.parse(localStorage.getItem("idDevice"));
@@ -21,6 +22,8 @@ export default function SeeSensor({selectedSensor,userData}){
     const [valueSensor, setValueSensor] = useState("");
     const [typeSignal, setTypeSignal] = useState("");
     const [loading, setLoading] = useState(true);
+
+    const [isSwitchOn, setIsSwitchOn] = useState(false);
     const [showConfirmDelete, setShowConfirmDelete] = useState(false);
     
 
@@ -61,7 +64,6 @@ export default function SeeSensor({selectedSensor,userData}){
         return response.json();
     })
     .then(data => {
-        setLoading(false);
         if(data && data.length>0){
             data.forEach(element => {
                 setUser(element)
@@ -99,10 +101,10 @@ export default function SeeSensor({selectedSensor,userData}){
             setNameSensor(element.nombresensor);
             setValueSensor(element.valor);
             setTypeSignal(element.señal)
+            setLoading(false);
             if (gaugeRef.current) {
                 const signalFloat = parseFloat(element.valor);
-                
-                setGaugeValue(gaugeRef.current, (signalFloat/100));
+                setGaugeValue(gaugeRef.current, (signalFloat/100), element.señal);
               }
             });
         } catch (error) {
@@ -111,28 +113,51 @@ export default function SeeSensor({selectedSensor,userData}){
     };
             obtenerSeñales();
 
-        const intervalId = setInterval(obtenerSeñales, 2000);
+        const intervalId = setInterval(obtenerSeñales, 500);
 
         // Limpiar el intervalo cuando el componente se desmonte
         return () => clearInterval(intervalId);
 
     }, []); 
-    function setGaugeValue(gauge, value) {
+    function setGaugeValue(gauge, value, typeSignal) {
         if (value < 0 || value > 1) {
           return;
         }
-      
         gauge.querySelector(".gauge__fill").style.transform = `rotate(${
           value / 2
         }turn)`;
         gauge.querySelector(".gauge__cover").textContent = `${Math.round(
-          value * 100
-        )}%`;
-      }
+            value * 100
+            )}${typeSignal === 'hum' ? '%' : '°'}`;
+        
+    }
 
+           
 
-
-
+    const toggleSwitch = () => {
+        console.log(idSensor)
+        setIsSwitchOn(!isSwitchOn);
+        fetch(`${RouteChangeSensorRele}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                idsensor: idSensor
+            })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Hubo un problema al realizar la solicitud.');
+            }
+            return response.json();
+        })
+        .then(data => {
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    };
     function toDelete(){
         setShowConfirmDelete(true);
     }
@@ -153,36 +178,42 @@ export default function SeeSensor({selectedSensor,userData}){
                         <img className="image-zone" src="https://www.elpais.cr/wp-content/uploads/2023/04/Dispositivos-digitales.jpg" alt="" />
                     </div> */}
                     <div style={{borderTop: "solid #4b1e9e13"}}></div>
-                    <div className="values-devices-SeeSensor fade-in">
-                        <div className="section-value-SeeSensor">
-                            <h3 style={{gridRow:"1"}}>Señal:</h3>
-                            <p style={{gridRow:"2"}}>{typeSignal}</p>
-                        </div>
-                        <div className="section-value-SeeSensor">
-                            <h3 style={{gridRow:"1"}}>Comunidad:</h3>
-                            <p style={{gridRow:"2"}}>No hay ningúna comunidad asignada</p>
-                        </div>
-                        <div className="section-value-SeeSensor">
-                            <h3 style={{gridRow:"1"}}>Valor:</h3>
-                            <div className="gauge" ref={gaugeRef}>
-                            <div className="gauge__body">
-                                <div className="gauge__fill"></div>
-                                <div className="gauge__cover"></div>
-                            </div>
+                    {typeSignal === 'interruptor' ? (
+                        <div style={{display:"flex",justifyContent: "center", alignItems: "center"}}>
+                            <div className="section-value-SeeSensor-rele">
+                            <h3 className="title-state-rele">Estado:</h3>
+                            <label className="switch">
+                                <input type="checkbox" checked={isSwitchOn} onChange={toggleSwitch} />
+                                <span className="slider"></span>
+                            </label>
+                            <p>{isSwitchOn ? 'Encendido' : 'Apagado'}</p>
                             </div>
                         </div>
-                        <div className="section-value-SeeSensor">
-                            <h3 style={{gridRow:"1"}}>Señal:</h3>
-                            <h3 style={{gridRow:"2"}}>{typeSignal}</h3>
-                        </div>
-                    </div>
-                    
-                    {showConfirmDelete && ( 
-                        <DeleteComponent onClose={closeDelete} id={{idRoom}} wich={{localStorageWichComponent}}/>
+                    ) : (
+                        <>
+                            <div className="values-devices-SeeSensor fade-in">
+                                <div className="section-value-SeeSensor">
+                                    <h3 style={{ gridRow: "1" }}>Señal:</h3>
+                                    <p style={{ gridRow: "2" }}>{typeSignal}</p>
+                                </div>
+                                
+                                <div className="section-value-SeeSensor">
+                                    <h3 style={{ gridRow: "1" }}>Valor:</h3>
+                                    <div className="gauge" ref={gaugeRef}>
+                                        <div className="gauge__body">
+                                            <div className="gauge__fill"></div>
+                                            <div className="gauge__cover"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </>
                     )}
-                    {/* <div style={{justifyItems:"center", alignItems:"center", textAlign:"center"}}><img src={Basura} alt="" onClick={toDelete}/></div> */}
-                </>
-            )}
-        </div>
-    )
+                {showConfirmDelete && (
+                    <DeleteComponent onClose={closeDelete} id={{ idRoom }} wich={{ localStorageWichComponent }} />
+                )}
+            </>
+        )}
+    </div>
+);
 }

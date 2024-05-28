@@ -234,7 +234,8 @@ function closeDelete(){
           </div>
           <div style={{borderTop: "solid #4b1e9e13"}}></div>
           <h1 className="title-section-principal">Comunidades</h1>
-          <div className="section-devices-principal">
+          {communitys.length > 0 || sharedCommunitys > 0 ? (
+            <div className="section-devices-principal">
             <div className="div-add-zone-principal div-only-agregar" onClick={toCreateComunity}>
               <img className="add-zone-icon-principal" src={Agregar} alt="" />
               <h3 className="add-zone-text-principal">Agregar comunidad</h3>
@@ -254,16 +255,34 @@ function closeDelete(){
                     </div>
                     ))}
           </div>
+          ) :
+          (
+            <div className="section-devices-principal">
+              <div className="div-add-zone-principal div-only-agregar" onClick={toCreateComunity}>
+                <img className="add-zone-icon-principal" src={Agregar} alt="" />
+                <h3 className="text-notFoundComponents">Crea tu primer comunidad</h3>
+                <h3 className="add-zone-text-principal"></h3>
+              </div>
+            </div>
+          )}
           <div style={{borderTop: "solid #4b1e9e13"}}></div>
           <h1 className="title-section-principal">Zonas</h1>
-          <div className="section-devices-principal">
-            { zones.map((zona,index) => (
-              <div id={zona.id_zona} key={index} className="div-add-zone-principal fade-in"  onClick={toZone}>
-                <h3 className="name-divs-generated" style={{gridRow:"1"}}>{zona.nombrezona}</h3>
-                <img src={CuartoIcono} alt="" className="img-divs-generated" style={{gridRow:"2"}}/>
-              </div>
-            ))}
+          {zones.length > 0 ? (
+            <div className="section-devices-principal">
+              {zones.map((zona,index) => (
+                <div id={zona.id_zona} key={index} className="div-add-zone-principal fade-in"  onClick={toZone}>
+                  <h3 className="name-divs-generated" style={{gridRow:"1"}}>{zona.nombrezona}</h3>
+                  <img src={CuartoIcono} alt="" className="img-divs-generated" style={{gridRow:"2"}}/>
+                </div>
+              ))}
           </div>
+          )
+          : 
+          (
+            <div className="div-notFoundComponents">
+              <h3 className="text-notFoundComponents">No hay ningúna zona creada</h3>
+            </div>
+          )}
           <div style={{marginTop:"4%"}}>
             <div className="div-more-userAccount" onClick={toHelp}>
               <h2>Ayuda</h2>

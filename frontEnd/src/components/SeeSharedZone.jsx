@@ -133,7 +133,9 @@ export default function SeeSharedZone({selectedSharedZone,userData}){
             if(data && data.length>0){
                 setRooms(data);
             }
-            else{
+            else {
+                setRooms([])
+                console.log(rooms)
             }
         })
         .catch(error => {
@@ -154,15 +156,23 @@ export default function SeeSharedZone({selectedSharedZone,userData}){
                     </div>
                     <div style={{borderTop: "solid #4b1e9e13"}}></div>
                     <h1 className="title-section-principal">Cuartos</h1>
-                    <div className="section-devices-principal">
-                        { rooms.map((room,index) => (
-                        <div id={room.id_cuarto} key={index} className="div-add-zone-principal-coop fade-in"  onClick={toSharedRoom}>
-                            <h3 className="name-divs-generated" style={{gridRow:"1", color:"#00ff2a"}}>{room.cuarto}</h3>
-                            <img src={CuartoCoopIcono} alt="" className="img-divs-generated" style={{gridRow:"2"}}/>
-                            <h3 className="name-divs-generated" style={{gridRow:"3", color:"#00ff2a"}}>Compartido</h3>
+                    { rooms > 0 ? (
+                        <div className="section-devices-principal">
+                            { rooms.map((room,index) => (
+                            <div id={room.id_cuarto} key={index} className="div-add-zone-principal-coop fade-in"  onClick={toSharedRoom}>
+                                <h3 className="name-divs-generated" style={{gridRow:"1", color:"#00ff2a"}}>{room.cuarto}</h3>
+                                <img src={CuartoCoopIcono} alt="" className="img-divs-generated" style={{gridRow:"2"}}/>
+                                <h3 className="name-divs-generated" style={{gridRow:"3", color:"#00ff2a"}}>Compartido</h3>
+                            </div>
+                            ))}
                         </div>
-                        ))}
-                    </div>
+                    ) :
+                    (
+                        <div className="div-notFoundComponents-coop">
+                            <h3 className="text-notFoundComponents">No hay ningúna cuarto creado por el propietario</h3>
+                        </div>
+                    )}
+                   
                 </>
             )}
         </div>
