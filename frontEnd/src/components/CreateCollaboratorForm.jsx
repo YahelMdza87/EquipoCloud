@@ -1,5 +1,5 @@
 import "../App.css"
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import toOut from "../assets/to-out.png";
 const RouteAddCollaborator = import.meta.env.VITE_ADD_COLABORADOR || import.meta.env.VITE_ADD_COLABORADOR_LH;
 const RoutesearchEmails = import.meta.env.VITE_SEARCHES_CORREOUSERS || import.meta.env.VITE_SEARCHES_CORREOUSERS_LH;
@@ -12,6 +12,7 @@ export default function CreateCollaboratorForm({onClose, id, userData}){
     const [searchResults, setSearchResults] = useState([]);
     const [collaborators, setCollaborators] = useState([]);
     const [user, setUser] = useState([]);
+    const hasMounted = useRef(false);
     const localStorageUser = JSON.parse(localStorage.getItem("userData"));
     //Obtener el correo para hacer un fetch a ver si hay un correo con registrado
     if(localStorageUser){
@@ -34,31 +35,34 @@ export default function CreateCollaboratorForm({onClose, id, userData}){
     //Una vez de haberle picado al botón de agregar, entrará aquí y comprobara si el correo ingresado es valido
     function handleSuccess(){
         if(nameCollaborator!==""){
-            addCollaborator().then(() => {
-                fetch(`${RouteAddCollaborator}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        idusucolab: JSON.stringify(idUserCollaborator),
-                        idcomunidad: JSON.stringify(id.idCommunity)
-                    })
+            fetch(`${RoutesearchUser}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    correo: nameCollaborator
+                })
                 })
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error('Hubo un problema al realizar la solicitud');
+                        throw new Error('Hubo un problema al realizar la solicitud.');
                     }
                     return response.json();
                 })
                 .then(data => {
-                    onClose();
+                    if(data && data.length>0){
+                        data.forEach(element => {
+                            setIdUserCollaborator(element.idusuario);
+                        });
+                    }
+                    else {
+                        alert("No se ha encontrado ningún usuario con ese correo.")
+                    }
                 })
                 .catch(error => {
-                    alert("No existe ningún usuario con ese correo. Verifique")
-                    console.error('Error en handleSuccess:', error);
+                    console.error('Error:', error);
                 });
-            });
         } else {
             alert("Debes de llenar todos los campos");
         }
@@ -142,35 +146,37 @@ export default function CreateCollaboratorForm({onClose, id, userData}){
         });
     }, []);
 
-    //Primero buscara el colaborador con el correo que ingreso el usuario, si no lo encuentra, mostrará un error
-    function addCollaborator () {
-        return fetch(`${RoutesearchUser}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                correo: nameCollaborator
-            })
+    useEffect(() => {
+        if(hasMounted.current){
+            fetch(`${RouteAddCollaborator}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    idusucolab: JSON.stringify(idUserCollaborator),
+                    idcomunidad: JSON.stringify(id.idCommunity)
+                })
             })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Hubo un problema al realizar la solicitud.');
+                    throw new Error('Hubo un problema al realizar la solicitud');
                 }
                 return response.json();
             })
             .then(data => {
-                if(data && data.length>0){
-                    data.forEach(element => {
-                        setIdUserCollaborator(element.idusuario);
-                    });
-                }
+                alert("Usuario agregado con exito!")
+                onClose();
             })
             .catch(error => {
-                console.error('Error:', error);
+                    console.error('Error en handleSuccess:', error);  
             });
-
-    }
+        }
+        else {
+            hasMounted.current = true;
+        }
+        
+    }, [idUserCollaborator]);
 
     return(
         <div className="background-principal fade-in" onClick={onClose}>

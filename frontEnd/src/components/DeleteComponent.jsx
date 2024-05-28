@@ -9,14 +9,14 @@ const RouteDeleteComunity = import.meta.env.VITE_DELETE_COMUNIDAD || import.meta
 const RouteDeleteCollaborator = import.meta.env.VITE_DELETE_COLABORADOR || import.meta.env.VITE_DELETE_COLABORADOR_LH;
 export default function DeleteComponent({onClose, id, wich}){
     const navigate = useNavigate();
-
+    const localStorageWichComponent = JSON.parse(localStorage.getItem("wichComponent"));
     //Si hace click al botón de cancelar, se cierra la ventana de cerrar sesión
     function handleCancel(){
         onClose();
     }
     //Una vez de haberle picado al botón de eliminar, entrará aquí y comprobara cual componente eliminara
     function handleSuccess(){
-        if(wich.localStorageWichComponent==="room"){
+        if(localStorageWichComponent==="room"){
             fetch(`${RouteDeleteRoom}`, {
                 method: 'DELETE',
                 headers: {
@@ -42,7 +42,7 @@ export default function DeleteComponent({onClose, id, wich}){
             });
 
         }
-        else if (wich.localStorageWichComponent==="zone"){
+        else if (localStorageWichComponent==="zone"){
             fetch(`${RouteDeleteZone}`, {
                 method: 'DELETE',
                 headers: {
@@ -67,7 +67,7 @@ export default function DeleteComponent({onClose, id, wich}){
                 console.error('Error:', error);
             });
         }
-        else if (wich.localStorageWichComponent==="comunity"){
+        else if (localStorageWichComponent==="comunity"){
             fetch(`${RouteDeleteComunity}`, {
                 method: 'DELETE',
                 headers: {
@@ -93,7 +93,7 @@ export default function DeleteComponent({onClose, id, wich}){
             });
 
         }
-        else if (wich.localStorageWichComponent==="sensor"){
+        else if (localStorageWichComponent==="sensor"){
             fetch(`${RouteDeleteSensor}`, {
                 method: 'DELETE',
                 headers: {
@@ -118,14 +118,15 @@ export default function DeleteComponent({onClose, id, wich}){
                 console.error('Error:', error);
             });
         }
-        else if (wich.localStorageWichComponent==="collaborator"){
+        else if (wich.strCollaborator!=="" && wich.strCollaborator!==undefined){
+            console.log(id.idCollaborator);
             fetch(`${RouteDeleteCollaborator}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    idcolab: JSON.stringify(id.idZone)
+                    idcolab: id.idCollaborator
                 })
             })
             .then(response => {
