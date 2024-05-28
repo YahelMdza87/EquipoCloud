@@ -178,7 +178,6 @@ export default function Statistics (){
                             <div className="statistic">
                                 <div className="title-statistic"><p>Almacenamiento ocupado <br/> en la Base de datos <br></br> de la plataforma</p></div>
                                 <div className="content-statistic"><p>{storage && storage[0].storage}</p></div>
-
                             </div>
                         </div>
                     </div>
