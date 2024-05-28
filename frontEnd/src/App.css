@@ -286,6 +286,31 @@ body{
     padding:2%;
     white-space: nowrap;
   }
+  .div-notFoundComponents{
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    width: 15%;
+    padding: 5%;
+    margin: 1%;
+    border-radius: 30px;
+    background-color: var(--color-lv1);
+  }
+  .div-notFoundComponents-coop{
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    width: 15%;
+    padding: 5%;
+    margin: 1%;
+    border-radius: 30px;
+    background-color: #aeffbf;
+  }
+  .text-notFoundComponents{
+    font-size: 1vw;
+    text-wrap: nowrap;
+  }
+
   .name-divs-generated{
     font-size: 0.9vw;
     white-space: nowrap;
@@ -469,6 +494,7 @@ body{
     display: grid;
     align-items: center;
     justify-items: center;
+    transition: 0.2s;
     grid-template-rows: repeat(3,1fr);
     background-color: #1e9e3a;
   }
@@ -691,7 +717,7 @@ body{
   .title-state-rele, .section-value-SeeSensor-rele p{
     font-size: 1.3vw;
   }
-
+  /* Switch Encendido/apagado */
   .switch {
     position: relative;
     display: inline-block;
@@ -987,6 +1013,30 @@ body{
       align-items: end;
       padding:6%;
       white-space: nowrap;
+    }
+    .div-notFoundComponents{
+      display: flex;
+      align-content: center;
+      justify-content: center;
+      width: 40%;
+      padding: 9%;
+      margin: 1%;
+      border-radius: 30px;
+      background-color: var(--color-lv1);
+    }
+    .div-notFoundComponents-coop{
+      display: flex;
+      align-content: center;
+      justify-content: center;
+      width: 60%;
+      padding: 10%;
+      margin: 1%;
+      border-radius: 30px;
+      background-color: #aeffbf;
+    }
+    .text-notFoundComponents{
+      text-wrap: nowrap;
+      font-size: 3vw;
     }
     .name-divs-generated{
       font-size: 2.8vw;
@@ -1304,6 +1354,7 @@ body{
     .title-state-rele, .section-value-SeeSensor-rele p{
       font-size: 4vw;
     }
+    /* Switch Encendido/apagado */
     .switch {
       position: relative;
       display: inline-block;

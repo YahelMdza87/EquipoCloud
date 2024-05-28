@@ -153,15 +153,22 @@ export default function SeeSharedCommunity({selectedSharedCommunity,idOwner,user
                         <img className="image-zone" src="https://media.admagazine.com/photos/62b4b828cce4cfe1db2ed95e/4:3/w_2664,h_1998,c_limit/Dormitorio.jpg" alt="" />
                     </div>
                     <h1 className="title-section-principal">Zonas</h1>
-                    <div className="section-devices-principal">
-                        { zones.map((zona,index) => (
-                            <div id={zona.id_zona} key={index} className="div-add-zone-principal-coop fade-in"  onClick={toSharedZone}>
-                                <h3 className="name-divs-generated" style={{gridRow:"1", color:"#00ff2a"}}>{zona.nombrezona}</h3>
-                                <img src={CuartoCoopIcono} alt="" className="img-divs-generated" style={{gridRow:"2"}} />
-                                <h3 className="name-divs-generated" style={{gridRow:"3", color:"#00ff2a"}}>Compartida</h3>
-                            </div>
-                        ))}
-                    </div>
+                    { zones > 0 ? (
+                        <div className="section-devices-principal">
+                            { zones.map((zona,index) => (
+                                <div id={zona.id_zona} key={index} className="div-add-zone-principal-coop fade-in"  onClick={toSharedZone}>
+                                    <h3 className="name-divs-generated" style={{gridRow:"1", color:"#00ff2a"}}>{zona.nombrezona}</h3>
+                                    <img src={CuartoCoopIcono} alt="" className="img-divs-generated" style={{gridRow:"2"}} />
+                                    <h3 className="name-divs-generated" style={{gridRow:"3", color:"#00ff2a"}}>Compartida</h3>
+                                </div>
+                            ))}
+                        </div>
+                    ):
+                    (
+                        <div className="div-notFoundComponents-coop">
+                            <h3 className="text-notFoundComponents">No hay ningúna zona creada por el propietario</h3>
+                        </div>
+                    )}
                 </>
             )}
         </div>
