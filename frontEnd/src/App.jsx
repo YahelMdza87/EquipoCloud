@@ -33,6 +33,7 @@ import Loading from './components/Loading';
 import ScrollToTop from './components/ScrollToTop';
 import Footer from './components/Footer';
 import Header from './components/Header';
+import LandingPage from './components/LandinPage';
 const googlecredencial = import.meta.env.VITE_CREDENCIAL_GOOGLE
 const Layout = () => (
   <div>
@@ -49,7 +50,8 @@ function App() {
       <GoogleOAuthProvider clientId={googlecredencial}>
         <ScrollToTop />
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route path="/" element={<LandingPage/>}/>
+          <Route path="/login" element={<Login />} />
           <Route path="/confirmPassword" element={<CreatePassword />} />
           <Route path="/signIn" element={<SignIn />} />
           <Route path="/AdminMenu" element={<AdminMenu />} />

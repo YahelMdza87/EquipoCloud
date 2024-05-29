@@ -136,7 +136,6 @@ export default function SeeSensor({selectedSensor,userData}){
 
     const toggleSwitch = () => {
         console.log(idSensor)
-        setIsSwitchOn(!isSwitchOn);
         fetch(`${RouteChangeSensorRele}`, {
             method: 'PATCH',
             headers: {
@@ -153,6 +152,7 @@ export default function SeeSensor({selectedSensor,userData}){
             return response.json();
         })
         .then(data => {
+            setIsSwitchOn(!isSwitchOn);
         })
         .catch(error => {
             console.error('Error:', error);

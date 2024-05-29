@@ -135,7 +135,7 @@ export default function Login() {
     return(
         
         <div className="body-login">
-            <div className="card">
+            <div className="card fade-in">
                 <h1 className="title-login">Iniciar sesión</h1>
                 <div className="login-email-password">
                     <div>
