@@ -28,7 +28,7 @@ export default function VariableConfig (){
         
       }
       function toIndex(){
-        navigate('/Principal')
+        navigate('/')
       }
 
       function toAdminMenu(){
@@ -78,13 +78,6 @@ export default function VariableConfig (){
         document.getElementById("signals").style.display = ""
     }
 
-    function foundbuildings(){
-
-    }
-
-    function editEdificio(){
-
-    }
 
     const filteredEdificios = tipoedificios
     ? tipoedificios.filter((edificio) =>
@@ -180,7 +173,7 @@ export default function VariableConfig (){
                                         </tbody>
                                         </table>
                                     </div>                            
-                                    <div className="button-editar-var" onClick={editEdificio}>EDITAR</div>
+                                    <div className="button-editar-var">EDITAR</div>
                             </div>
                                 ))
                             ) : (
@@ -253,7 +246,7 @@ export default function VariableConfig (){
                                         </tbody>
                                         </table>
                                     </div>                            
-                                    <div className="button-editar-var" onClick={editEdificio}>EDITAR</div>
+                                    <div className="button-editar-var" >EDITAR</div>
                             </div>
                                 ))
                             ) : ( 

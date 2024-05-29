@@ -129,7 +129,7 @@ export default function Statistics (){
         navigate('/UserAccount')
       }
       function toIndex(){
-        navigate('/Principal')
+        navigate('/')
       }
 
     function toAdminMenu(){

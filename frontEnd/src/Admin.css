@@ -96,7 +96,7 @@
 }
 
 .admin-img{
-    width:100%;
+    width:80%;
     height: 100%;
 } */
 
@@ -114,6 +114,8 @@
     width: 100%;
     height: 85%;
     background-color: rgb(244, 248, 248);
+
+    text-align: center;
 }
 
 .admin-nav{
@@ -166,7 +168,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    
+    box-sizing: border-box;
+    padding: 10%;
 }
 
 
@@ -204,6 +207,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    box-sizing: border-box;
+    padding: 10%;
 }
 
 /* ELEMENTO 3 */
@@ -239,6 +244,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    box-sizing: border-box;
+    padding: 10%;
 }
 
 /* ELEMENTO 4 */
@@ -274,6 +281,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    box-sizing: border-box;
+    padding: 10%;
 }
 
 
@@ -548,7 +557,7 @@
 
 margin-top: 1%;
 width: 80%;
-height: 100%;
+height: auto;
 border-radius: 1.5vw;
 justify-self: center;
 
@@ -607,3 +616,46 @@ grid-gap: 0;
     border: 2px solid;
     border-color: aliceblue;
   }
+
+
+
+  /* MANAGE ACOUNTS */
+
+#users-counts-div{
+    margin-left: 1%;
+    grid-template-columns: 100%;
+    height: 20%;
+}
+
+#nav-users{
+    padding-top: 1%;
+    margin-top: 1%;
+    width: 100%;
+    height: 60%;
+    border-radius: 1.5vw;
+    justify-self: center;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+    grid-gap: 0;
+    padding: -10%;
+}
+
+.mensaje-licences {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 80%;
+    max-width: 600px;
+    padding: 20px;
+    margin-top: 50px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-family: 'Arial', sans-serif;
+    font-size: 1.2em;
+    color: #333;
+
+    margin-left:25%;
+}
