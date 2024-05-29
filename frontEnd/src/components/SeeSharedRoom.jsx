@@ -162,7 +162,7 @@ export default function SeeSharedRoom({selectedSharedRoom,userData}){
                     </div>
                     <div style={{borderTop: "solid #4b1e9e13"}}></div>
                     <h1 className="title-section-principal">Dispositivos</h1>
-                    {allDevices > 0 ? (
+                    {allDevices.length > 0 ? (
                         <div className="section-devices-principal">
                             { allDevices.map((sensor,index) => (
                             <div id={sensor.id_sensor} key={index} className="div-add-zone-principal-coop fade-in"  onClick={toSharedSensor}>

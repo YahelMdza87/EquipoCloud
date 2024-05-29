@@ -349,12 +349,13 @@ body{
     display: grid;
     align-items: center;
     justify-items: center;
-    transition-duration: 0.2s;
+    transition-duration: 0.6s;
     grid-template-rows: repeat(3,1fr);
     background-color: var(--color-lv4);
   }
   .div-add-zone-principal:hover{
     background-color: var(--color-lv3);
+    transform: translateY(-5px);
     cursor: pointer;
   }
   .div-only-agregar{
@@ -584,12 +585,13 @@ body{
     display: grid;
     align-items: center;
     justify-items: center;
-    transition: 0.2s;
+    transition: 0.6s;
     grid-template-rows: repeat(3,1fr);
     background-color: #1e9e3a;
   }
   .div-add-zone-principal-coop:hover{
     background-color: #147529;
+    transform: translateY(-5px);
     cursor: pointer;
   }
   .div-more-userAccount{

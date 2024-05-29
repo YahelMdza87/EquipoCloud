@@ -156,7 +156,7 @@ export default function SeeSharedZone({selectedSharedZone,userData}){
                     </div>
                     <div style={{borderTop: "solid #4b1e9e13"}}></div>
                     <h1 className="title-section-principal">Cuartos</h1>
-                    { rooms > 0 ? (
+                    { rooms.length > 0 ? (
                         <div className="section-devices-principal">
                             { rooms.map((room,index) => (
                             <div id={room.id_cuarto} key={index} className="div-add-zone-principal-coop fade-in"  onClick={toSharedRoom}>
