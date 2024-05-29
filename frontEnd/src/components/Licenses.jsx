@@ -10,7 +10,7 @@ export default function Licences (){
         navigate('/UserAccount')
       }
       function toIndex(){
-        navigate('/Principal')
+        navigate('/')
       }
     
       function toAdminMenu(){
@@ -25,6 +25,9 @@ export default function Licences (){
                 <h2 className="admin-header-title-principal">Domoticloud</h2>
                 <h2 className="admin-header-title-user">Licencias</h2>
                 <img src={User} alt="" className="admin-user-image-principal" onClick={toUserAccount}/>
+            </div>
+            <div className="mensaje-licences">
+              En este momento no contamos con licencias en la plataforma, todas son de tipo acceso gratis e ilimitado
             </div>
         </div>
     )

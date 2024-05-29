@@ -13,7 +13,7 @@ export default function AdminMenu (){
     }
 
     function toIndex(){
-        navigate('/Principal')
+        navigate('/')
     }
 
     function toVariableConfig(){
