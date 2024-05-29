@@ -153,7 +153,7 @@ export default function SeeSharedCommunity({selectedSharedCommunity,idOwner,user
                         <img className="image-zone" src="https://media.admagazine.com/photos/62b4b828cce4cfe1db2ed95e/4:3/w_2664,h_1998,c_limit/Dormitorio.jpg" alt="" />
                     </div>
                     <h1 className="title-section-principal">Zonas</h1>
-                    { zones > 0 ? (
+                    { zones.length > 0 ? (
                         <div className="section-devices-principal">
                             { zones.map((zona,index) => (
                                 <div id={zona.id_zona} key={index} className="div-add-zone-principal-coop fade-in"  onClick={toSharedZone}>

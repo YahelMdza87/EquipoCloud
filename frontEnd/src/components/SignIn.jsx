@@ -30,14 +30,15 @@ export default function SignIn() {
             return response.json();
         })
         .then(data => {
-            navigate('/')
+            alert("Usuario creado con exito")
+            navigate('/login')
         })
         .catch(error => {
             console.error('Error:', error);
         });
     }
     function toLogin () {
-        navigate('/');
+        navigate('/login');
     }
 
     const [name, setName] = useState();
