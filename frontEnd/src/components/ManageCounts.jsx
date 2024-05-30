@@ -59,7 +59,7 @@ export default function ManageCounts() {
                 <h2 className="admin-header-title-menu" onClick={toAdminMenu}>Menu</h2>
                 <h2 className="admin-header-title-principal">Domoticloud</h2>
                 <h2 className="admin-header-title-user">Cuentas activas</h2>
-                <img src={User} alt="" className="admin-user-image-principal" onClick={toUserAccount} />
+                {/* <img src={User} alt="" className="admin-user-image-principal" onClick={toUserAccount} /> */}
             </div>
             <div className="divVariables" id="users-counts-div">
                 <div className="select-var" id="build">

@@ -146,7 +146,7 @@ export default function Statistics (){
                 <h2 className="admin-header-title-menu" onClick={toAdminMenu}>Menu</h2>
                 <h2 className="admin-header-title-principal">Domoticloud</h2>
                 <h2 className="admin-header-title-user">Estadísticas</h2>
-                <img src={User} alt="" className="admin-user-image-principal" onClick={toUserAccount}/>
+                {/* <img src={User} alt="" className="admin-user-image-principal" onClick={toUserAccount}/> */}
             </div>
             <div className="admin-center-nav">
                     <div className="divestadisticas">
