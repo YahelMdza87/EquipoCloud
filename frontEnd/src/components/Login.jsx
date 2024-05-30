@@ -42,8 +42,12 @@ export default function Login() {
                     if(data.length > 0){
                         data.forEach(element => {
                             if(element.pass === password){
-                                localStorage.setItem("userData", JSON.stringify(email))
-                                navigate('/principal')
+                                if(element.correo === "admin@cloud.com"){
+                                    navigate('/AdminMenu')     
+                                }else{
+                                    localStorage.setItem("userData", JSON.stringify(email))
+                                    navigate('/principal')
+                                }
                             }
                             else{
                                 alert("Usuario y/o contraseña incorrectos")
